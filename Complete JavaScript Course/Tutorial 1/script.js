@@ -76,3 +76,16 @@ x = (3 + 5) * 4 - 6;
 // if want to assign both x and y at the same time can do
 // according to precedence table, assignment is right to left, so it will assign y first then x
 x = y = (3 + 5) * 4 - 6;
+
+/* ========== More operators =========== */
+x = x * 2;
+x *= 2;
+
+var markMass = 50;
+var markHeight = 1.7;
+var johnMass = 70;
+var johnHeight = 1.8;
+var markBMI = markMass / markHeight ** 2;
+var johnBMI = johnMass / johnHeight ** 2;
+var markHigher = markBMI > johnBMI;
+console.log("Is Mark BMI higher than John", markHigher);
