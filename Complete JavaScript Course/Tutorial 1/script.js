@@ -105,3 +105,16 @@ if (height) {
 } else {
     // undefined
 }
+
+/* ========== Equality operators =========== */
+height = 23;
+
+if (height == "23") {
+    // true
+    // the == operator does type coercion
+}
+
+if (height === "23") {
+    // false
+    // strict equality operator
+}
