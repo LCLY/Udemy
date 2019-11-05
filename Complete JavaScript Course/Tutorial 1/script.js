@@ -69,3 +69,10 @@ var ageJohn = now - yearJohn;
 var agemark = 35;
 var average = (ageJohn + agemark) / 2;
 // console.log(average);
+
+/* ========== Mulitple assignment =========== */
+var x, y;
+x = (3 + 5) * 4 - 6;
+// if want to assign both x and y at the same time can do
+// according to precedence table, assignment is right to left, so it will assign y first then x
+x = y = (3 + 5) * 4 - 6;
