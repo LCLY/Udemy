@@ -88,4 +88,11 @@ var johnHeight = 1.8;
 var markBMI = markMass / markHeight ** 2;
 var johnBMI = johnMass / johnHeight ** 2;
 var markHigher = markBMI > johnBMI;
-console.log("Is Mark BMI higher than John", markHigher);
+// console.log("Is Mark BMI higher than John", markHigher);
+
+/* ========== Ternary operators =========== */
+var firstName = "John";
+var age = 22;
+age >= 18
+    ? console.log(firstname + "drinks beer")
+    : console.log(firstname + "drink juice");
