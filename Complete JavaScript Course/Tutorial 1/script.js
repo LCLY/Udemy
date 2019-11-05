@@ -96,3 +96,12 @@ var age = 22;
 age >= 18
     ? console.log(firstname + "drinks beer")
     : console.log(firstname + "drink juice");
+
+/* ==========  Truthy and Falsy values and equality operators =========== */
+// falsy values: undefined, null, 0, '', Nan
+var height;
+if (height) {
+    // defined
+} else {
+    // undefined
+}
