@@ -93,9 +93,9 @@ var markHigher = markBMI > johnBMI;
 /* ========== Ternary operators =========== */
 var firstName = "John";
 var age = 22;
-age >= 18
-    ? console.log(firstname + "drinks beer")
-    : console.log(firstname + "drink juice");
+// age >= 18
+//     ? console.log(firstname + "drinks beer")
+//     : console.log(firstname + "drink juice");
 
 /* ==========  Truthy and Falsy values and equality operators =========== */
 // falsy values: undefined, null, 0, '', Nan
@@ -147,3 +147,27 @@ john.shift(); //remove the first element of the array
 // so if want to check if something doesnt exist in the array can do
 var isDesigner =
     john.indexOf("designer") === -1 ? "he is not a designer" : "he is designer";
+
+// Coding challenge 3
+function tipCalculator(bill) {
+    var percentage;
+    if (bill < 50) {
+        percentage = 0.2;
+    } else if (bill >= 50 && bill < 200) {
+        percentage = 0.15;
+    } else {
+        percentage = 0.1;
+    }
+    return percentage * bill;
+}
+
+var bills = [10, 200, 300];
+var tips = [
+    tipCalculator(bills[0]),
+    tipCalculator(bills[1]),
+    tipCalculator(bills[2]),
+];
+
+var total = [tips[0] + bills[0], tips[1] + bills[1], tips[2] + bills[2]];
+
+console.log(tips, total);
