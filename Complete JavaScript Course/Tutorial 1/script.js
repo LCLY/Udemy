@@ -170,4 +170,35 @@ var tips = [
 
 var total = [tips[0] + bills[0], tips[1] + bills[1], tips[2] + bills[2]];
 
-console.log(tips, total);
+// console.log(tips, total);
+
+/* ========== object and properties ==========*/
+var john = {
+    firstName: "John",
+    lastName: "Smith",
+    birthyear: 1990,
+    family: ["a", "b", "c"],
+    job: "teacher",
+    isMarried: false,
+};
+
+// console.log(john);
+// to access the property
+// console.log(john.firstName);
+// or you can also do
+// console.log(john["job"]);
+
+var x = "family";
+// console.log(john[x]);
+
+// to mutate the data simply just do = expression
+john["isMarried"] = true;
+john.firstName = "not john";
+// console.log("now its changed", john);
+
+// another way to initialize object
+var jane = new Object();
+jane.name = "Jane";
+jane.birthyear = 1969;
+jane["lastName"] = "Smith";
+console.log(jane);
