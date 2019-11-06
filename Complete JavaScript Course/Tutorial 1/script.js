@@ -258,5 +258,35 @@ var Mark = {
 
 John.calcBMI();
 Mark.calcBMI();
-console.log(John);
-console.log(Mark);
+// console.log(John);
+// console.log(Mark);
+
+/* ========== LOOPS, iteration ========== */
+// for
+for (var i = 0; i < david.family.length; i++) {
+    // console.log(david.family[i]);
+}
+// while
+var i = 0;
+while (i < david.family.length) {
+    // console.log(david.family[i]);
+    i++;
+}
+
+var forFun = ["string1", false, "string2", 20];
+// continue - break one iteration if condition meet
+// so below here, it should print only string1 and string2
+// because we skip one interation when detecting false and 20 that are not string
+for (var i = 0; i < forFun.length; i++) {
+    if (typeof forFun[i] !== "string") {
+        continue;
+    }
+    console.log(forFun[i]);
+}
+// break - stop the whole iteration if meet condition
+for (var i = 0; i < forFun.length; i++) {
+    if (typeof forFun[i] !== "string") {
+        break;
+    }
+    console.log(forFun[i]);
+}
