@@ -201,4 +201,37 @@ var jane = new Object();
 jane.name = "Jane";
 jane.birthyear = 1969;
 jane["lastName"] = "Smith";
-console.log(jane);
+// console.log(jane);
+
+/* ========== objects and methods ========== */
+var david = {
+    firstName: "David",
+    lastName: "Smith",
+    birthyear: 1995,
+    family: ["dawd", "gsrgb", "zxva"],
+    job: "pilot",
+    isMarried: false,
+    calcAge: function() {
+        return 2018 - this.birthyear;
+    },
+};
+
+// since birthyear already exist in the object itself we can use 'this' to access it
+// this will refer to the object that it is in right now
+
+console.log(david.calcAge());
+
+// if we want to directly change the age of the object using only the function we can do
+var david = {
+    firstName: "David",
+    lastName: "Smith",
+    birthyear: 1995,
+    family: ["dawd", "gsrgb", "zxva"],
+    job: "pilot",
+    isMarried: false,
+    calcAge: function() {
+        this.age = 2018 - this.birthyear; //this will create a new age property
+    },
+};
+
+console.log(david.calcAge(), david);
