@@ -219,7 +219,7 @@ var david = {
 // since birthyear already exist in the object itself we can use 'this' to access it
 // this will refer to the object that it is in right now
 
-console.log(david.calcAge());
+// console.log(david.calcAge());
 
 // if we want to directly change the age of the object using only the function we can do
 var david = {
@@ -234,4 +234,29 @@ var david = {
     },
 };
 
-console.log(david.calcAge(), david);
+// console.log(david.calcAge(), david);
+
+var John = {
+    fullName: "john cena",
+    mass: 80,
+    height: 1.7,
+    calcBMI: function() {
+        this.BMI = this.mass / this.height ** 2;
+        return this.BMI;
+    },
+};
+
+var Mark = {
+    fullName: "Mark Ruffulo",
+    mass: 60,
+    height: 1.6,
+    calcBMI: function() {
+        this.BMI = this.mass / this.height ** 2;
+        return this.BMI;
+    },
+};
+
+John.calcBMI();
+Mark.calcBMI();
+console.log(John);
+console.log(Mark);
