@@ -118,3 +118,10 @@ if (height === "23") {
     // false
     // strict equality operator
 }
+
+// expression vs statement
+x = 7; //this is expression
+if (x == 7) {
+    //this is statment
+    console.log("yes");
+}
