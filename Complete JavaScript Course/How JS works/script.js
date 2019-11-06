@@ -67,8 +67,38 @@ function first() {
 
 function third() {
     var d = "John";
-    console.log(a + b + c + d);
+    // console.log(a + b + c + d);
 }
 
 ///////////////////////////////////////
 // Lecture: The this keyword
+//console.log(this); //window object (global execution context)
+
+calculateAge2(1995);
+
+function calculateAge2(year) {
+    console.log(2016 - year);
+    console.log(this); //window object because this is a regular function call
+}
+
+var john = {
+    name: "John",
+    yearOfBirth: 1990,
+    calcAge: function() {
+        console.log(this); //this variable is now refering to john because the method is called
+        function innerFunction() {
+            console.log(this); //this is back to the window object because this is not method, this is a regular function call
+        }
+        innerFunction();
+    },
+};
+john.calcAge();
+
+var mike = {
+    name: "Mike",
+    yearOfBirth: 1984,
+};
+
+// method borrowing
+mike.calcAge = john.calcAge;
+mike.calcAge();
