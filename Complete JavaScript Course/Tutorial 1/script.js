@@ -123,5 +123,27 @@ if (height === "23") {
 x = 7; //this is expression
 if (x == 7) {
     //this is statment
-    console.log("yes");
+    // console.log("yes");
 }
+
+/* ========== Array ========== */
+// to declare array
+var names = ["john", "david"];
+var age = new Array(15, 20, 18);
+
+// it can also contain different data types
+var john = ["john", 1990, false];
+john.push("yes"); //adding element to the end of the array
+// console.log(john);
+john.unshift("Mr."); //adding element to the start of the array
+// console.log(john);
+john.pop(); //remove the last element of the array
+// console.log(john);
+john.shift(); //remove the first element of the array
+// console.log(john);
+// console.log(john.indexOf(1990));
+// console.log(john.indexOf("a")); // would return -1 because it doesnt exist
+
+// so if want to check if something doesnt exist in the array can do
+var isDesigner =
+    john.indexOf("designer") === -1 ? "he is not a designer" : "he is designer";
