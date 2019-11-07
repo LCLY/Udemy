@@ -187,4 +187,87 @@ function interviewQuestionClosure(job) {
     };
 }
 
-interviewQuestionClosure("teacher")("John");
+// interviewQuestionClosure("teacher")("John");
+
+/* ========== Bind, call and apply ========== */
+var john = {
+    name: "john",
+    age: 26,
+    job: "teacher",
+    presentation: function(style, timeOfDay) {
+        if (style === "formal") {
+            console.log(
+                "Good " +
+                    timeOfDay +
+                    ", Ladies and gentleman! I'm " +
+                    this.name +
+                    ", I'm a " +
+                    this.job +
+                    " and I'm " +
+                    this.age +
+                    " years old.",
+            );
+        } else if (style === "friendly") {
+            console.log(
+                "Whatsup I'm " +
+                    this.name +
+                    ", I'm a " +
+                    this.job +
+                    " and I'm " +
+                    this.age +
+                    " years old. Have a nice " +
+                    timeOfDay +
+                    ".",
+            );
+        }
+    },
+};
+
+var emily = {
+    name: "Emily",
+    age: 35,
+    job: "designer",
+};
+
+// john.presentation("formal", "morning");
+
+//method borrowing, by using call, 'this' will refer to emily (set the this method)
+// john.presentation.call(emily, "friendly", "afternoon");
+
+// apply accepts array
+// john.presentation.apply(emily, ["friendly", "afternoon"]); //this will not work because the method doesnt expect array
+
+// bind is similar to call, we can set this var explicitly,
+// it doesnt immediately call the function, instead it generates a copy of the function so we can store it somewhere
+var johnFriendly = john.presentation.bind(john, "friendly");
+// johnFriendly("morning");
+// johnFriendly("night");
+// johnFriendly("afternoon");
+//this is call carrying -  technique which we create a function based on another function with some preset params
+
+var emilyFormal = john.presentation.bind(emily, "formal");
+// emilyFormal("morning");
+
+var years = [1990, 1965, 1937, 2005, 1998];
+function arrayCalc(arr, fn) {
+    var result = [];
+    for (var i = 0; i < arr.length; i++) {
+        result.push(fn(arr[i]));
+    }
+    return result;
+}
+
+function calculateAge(el) {
+    return 2016 - el;
+}
+
+function isFullAge(limit, el) {
+    return el >= limit;
+}
+
+var ages = arrayCalc(years, calculateAge);
+var fullJapan = arrayCalc(ages, isFullAge.bind(this, 20)); //el is passed in from arrayCalc
+console.log(ages);
+console.log(fullJapan);
+
+// want to add argument to callback then can use bind
