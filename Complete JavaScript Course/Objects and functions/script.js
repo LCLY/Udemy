@@ -267,7 +267,7 @@ function isFullAge(limit, el) {
 
 var ages = arrayCalc(years, calculateAge);
 var fullJapan = arrayCalc(ages, isFullAge.bind(this, 20)); //el is passed in from arrayCalc
-console.log(ages);
-console.log(fullJapan);
+// console.log(ages);
+// console.log(fullJapan);
 
 // want to add argument to callback then can use bind
