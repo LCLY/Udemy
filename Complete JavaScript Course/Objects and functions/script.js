@@ -108,6 +108,31 @@ function maxHeartRate(el) {
 var ages = arrayCalc(years, calculateAge);
 var fullAges = arrayCalc(ages, isFullAge);
 var rates = arrayCalc(ages, maxHeartRate);
-console.log(ages);
-console.log(fullAges);
-console.log(rates);
+// console.log(ages);
+// console.log(fullAges);
+// console.log(rates);
+
+/* ========== functions return functions ========== */
+function interviewQuestion(job) {
+    if (job === "designer") {
+        return function(name) {
+            console.log(name + ", can you design");
+        };
+    } else if (job === "teacher") {
+        return function(name) {
+            console.log(name + " what you teach");
+        };
+    } else {
+        return function(name) {
+            console.log(name + " what you do");
+        };
+    }
+}
+
+var teacherQuestion = interviewQuestion("teacher");
+var designerQuestion = interviewQuestion("designer");
+teacherQuestion("John");
+designerQuestion("JOhn");
+
+// another way to do is
+interviewQuestion("teacher")("Mark");
