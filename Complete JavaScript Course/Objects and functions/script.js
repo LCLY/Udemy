@@ -116,15 +116,15 @@ var rates = arrayCalc(ages, maxHeartRate);
 function interviewQuestion(job) {
     if (job === "designer") {
         return function(name) {
-            console.log(name + ", can you design");
+            // console.log(name + ", can you design");
         };
     } else if (job === "teacher") {
         return function(name) {
-            console.log(name + " what you teach");
+            // console.log(name + " what you teach");
         };
     } else {
         return function(name) {
-            console.log(name + " what you do");
+            // console.log(name + " what you do");
         };
     }
 }
@@ -140,17 +140,51 @@ interviewQuestion("teacher")("Mark");
 /* ========== Immediately Invoke function expression ========== */
 function game() {
     var score = Math.random() * 10;
-    console.log(score >= 5);
+    // console.log(score >= 5);
 }
 game();
 // this is IIFE
 (function() {
     var score = Math.random() * 10;
-    console.log(score >= 5);
+    // console.log(score >= 5);
 })();
 // this can provide data privacy, it is its own little world/scope
 
 (function(goodLuck) {
     var score = Math.random() * 10;
-    console.log(score >= 5 - goodLuck);
+    // console.log(score >= 5 - goodLuck);
 })(5);
+
+/* ========== Closures ========== */
+function retirement(retirementAge) {
+    var a = " years left until retirement.";
+    return function(yearOfBirth) {
+        var age = 2019 - yearOfBirth;
+        // console.log(retirementAge - age + a);
+    };
+}
+
+var retirementUS = retirement(66);
+retirementUS(1990);
+var retirementGermany = retirement(65);
+var retirementIceland = retirement(67);
+
+retirementGermany(1990);
+retirementUS(1990);
+retirementIceland(1990);
+retirement(66)(1990); //this is basically same as the 2 lines above
+
+// with closure
+function interviewQuestionClosure(job) {
+    return function(name) {
+        if (job === "designer") {
+            console.log(name + ", can you design");
+        } else if (job === "teacher") {
+            console.log(name + " what you teach");
+        } else {
+            console.log(name + " what you do");
+        }
+    };
+}
+
+interviewQuestionClosure("teacher")("John");
