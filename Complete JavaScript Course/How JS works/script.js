@@ -92,7 +92,7 @@ var john = {
         innerFunction();
     },
 };
-john.calcAge();
+// john.calcAge();
 
 var mike = {
     name: "Mike",
@@ -101,4 +101,4 @@ var mike = {
 
 // method borrowing
 mike.calcAge = john.calcAge;
-mike.calcAge();
+// mike.calcAge();
