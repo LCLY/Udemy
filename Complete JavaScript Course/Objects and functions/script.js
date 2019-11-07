@@ -76,8 +76,8 @@ function change(a, b) {
 }
 
 change(age, obj);
-console.log(age);
-console.log(obj.city);
+// console.log(age);
+// console.log(obj.city);
 
 //passing functions as arguments
 var years = [1990, 1965, 1937, 2005, 1998];
@@ -136,3 +136,21 @@ designerQuestion("JOhn");
 
 // another way to do is
 interviewQuestion("teacher")("Mark");
+
+/* ========== Immediately Invoke function expression ========== */
+function game() {
+    var score = Math.random() * 10;
+    console.log(score >= 5);
+}
+game();
+// this is IIFE
+(function() {
+    var score = Math.random() * 10;
+    console.log(score >= 5);
+})();
+// this can provide data privacy, it is its own little world/scope
+
+(function(goodLuck) {
+    var score = Math.random() * 10;
+    console.log(score >= 5 - goodLuck);
+})(5);
