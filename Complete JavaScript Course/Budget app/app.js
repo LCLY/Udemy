@@ -165,15 +165,22 @@ var controller = (function(budgetCtrl, UICtrl) {
         //1. Get the filled input data
         input = UICtrl.getinput();
 
-        //2. Add item to the budget controller
-        newItem = budgetCtrl.addItem(
-            input.type,
-            input.description,
-            input.value,
-        );
+        //should also check and prevent creating
+        if (
+            input.description !== "" &&
+            input.value !== "" &&
+            !isNaN(input.value) &&
+            input.value > 0
+        ) {
+            //2. Add item to the budget controller
+            newItem = budgetCtrl.addItem(
+                input.type,
+                input.description,
+                input.value,
+            );
 
-        //3. Add the new item to the UI
-        if (input.description !== "" && input.value !== "") {
+            //3. Add the new item to the UI
+
             UICtrl.addListItem(newItem, input.type);
         }
 
