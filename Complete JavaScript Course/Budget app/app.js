@@ -190,6 +190,13 @@ var UIController = (function() {
         return (type === "exp" ? "-" : "+") + " " + int + "." + dec;
     };
 
+    var nodeListForEach = function(list, callback) {
+        for (var i = 0; i < list.length; i++) {
+            callback(list[i], i); //list[i], i is the current,index in nodeListForEach
+            //now we can access current and index because we pass it into the callback
+        }
+    };
+
     return {
         getinput: function() {
             return {
@@ -291,12 +298,6 @@ var UIController = (function() {
             // just like before since node list does not have the forEach method,
             // we can apply slice and use call to make it into an array
 
-            var nodeListForEach = function(list, callback) {
-                for (var i = 0; i < list.length; i++) {
-                    callback(list[i], i); //list[i], i is the current,index in nodeListForEach
-                    //now we can access current and index because we pass it into the callback
-                }
-            };
             nodeListForEach(fields, function(current, index) {
                 if (percentages[index] > 0) {
                     current.textContent = percentages[index] + "%";
@@ -329,6 +330,23 @@ var UIController = (function() {
                 months[month] + " " + year;
         },
 
+        changeType: function() {
+            // CSS is already written: red/ red-focus
+            var fields = document.querySelectorAll(
+                DOMstrings.inputType +
+                    "," +
+                    DOMstrings.inputDescription +
+                    "," +
+                    DOMstrings.inputValue,
+            );
+
+            nodeListForEach(fields, function(cur) {
+                cur.classList.toggle("red-focus");
+            });
+
+            document.querySelector(DOMstrings.inputBtn).classList.toggle("red");
+        },
+
         //now this is a public method for other controller to obtain the DOM strings
         getDOMstrings: function() {
             return DOMstrings;
@@ -350,6 +368,11 @@ var controller = (function(budgetCtrl, UICtrl) {
                 ctrlAddItem();
             }
         });
+
+        // change event listener, we are getting the add__type class element
+        document
+            .querySelector(DOM.inputType)
+            .addEventListener("change", UICtrl.changeType);
 
         // implementing event delegation, because the item does not exist yet
         // container is the parent of the button
