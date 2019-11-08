@@ -64,6 +64,26 @@ var budgetController = (function() {
             return newItem;
         },
 
+        //we nede to know what is the type and the id
+        deleteItem: function(type, id) {
+            var ids, index;
+            // ids = [1 2 4 6 8]
+            // we want the index of the id, say id 6, then we get the index which is 3
+            // map returns a brand new array
+            ids = data.allItems[type].map(function(current) {
+                return current.id;
+            });
+            //so basically here we are retrieving the array (inc/exp),
+            // map them out and return their ids in a new array
+
+            index = ids.indexOf(id); //this will equal 3
+
+            // delete item from array
+            if (index !== -1) {
+                data.allItems[type].splice(index, 1); //at number 3 remove 1 item
+            }
+        },
+
         calculateBudget: function() {
             // calculate total income and expenses
             calculateTotal("exp");
@@ -107,6 +127,7 @@ var UIController = (function() {
         incomeLabel: ".budget__income--value",
         expensesLabel: ".budget__expenses--value",
         percentageLabel: ".budget__expenses--percentage",
+        container: ".container",
     };
     return {
         getinput: function() {
@@ -126,7 +147,7 @@ var UIController = (function() {
             if (type === "inc") {
                 element = DOMstrings.incomeContainer;
                 html =
-                    '<div class="item clearfix" id="income-%id%"> ' +
+                    '<div class="item clearfix" id="inc-%id%"> ' +
                     '<div class="item__description">%description%</div> ' +
                     '<div class="right clearfix"> ' +
                     '<div class="item__value">%value%</div>' +
@@ -135,7 +156,7 @@ var UIController = (function() {
             } else if (type === "exp") {
                 element = DOMstrings.expensesContainer;
                 html =
-                    '<div class="item clearfix" id="expense-%id%">' +
+                    '<div class="item clearfix" id="exp-%id%">' +
                     '<div class="item__description">%description%</div>' +
                     '<div class="right clearfix"><div class="item__value">%value%</div>' +
                     '<div class="item__percentage">21%</div><div class="item__delete">' +
@@ -152,6 +173,14 @@ var UIController = (function() {
             document
                 .querySelector(element)
                 .insertAdjacentHTML("beforeend", newHtml);
+        },
+
+        deleteListItem: function(selectorID) {
+            // selectorID = income-0 etc
+            // right now we are getting the parent node and delete the child
+            // DOM API - https://blog.garstasio.com/you-dont-need-jquery/dom-manipulation/
+            var el = document.getElementById(selectorID);
+            el.parentNode.removeChild(el);
         },
 
         clearFields: function() {
@@ -209,6 +238,12 @@ var controller = (function(budgetCtrl, UICtrl) {
                 ctrlAddItem();
             }
         });
+
+        // implementing event delegation, because the item does not exist yet
+        // container is the parent of the button
+        document
+            .querySelector(DOM.container)
+            .addEventListener("click", ctrlDeleteItem);
     };
     var updateBudget = function() {
         //1. calculate the budget
@@ -251,6 +286,27 @@ var controller = (function(budgetCtrl, UICtrl) {
 
         //5. Calculate and update budget
         updateBudget();
+    };
+
+    var ctrlDeleteItem = function(event) {
+        // we need the event to know our target element
+        // console.log(event.target);
+        //if we are clicking on a child element but we want the parent we can do
+        var itemID, splitID, type, ID;
+        itemID = event.target.parentNode.parentNode.parentNode.parentNode.id; //this is hardcoded not so good but it will do
+        if (itemID) {
+            //classnames: inc-1, exp-1
+            splitID = itemID.split("-"); //return array with splitted elements ["inc", "1"]
+            type = splitID[0];
+            ID = parseInt(splitID[1]); //*its passing in string here, so we use parseInt to solve
+
+            //1. delete the item from the data structure
+            budgetCtrl.deleteItem(type, ID); //*since its string, ID cannot be used to compare
+            //2. delete the item from the UI
+            UICtrl.deleteListItem(itemID); //itemID will be income-0 etc
+            //3. update and show the new budget
+            updateBudget();
+        }
     };
 
     return {
