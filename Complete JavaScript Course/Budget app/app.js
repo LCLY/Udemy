@@ -159,6 +159,7 @@ var UIController = (function() {
         expensesLabel: ".budget__expenses--value",
         percentageLabel: ".budget__expenses--percentage",
         container: ".container",
+        expensesPercLabel: ".item__percentage",
     };
     return {
         getinput: function() {
@@ -248,6 +249,29 @@ var UIController = (function() {
             }
         },
 
+        displayPercentages: function(percentages) {
+            //receive array
+            var fields = document.querySelectorAll(
+                DOMstrings.expensesPercLabel,
+            ); //return a node list
+            // just like before since node list does not have the forEach method,
+            // we can apply slice and use call to make it into an array
+
+            var nodeListForEach = function(list, callback) {
+                for (var i = 0; i < list.length; i++) {
+                    callback(list[i], i); //list[i], i is the current,index in nodeListForEach
+                    //now we can access current and index because we pass it into the callback
+                }
+            };
+            nodeListForEach(fields, function(current, index) {
+                if (percentages[index] > 0) {
+                    current.textContent = percentages[index] + "%";
+                } else {
+                    current.textContent = "---";
+                }
+            });
+        },
+
         //now this is a public method for other controller to obtain the DOM strings
         getDOMstrings: function() {
             return DOMstrings;
@@ -294,8 +318,9 @@ var controller = (function(budgetCtrl, UICtrl) {
         budgetCtrl.calculatePercentages();
         //2. read from budget controller
         var percentages = budgetCtrl.getPercentages();
-        console.log(percentages);
+        // console.log(percentages);
         //3. update the ui with the new percentages
+        UICtrl.displayPercentages(percentages);
     };
 
     //to not repeat yourself
