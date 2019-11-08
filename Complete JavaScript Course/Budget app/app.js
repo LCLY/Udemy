@@ -112,9 +112,22 @@ var UIController = (function() {
                 .insertAdjacentHTML("beforeend", newHtml);
         },
 
-        clearFields: function(){
-            
-        }
+        clearFields: function() {
+            var fields, fieldsArr;
+            fields = document.querySelectorAll(
+                DOMstrings.inputDescription + ", " + DOMstrings.inputValue,
+            ); //it returns a list but we need array so we can use slice to convert it
+
+            // fields.slice() will not work
+            // so we can do array prototype and refer to fields
+            fieldsArr = Array.prototype.slice.call(fields); //convert list to an array
+
+            fieldsArr.forEach(function(current, index, array) {
+                current.value = "";
+            });
+
+            fieldsArr[0].focus();
+        },
 
         //now this is a public method for other controller to obtain the DOM strings
         getDOMstrings: function() {
@@ -153,10 +166,16 @@ var controller = (function(budgetCtrl, UICtrl) {
         );
 
         //3. Add the new item to the UI
-        UICtrl.addListItem(newItem, input.type);
+        if (input.description !== "" && input.value !== "") {
+            UICtrl.addListItem(newItem, input.type);
+        }
 
-        //4. calculate the budget
-        //5. display the budget
+        //4. Clear the input field
+        UICtrl.clearFields();
+
+        //5. calculate the budget
+
+        //6. display the budget
     };
 
     return {
