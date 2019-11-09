@@ -58,8 +58,26 @@ for (let i = 0; i < 5; i++) {
 // because they are not block scope, j will be overwritten
 var j = 23;
 for (var j = 0; j < 5; j++) {
-    console.log(j);
+    // console.log(j);
 }
 //0 1 2 3 4
-console.log(j);
+// console.log(j);
 //5
+
+// ES6 Blocks and IIFEs
+{
+    const a = 1;
+    let b = 2;
+    var c = 3;
+}
+
+// console.log(a + b); //will be undefined because let and const are block scope
+console.log(c); //c will return because its not block scope
+
+// ES5 IIFE
+(function() {
+    const a = 1;
+    let b = 2;
+})();
+
+// console.log(a + b);
