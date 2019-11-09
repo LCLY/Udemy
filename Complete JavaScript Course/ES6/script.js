@@ -125,14 +125,14 @@ var ages5 = years.map(function(el, index) {
     return 2016 - el;
 });
 
-console.log(ages5);
+// console.log(ages5);
 
 //ES6 - arrow function
 let ages6 = years.map(el => 2016 - el);
-console.log(ages6);
+// console.log(ages6);
 
 ages6 = years.map((el, index) => `Age element ${index + 1}: ${2016 - el}.`);
-console.log(ages6);
+// console.log(ages6);
 
 ages6 = years.map((el, index) => {
     const now = new Date().getFullYear();
@@ -140,4 +140,99 @@ ages6 = years.map((el, index) => {
     return `Age element ${index + 1}: ${age}`;
 });
 
-console.log(ages6);
+// console.log(ages6);
+
+// ES5
+var box5 = {
+    color: "green",
+    position: 1,
+    clickMe: function() {
+        var self = this; //fixed
+        document.querySelector(".green").addEventListener("click", function() {
+            alert(
+                "This box number is " +
+                    self.position +
+                    " the color of the box is " +
+                    self.color,
+            );
+
+            // alert(
+            //     "This box number is " +
+            //         this.position +
+            //         " the color of the box is " +
+            //         this.color,
+            // );
+            //this will give error of undefined
+        });
+    },
+};
+// this will get us undefined values for positon and color because the function inside the addeventlistener
+// is a normal function call instead of method call, so it will point to the window/global object
+
+// so to fix it we store this into a variable and use it
+// var self = this
+// box5.clickMe();
+
+//ES6 - by using arrow function we can avoid the issue easily
+const box6 = {
+    color: "green",
+    position: 1,
+    clickMe: function() {
+        var self = this; //fixed
+        document.querySelector(".green").addEventListener("click", () => {
+            alert(
+                "This box number is " +
+                    this.position +
+                    " the color of the box is " +
+                    this.color,
+            );
+        });
+    },
+};
+
+// box6.clickMe();
+//if change the outside function to arrow as well it will return undefined because of arrow functoin
+// this becomes lexical and this will be pointing to global in this case causing it to be undefined
+// so becareful!!!
+// const box66 = {
+//     color: "green",
+//     position: 1,
+//     clickMe: () => {
+//         var self = this; //fixed
+//         document.querySelector(".green").addEventListener("click", () => {
+//             alert(
+//                 "This box number is " +
+//                     this.position +
+//                     " the color of the box is " +
+//                     this.color,
+//             );
+//         });
+//     },
+// };
+
+// box66.clickMe();
+
+//ES5
+function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.myFriends5 = function(friends) {
+    var arr = friends.map(
+        function(el) {
+            //* because of the function here this pointing to global again
+            return this.name + " is friends with " + el;
+        }.bind(this), //by doing bind(this), we are getting the this from outside which is now still pointing to John and it creates a new copy of the function but using this as reference
+    );
+    console.log(arr);
+};
+
+var friends = ["Bob", "jane", "mark"];
+new Person("John").myFriends5(friends); //* this would not print John because of this refering to global again
+
+// ES6
+Person.prototype.myFriends6 = function(friends) {
+    var arr = friends.map(el => `${this.name} is friends with ${el}`);
+    console.log(arr);
+};
+new Person("Mike").myFriends6(friends);
