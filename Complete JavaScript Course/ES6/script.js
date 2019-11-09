@@ -72,7 +72,7 @@ for (var j = 0; j < 5; j++) {
 }
 
 // console.log(a + b); //will be undefined because let and const are block scope
-console.log(c); //c will return because its not block scope
+// console.log(c); //c will return because its not block scope
 
 // ES5 IIFE
 (function() {
@@ -111,8 +111,33 @@ function calcAge(year) {
 // );
 
 const n = `${firstName} ${lastName}`;
-console.log(n.startsWith("j")); //case sensitive 'john' - true
-console.log(n.endsWith("th")); //'smith' - true
-console.log(n.includes(" ")); //includes space or not - true
-console.log(n.includes("oh")); //includes oh -> "j*oh*n"- true
-console.log(`${firstName} `.repeat(5)); //repeat john 5 times with a space at the end
+// console.log(n.startsWith("j")); //case sensitive 'john' - true
+// console.log(n.endsWith("th")); //'smith' - true
+// console.log(n.includes(" ")); //includes space or not - true
+// console.log(n.includes("oh")); //includes oh -> "j*oh*n"- true
+// console.log(`${firstName} `.repeat(5)); //repeat john 5 times with a space at the end
+
+/* ========== Arrow function ========== */
+const years = [1990, 1965, 1982, 1937];
+
+// ES5
+var ages5 = years.map(function(el, index) {
+    return 2016 - el;
+});
+
+console.log(ages5);
+
+//ES6 - arrow function
+let ages6 = years.map(el => 2016 - el);
+console.log(ages6);
+
+ages6 = years.map((el, index) => `Age element ${index + 1}: ${2016 - el}.`);
+console.log(ages6);
+
+ages6 = years.map((el, index) => {
+    const now = new Date().getFullYear();
+    const age = now - el;
+    return `Age element ${index + 1}: ${age}`;
+});
+
+console.log(ages6);
