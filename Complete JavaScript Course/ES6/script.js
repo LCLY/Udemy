@@ -246,7 +246,7 @@ const box6 = {
 // ES6
 const [name, age] = ["John", 26]; //this is called destructure
 // each value will be stored in name and age respectively
-console.log(name, age);
+// console.log(name, age);
 
 const obj = {
     firstName: "John",
@@ -256,16 +256,60 @@ const obj = {
 // they (the destructure keys) have to match the property name
 const { firstName, lastName } = obj;
 
-console.log(firstName, lastName);
+// console.log(firstName, lastName);
 
 const { firstName: a, lastName: b } = obj;
-console.log(a, b);
+// console.log(a, b);
 
 function calcAgeRetirement(year) {
     const age = new Date().getFullYear() - year;
     return [age, 65 - age];
 }
 const [age2, retirement] = calcAgeRetirement(1990);
-console.log(age2, retirement);
+// console.log(age2, retirement);
 
 // arrays
+const boxes = document.querySelectorAll(".box"); //return node list
+//do slice to copy into a new array
+
+// ES5
+var boxesArr5 = Array.prototype.slice.call(boxes);
+boxesArr5.forEach(function(cur) {
+    cur.style.backgroundColor = "dodgerblue";
+});
+
+// ES6
+const boxesArr6 = Array.from(boxes);
+Array.from(boxes).forEach(cur => (cur.style.backgroundColor = "dodgerblue"));
+
+// ES5
+for (var j = 0; j < boxesArr5.length; j++) {
+    //boxesArr5 is array of element node list
+    if (boxesArr5[j].className === "box blue") {
+        continue;
+    }
+    boxesArr5[j].textContent = "I changed to blue";
+}
+
+// ES6 - nice way to loop through array
+for (const cur of boxesArr6) {
+    if (cur.className.includes("blue")) {
+        continue;
+    }
+    cur.textContent = "I changed to blue";
+}
+
+// ES5
+var ages = [12, 17, 8, 21, 14, 11];
+
+// map returns a new array
+var full = ages.map(function(cur) {
+    return cur >= 18;
+});
+console.log(full);
+console.log(full.indexOf(true));
+console.log(ages[full.indexOf(true)]);
+
+// ES6 - findIndex, find
+console.log(ages.findIndex(cur => cur >= 18));
+console.log(ages.find(cur => cur >= 18));
