@@ -81,3 +81,38 @@ console.log(c); //c will return because its not block scope
 })();
 
 // console.log(a + b);
+
+/* ========== Strings  ========== */
+let firstName = "john";
+let lastName = "smith";
+const yearOfBirth = 1990;
+function calcAge(year) {
+    return 2016 - year;
+}
+
+// ES5
+// console.log(
+//     "This is " +
+//         firstName +
+//         " " +
+//         lastName +
+//         ". He was born in " +
+//         yearOfBirth +
+//         ". Today, he is " +
+//         calcAge(yearOfBirth) +
+//         " years old",
+// );
+
+//ES6 - template literals
+// console.log(
+// `This is ${firstName} ${lastName}. He was born in ${yearOfBirth}. Today he is ${calcAge(
+//     yearOfBirth,
+// )} years old.`,
+// );
+
+const n = `${firstName} ${lastName}`;
+console.log(n.startsWith("j")); //case sensitive 'john' - true
+console.log(n.endsWith("th")); //'smith' - true
+console.log(n.includes(" ")); //includes space or not - true
+console.log(n.includes("oh")); //includes oh -> "j*oh*n"- true
+console.log(`${firstName} `.repeat(5)); //repeat john 5 times with a space at the end
