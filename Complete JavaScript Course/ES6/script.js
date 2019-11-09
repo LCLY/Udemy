@@ -33,17 +33,17 @@ let age6 = 23;
 // }
 
 //if we want to access let outside of block we can define it outside of block
-function driversLicense(passedTest) {
-    let firstName;
-    const yearOfBirth = 1990;
-    if (passedTest) {
-        firstName = "John";
-        // yearOfBirth = 1990; //cannot change value so have to define early
-    }
-    // console.log(firstName + " " + yearOfBirth);
-}
+// function driversLicense(passedTest) {
+//     let firstName;
+//     const yearOfBirth = 1990;
+//     if (passedTest) {
+//         firstName = "John";
+//         // yearOfBirth = 1990; //cannot change value so have to define early
+//     }
+//     // console.log(firstName + " " + yearOfBirth);
+// }
 
-driversLicense(true);
+// driversLicense(true);
 
 // two of these is are different
 let i = 23;
@@ -83,8 +83,8 @@ for (var j = 0; j < 5; j++) {
 // console.log(a + b);
 
 /* ========== Strings  ========== */
-let firstName = "john";
-let lastName = "smith";
+// let firstName = "john";
+// let lastName = "smith";
 const yearOfBirth = 1990;
 function calcAge(year) {
     return 2016 - year;
@@ -110,7 +110,7 @@ function calcAge(year) {
 // )} years old.`,
 // );
 
-const n = `${firstName} ${lastName}`;
+// const n = `${firstName} ${lastName}`;
 // console.log(n.startsWith("j")); //case sensitive 'john' - true
 // console.log(n.endsWith("th")); //'smith' - true
 // console.log(n.includes(" ")); //includes space or not - true
@@ -213,26 +213,59 @@ const box6 = {
 // box66.clickMe();
 
 //ES5
-function Person(name) {
-    this.name = name;
-}
+// function Person(name) {
+//     this.name = name;
+// }
 
-Person.prototype.myFriends5 = function(friends) {
-    var arr = friends.map(
-        function(el) {
-            //* because of the function here this pointing to global again
-            return this.name + " is friends with " + el;
-        }.bind(this), //by doing bind(this), we are getting the this from outside which is now still pointing to John and it creates a new copy of the function but using this as reference
-    );
-    console.log(arr);
-};
+// Person.prototype.myFriends5 = function(friends) {
+//     var arr = friends.map(
+//         function(el) {
+//             //* because of the function here this pointing to global again
+//             return this.name + " is friends with " + el;
+//         }.bind(this), //by doing bind(this), we are getting the this from outside which is now still pointing to John and it creates a new copy of the function but using this as reference
+//     );
+//     console.log(arr);
+// };
 
-var friends = ["Bob", "jane", "mark"];
-new Person("John").myFriends5(friends); //* this would not print John because of this refering to global again
+// var friends = ["Bob", "jane", "mark"];
+// new Person("John").myFriends5(friends); //* this would not print John because of this refering to global again
+
+// // ES6
+// Person.prototype.myFriends6 = function(friends) {
+//     var arr = friends.map(el => `${this.name} is friends with ${el}`);
+//     console.log(arr);
+// };
+// new Person("Mike").myFriends6(friends);
+
+/* ========== Destructuring ========== */
+// ES5
+// var john = ["John", 26];
+// var name = john[0];
+// var age = john[1];
 
 // ES6
-Person.prototype.myFriends6 = function(friends) {
-    var arr = friends.map(el => `${this.name} is friends with ${el}`);
-    console.log(arr);
+const [name, age] = ["John", 26]; //this is called destructure
+// each value will be stored in name and age respectively
+console.log(name, age);
+
+const obj = {
+    firstName: "John",
+    lastName: "Smith",
 };
-new Person("Mike").myFriends6(friends);
+// since the obj is constructed using {}, we also use {} to destruct
+// they (the destructure keys) have to match the property name
+const { firstName, lastName } = obj;
+
+console.log(firstName, lastName);
+
+const { firstName: a, lastName: b } = obj;
+console.log(a, b);
+
+function calcAgeRetirement(year) {
+    const age = new Date().getFullYear() - year;
+    return [age, 65 - age];
+}
+const [age2, retirement] = calcAgeRetirement(1990);
+console.log(age2, retirement);
+
+// arrays
