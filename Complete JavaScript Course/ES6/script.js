@@ -269,35 +269,35 @@ const [age2, retirement] = calcAgeRetirement(1990);
 // console.log(age2, retirement);
 
 // arrays
-const boxes = document.querySelectorAll(".box"); //return node list
+// const boxes = document.querySelectorAll(".box"); //return node list
 //do slice to copy into a new array
 
 // ES5
-var boxesArr5 = Array.prototype.slice.call(boxes);
-boxesArr5.forEach(function(cur) {
-    cur.style.backgroundColor = "dodgerblue";
-});
+// var boxesArr5 = Array.prototype.slice.call(boxes);
+// boxesArr5.forEach(function(cur) {
+//     cur.style.backgroundColor = "dodgerblue";
+// });
 
 // ES6
-const boxesArr6 = Array.from(boxes);
-Array.from(boxes).forEach(cur => (cur.style.backgroundColor = "dodgerblue"));
+// const boxesArr6 = Array.from(boxes);
+// Array.from(boxes).forEach(cur => (cur.style.backgroundColor = "dodgerblue"));
 
 // ES5
-for (var j = 0; j < boxesArr5.length; j++) {
-    //boxesArr5 is array of element node list
-    if (boxesArr5[j].className === "box blue") {
-        continue;
-    }
-    boxesArr5[j].textContent = "I changed to blue";
-}
+// for (var j = 0; j < boxesArr5.length; j++) {
+//     //boxesArr5 is array of element node list
+//     if (boxesArr5[j].className === "box blue") {
+//         continue;
+//     }
+//     boxesArr5[j].textContent = "I changed to blue";
+// }
 
 // ES6 - nice way to loop through array
-for (const cur of boxesArr6) {
-    if (cur.className.includes("blue")) {
-        continue;
-    }
-    cur.textContent = "I changed to blue";
-}
+// for (const cur of boxesArr6) {
+//     if (cur.className.includes("blue")) {
+//         continue;
+//     }
+//     cur.textContent = "I changed to blue";
+// }
 
 // ES5
 var ages = [12, 17, 8, 21, 14, 11];
@@ -306,10 +306,45 @@ var ages = [12, 17, 8, 21, 14, 11];
 var full = ages.map(function(cur) {
     return cur >= 18;
 });
-console.log(full);
-console.log(full.indexOf(true));
-console.log(ages[full.indexOf(true)]);
+// console.log(full);
+// console.log(full.indexOf(true));
+// console.log(ages[full.indexOf(true)]);
 
 // ES6 - findIndex, find
-console.log(ages.findIndex(cur => cur >= 18));
-console.log(ages.find(cur => cur >= 18));
+// console.log(ages.findIndex(cur => cur >= 18));
+// console.log(ages.find(cur => cur >= 18));
+
+/* ========== spread operator ========== */
+function addFourAges(a, b, c, d) {
+    return a + b + c + d;
+}
+
+var sum1 = addFourAges(18, 30, 12, 21);
+console.log(sum1);
+
+// now we will pass in array instead of 4 different values
+// ES5
+
+var ages = [18, 30, 12, 21, 30];
+// apply receives array, it calls function that the apply method is used on by using the elements
+// of the array as the arguments
+var sum2 = addFourAges.apply(null, ages);
+console.log(sum2);
+
+// ES6
+// spread operator expands array into its element
+// or to obtain a list of parameters from an array.
+const sum3 = addFourAges(...ages); //here its the same as writing 18,30,12,21
+console.log(...ages);
+console.log(sum3);
+
+const familySmith = ["John", "Jane", "Mark"];
+const familyMiller = ["Mary", "Bob", "Ann"];
+const bigFamily = [...familySmith, ...familyMiller];
+console.log(bigFamily);
+
+// can also be used on node list
+const h = document.querySelector("h1");
+const boxes = document.querySelectorAll(".box");
+const all = [h, ...boxes]; //boxes is node list!
+Array.from(all).forEach(cur => (cur.style.color = "purple")); //use from to convert them into array then apply forEach
