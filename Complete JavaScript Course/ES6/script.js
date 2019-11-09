@@ -320,7 +320,7 @@ function addFourAges(a, b, c, d) {
 }
 
 var sum1 = addFourAges(18, 30, 12, 21);
-console.log(sum1);
+// console.log(sum1);
 
 // now we will pass in array instead of 4 different values
 // ES5
@@ -329,22 +329,74 @@ var ages = [18, 30, 12, 21, 30];
 // apply receives array, it calls function that the apply method is used on by using the elements
 // of the array as the arguments
 var sum2 = addFourAges.apply(null, ages);
-console.log(sum2);
+// console.log(sum2);
 
 // ES6
 // spread operator expands array into its element
 // or to obtain a list of parameters from an array.
 const sum3 = addFourAges(...ages); //here its the same as writing 18,30,12,21
-console.log(...ages);
-console.log(sum3);
+// console.log(...ages);
+// console.log(sum3);
 
 const familySmith = ["John", "Jane", "Mark"];
 const familyMiller = ["Mary", "Bob", "Ann"];
 const bigFamily = [...familySmith, ...familyMiller];
-console.log(bigFamily);
+// console.log(bigFamily);
 
 // can also be used on node list
 const h = document.querySelector("h1");
 const boxes = document.querySelectorAll(".box");
 const all = [h, ...boxes]; //boxes is node list!
 Array.from(all).forEach(cur => (cur.style.color = "purple")); //use from to convert them into array then apply forEach
+
+/* ========== rest parameters ========== */
+// ES5
+// function isFullAge5() {
+//     // arguments is special var
+//     // console.log(arguments);
+//     // arguments is not array so we have to transform it to array
+//     var argsArr = Array.prototype.slice.call(arguments);
+//     argsArr.forEach(function(cur) {
+//         // console.log(2019 - cur >= 18);
+//     });
+// }
+// // even if there are different number of arguments, it still works
+// isFullAge5(1990, 2001, 1965);
+// isFullAge5(1990, 2001, 1965, 2016, 1987);
+
+// // ES6
+// // ...years will transform the arguments into an array and pass them into the function
+// function isfullAge6(...years) {
+//     // console.log(years); //this is array
+//     years.forEach(cur => console.log(2019 - cur >= 18));
+// }
+
+// isfullAge6(1900, 2020, 1995, 1969);
+
+// now if we have an argument in the function itself,
+// then we will have to add one more argument when calling the function
+// ----> isFullAge5(21, 1990, 2001, 1965)
+
+// adding argument
+function isFullAge5(limit) {
+    // console.log(arguments);
+    // so basically what we do here is we cut the first element out and copy the rest of the array
+    var argsArr = Array.prototype.slice.call(arguments, 1);
+    argsArr.forEach(function(cur) {
+        console.log(2019 - cur >= limit);
+    });
+}
+// because of the new argument, we have to add one more step of creating a new array with new elements
+// but ES6, we just add the argument into the function param and add the spread operator
+isFullAge5(10, 1990, 2001, 1965);
+
+// ES6 - adding argument
+
+function isfullAge6(limit, ...years) {
+    years.forEach(cur => {
+        console.log(years);
+        console.log(2019 - cur >= limit);
+    });
+}
+
+isfullAge6(16, 1900, 2020, 1995, 1969);
