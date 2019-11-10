@@ -433,3 +433,46 @@ function SmithPerson(
 
 var john = new SmithPerson("John", 1990);
 var emily = new SmithPerson("EMily", 1983, "Dieaz", "spniahs");
+
+/* ========== Maps ========== */
+const question = new Map();
+question.set(
+    "question",
+    "What is the official name of the latest major JS version?",
+);
+question.set(1, "ES5");
+question.set(2, "ES6");
+question.set(3, "ES2015");
+question.set(4, "ES7");
+
+question.set(true, "Correct asnwer");
+question.set(false, "Wrong, please try again");
+
+// console.log(question.get("question"));
+// console.log(question.size);
+
+if (question.has(4)) {
+    //if there is a key
+    question.delete(4);
+    // console.log("yes");
+}
+
+// question.clear();
+
+//to loop through a map we can use forEach method
+// question.forEach((value, key) => console.log(`key: ${key} value: ${value}`));
+
+// if we want to destructure and get the key and value,
+// we have to first get all the entries of question, then destructure
+for (let [key, value] of question.entries()) {
+    if (typeof key === "number") {
+        console.log(`Answer ${key} ${value}`);
+    }
+}
+
+question.set("correct", 3);
+question.set(true, "Correct asnwer");
+question.set(false, "Wrong, please try again");
+const ans = parseInt(prompt("Write the correct answer"));
+// check if the input match value in map
+console.log(question.get(ans === question.get("correct")));
