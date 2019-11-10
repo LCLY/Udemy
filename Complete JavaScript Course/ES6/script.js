@@ -383,7 +383,7 @@ function isFullAge5(limit) {
     // so basically what we do here is we cut the first element out and copy the rest of the array
     var argsArr = Array.prototype.slice.call(arguments, 1);
     argsArr.forEach(function(cur) {
-        console.log(2019 - cur >= limit);
+        // console.log(2019 - cur >= limit);
     });
 }
 // because of the new argument, we have to add one more step of creating a new array with new elements
@@ -394,9 +394,42 @@ isFullAge5(10, 1990, 2001, 1965);
 
 function isfullAge6(limit, ...years) {
     years.forEach(cur => {
-        console.log(years);
-        console.log(2019 - cur >= limit);
+        // console.log(years);
+        // console.log(2019 - cur >= limit);
     });
 }
 
 isfullAge6(16, 1900, 2020, 1995, 1969);
+
+/* ========== Default parameter ========== */
+// so this situation is if the new object doesnt have enough information for all the params
+// then we have to write the condition to check and set a default value to the properties
+
+function SmithPerson(firstName, yearOfBirth, lastName, nationality) {
+    // HERE **
+    lastName === undefined ? (lastName = "Smith") : (lastName = lastName);
+    nationality === undefined
+        ? (nationality = "american")
+        : (nationality = nationality);
+
+    this.firstName = firstName;
+    this.yearOfBirth = yearOfBirth;
+    this.lastName = lastName;
+    this.nationality = nationality;
+}
+
+// ES6 - just straight away set the default value in the parenthesis
+function SmithPerson(
+    firstName,
+    yearOfBirth,
+    lastName = "Smith",
+    nationality = "american",
+) {
+    this.firstName = firstName;
+    this.yearOfBirth = yearOfBirth;
+    this.lastName = lastName;
+    this.nationality = nationality;
+}
+
+var john = new SmithPerson("John", 1990);
+var emily = new SmithPerson("EMily", 1983, "Dieaz", "spniahs");
