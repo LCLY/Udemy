@@ -479,6 +479,45 @@ question.set(false, "Wrong, please try again");
 
 /* ========== classes ========== */
 // ES5
+// var Person5 = function(name, yearOfBirth, job) {
+//     this.name = name;
+//     this.yearOfBirth = yearOfBirth;
+//     this.job = job;
+// };
+
+// Person5.prototype.calculateAge = function() {
+//     var age = new Date().getFullYear - this.yearOfBirth;
+//     // console.log(age);
+// };
+
+// var john5 = new Person5("John", 1990, "teacher");
+
+// // ES6
+// class Person6 {
+//     constructor(name, yearOfBirth, job) {
+//         this.name = name;
+//         this.yearOfBirth = yearOfBirth;
+//         this.job = job;
+//     }
+
+//     calculateAge() {
+//         // do something
+//         var age = new Date().getFullYear - this.yearOfBirth;
+//         // console.log(age);
+//     }
+
+//     static greeting() {
+//         // console.log("HI");
+//     }
+// }
+
+// const john6 = new Person6("john", 1990, "teacher");
+// // console.log(john6);
+// // console.log(john5);
+// Person6.greeting();
+
+/* ========== inheritance ========== */
+// Person is the super class here
 var Person5 = function(name, yearOfBirth, job) {
     this.name = name;
     this.yearOfBirth = yearOfBirth;
@@ -486,13 +525,33 @@ var Person5 = function(name, yearOfBirth, job) {
 };
 
 Person5.prototype.calculateAge = function() {
-    var age = new Date().getFullYear - this.yearOfBirth;
-    // console.log(age);
+    var age = new Date().getFullYear() - this.yearOfBirth;
+    console.log(age);
 };
 
-var john5 = new Person5("John", 1990, "teacher");
+var Athlete5 = function(name, yearOfBirth, job, olympicGames, medals) {
+    Person5.call(this, name, yearOfBirth, job);
+    this.olympicGames = olympicGames;
+    this.medals = medals;
+};
+
+// Athlete5 is a subclass, person5 is a superclass
+// Athlete5 inherits from Person5 class
+Athlete5.prototype = Object.create(Person5.prototype);
+
+// set methods on the prototype property of the Athlete5 function constructor
+Athlete5.prototype.wonMedal = function() {
+    this.medals++;
+    console.log(this.medals);
+};
+// now it has the prototype from Person5
+var johnAthlete5 = new Athlete5("John", 1990, "swimmer", 3, 10);
+console.log(johnAthlete5.calculateAge());
+
+johnAthlete5.wonMedal();
 
 // ES6
+// superclass
 class Person6 {
     constructor(name, yearOfBirth, job) {
         this.name = name;
@@ -502,16 +561,25 @@ class Person6 {
 
     calculateAge() {
         // do something
-        var age = new Date().getFullYear - this.yearOfBirth;
+        var age = new Date().getFullYear() - this.yearOfBirth;
         console.log(age);
     }
+}
+// subclass
+class Athlete6 extends Person6 {
+    constructor(name, yearOfBirth, job, olympicGames, medals) {
+        super(name, yearOfBirth, job);
+        this.olympicGames = olympicGames;
+        this.medals = medals;
+    }
 
-    static greeting() {
-        console.log("HI");
+    wonMedal() {
+        this.medals++;
+        console.log(this.medals);
     }
 }
 
-const john6 = new Person6("john", 1990, "teacher");
-console.log(john6);
-console.log(john5);
-Person6.greeting();
+const johnAthlete6 = new Athlete6("John", 1990, " swimmer", 3, 10);
+
+johnAthlete6.wonMedal();
+johnAthlete6.calculateAge();
