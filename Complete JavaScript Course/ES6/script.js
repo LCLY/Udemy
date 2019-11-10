@@ -466,13 +466,52 @@ if (question.has(4)) {
 // we have to first get all the entries of question, then destructure
 for (let [key, value] of question.entries()) {
     if (typeof key === "number") {
-        console.log(`Answer ${key} ${value}`);
+        // console.log(`Answer ${key} ${value}`);
     }
 }
 
 question.set("correct", 3);
 question.set(true, "Correct asnwer");
 question.set(false, "Wrong, please try again");
-const ans = parseInt(prompt("Write the correct answer"));
+// const ans = parseInt(prompt("Write the correct answer"));
 // check if the input match value in map
-console.log(question.get(ans === question.get("correct")));
+// console.log(question.get(ans === question.get("correct")));
+
+/* ========== classes ========== */
+// ES5
+var Person5 = function(name, yearOfBirth, job) {
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+};
+
+Person5.prototype.calculateAge = function() {
+    var age = new Date().getFullYear - this.yearOfBirth;
+    // console.log(age);
+};
+
+var john5 = new Person5("John", 1990, "teacher");
+
+// ES6
+class Person6 {
+    constructor(name, yearOfBirth, job) {
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.job = job;
+    }
+
+    calculateAge() {
+        // do something
+        var age = new Date().getFullYear - this.yearOfBirth;
+        console.log(age);
+    }
+
+    static greeting() {
+        console.log("HI");
+    }
+}
+
+const john6 = new Person6("john", 1990, "teacher");
+console.log(john6);
+console.log(john5);
+Person6.greeting();
