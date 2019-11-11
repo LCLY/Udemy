@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Asynchronous JavaScript</title>
+    </head>
+    <body>
+        <h1>Asynchronous JavaScript</h1>
+        <script>
+            /*const second = () =>{
+                setTimeout(() =>{
+                    console.log('run after 2s');
+                }, 2000)
+            }
+            const first = () =>{
+                console.log('yes');
+                second();
+                console.log('the end');
+            }
+
+            first();*/
+
+            // basically the second timeout only starts after the first timeout completes
+            // function getRecipe() {
+            //     setTimeout(() => {
+            //         const recipeID = [523, 651, 981, 654];
+            //         console.log(recipeID);
+
+            //         // basically recipeID[2] will be passed into id in the param
+            //         setTimeout(
+            //             id => {
+            //                 const recipe = {
+            //                     title: "fresh tomateo pasta",
+            //                     publisher: "jonas",
+            //                 };
+            //                 console.log(`${id} : ${recipe.title}`);
+            //                 // chaining of callback - callback hell
+            //                 setTimeout(
+            //                     publisher => {
+            //                         const recipe = {
+            //                             title: "italian pizza",
+            //                             publisher: "jonas",
+            //                         };
+            //                         console.log(recipe);
+            //                     },
+            //                     1500,
+            //                     recipe.publisher,
+            //                 );
+            //             },
+            //             1500,
+            //             recipeID[2],
+            //         );
+            //     }, 1500);
+            // }
+
+            // getRecipe();
+
+            // promise takes in 2 arguments, callback fn, resolves and reject
+            const getIDs = new Promise((resolve, reject) => {
+                //    after the timer runs successfully, we want to return our ids
+                setTimeout(() => {
+                    // result is fulfilled and return the data
+                    resolve([523, 651, 981, 654]);
+                    // since settimeout will always be successful,
+                    // we dont need reject but if we have reject, it will be displayed in the catch block
+                }, 1500);
+            });
+
+            const getRecipe = recipeID => {
+                return new Promise((resolve, reject) => {
+                    setTimeout(
+                        ID => {
+                            const recipe = {
+                                title: "fresh tomateo pasta",
+                                publisher: "jonas",
+                            };
+                            resolve(`${ID} : ${recipe.title}`);
+                        },
+                        1500,
+                        recipeID,
+                    );
+                });
+            };
+
+            const getRelated = publisher => {
+                return new Promise((resolve, reject) => {
+                    setTimeout(
+                        pub => {
+                            const recipe = {
+                                title: "italian pizza",
+                                publisher: "jonas",
+                            };
+                            resolve(`${pub}: ${recipe.title}`);
+                        },
+                        1500,
+                        publisher,
+                    );
+                });
+            };
+
+            // promise obejct has then and catch
+            // we use then to get the fulfilled promise
+            // getIDs
+            //     .then(IDs => {
+            //         console.log(IDs);
+            //         return getRecipe(IDs[2]);
+            //     })
+            //     .then(recipe => {
+            //         console.log(recipe);
+            //         return getRelated("Jonas Schemeoijad");
+            //     })
+            //     .then(recipe => {
+            //         console.log(recipe);
+            //     }) //this is getting the return
+            //     // value from getRecipe because we dont want to write .then inside another .then
+            //     // then it will be another callback hell
+            //     .catch(error => console.log(error));
+
+            // 1. fire off the function, it runs asynchronously in the background
+            // 2. execution will stop and await will wait for the promise to resolve
+            // 3. and then assign value to IDs
+            // 4. same goes for the others
+            async function getRecipeAW() {
+                const IDs = await getIDs;
+                console.log(IDs);
+                const recipe = await getRecipe(IDs[2]);
+                console.log(recipe);
+                const related = await getRelated("Jonas Schmedtmann");
+                console.log(related);
+
+                return recipe;
+            }
+            /*const rec = getRecipeAW();
+            console.log(rec);*/
+
+            // We will promise pending because when we do console.log(rec),
+            // it already returns while the getRecipeAW()
+            // is still running asynchronously,
+            // so we cannot get the data in time when the console log is printed
+
+            // to solve this problem, we can use then
+            getRecipeAW().then(result =>
+                console.log(`${result} is the result`),
+            );
+        </script>
+    </body>
+</html>
