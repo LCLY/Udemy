@@ -58,47 +58,47 @@
             // getRecipe();
 
             // promise takes in 2 arguments, callback fn, resolves and reject
-            const getIDs = new Promise((resolve, reject) => {
-                //    after the timer runs successfully, we want to return our ids
-                setTimeout(() => {
-                    // result is fulfilled and return the data
-                    resolve([523, 651, 981, 654]);
-                    // since settimeout will always be successful,
-                    // we dont need reject but if we have reject, it will be displayed in the catch block
-                }, 1500);
-            });
+            // const getIDs = new Promise((resolve, reject) => {
+            //     //    after the timer runs successfully, we want to return our ids
+            //     setTimeout(() => {
+            //         // result is fulfilled and return the data
+            //         resolve([523, 651, 981, 654]);
+            //         // since settimeout will always be successful,
+            //         // we dont need reject but if we have reject, it will be displayed in the catch block
+            //     }, 1500);
+            // });
 
-            const getRecipe = recipeID => {
-                return new Promise((resolve, reject) => {
-                    setTimeout(
-                        ID => {
-                            const recipe = {
-                                title: "fresh tomateo pasta",
-                                publisher: "jonas",
-                            };
-                            resolve(`${ID} : ${recipe.title}`);
-                        },
-                        1500,
-                        recipeID,
-                    );
-                });
-            };
+            // const getRecipe = recipeID => {
+            //     return new Promise((resolve, reject) => {
+            //         setTimeout(
+            //             ID => {
+            //                 const recipe = {
+            //                     title: "fresh tomateo pasta",
+            //                     publisher: "jonas",
+            //                 };
+            //                 resolve(`${ID} : ${recipe.title}`);
+            //             },
+            //             1500,
+            //             recipeID,
+            //         );
+            //     });
+            // };
 
-            const getRelated = publisher => {
-                return new Promise((resolve, reject) => {
-                    setTimeout(
-                        pub => {
-                            const recipe = {
-                                title: "italian pizza",
-                                publisher: "jonas",
-                            };
-                            resolve(`${pub}: ${recipe.title}`);
-                        },
-                        1500,
-                        publisher,
-                    );
-                });
-            };
+            // const getRelated = publisher => {
+            //     return new Promise((resolve, reject) => {
+            //         setTimeout(
+            //             pub => {
+            //                 const recipe = {
+            //                     title: "italian pizza",
+            //                     publisher: "jonas",
+            //                 };
+            //                 resolve(`${pub}: ${recipe.title}`);
+            //             },
+            //             1500,
+            //             publisher,
+            //         );
+            //     });
+            // };
 
             // promise obejct has then and catch
             // we use then to get the fulfilled promise
@@ -122,16 +122,16 @@
             // 2. execution will stop and await will wait for the promise to resolve
             // 3. and then assign value to IDs
             // 4. same goes for the others
-            async function getRecipeAW() {
-                const IDs = await getIDs;
-                console.log(IDs);
-                const recipe = await getRecipe(IDs[2]);
-                console.log(recipe);
-                const related = await getRelated("Jonas Schmedtmann");
-                console.log(related);
+            // async function getRecipeAW() {
+            //     const IDs = await getIDs;
+            //     console.log(IDs);
+            //     const recipe = await getRecipe(IDs[2]);
+            //     console.log(recipe);
+            //     const related = await getRelated("Jonas Schmedtmann");
+            //     console.log(related);
 
-                return recipe;
-            }
+            //     return recipe;
+            // }
             /*const rec = getRecipeAW();
             console.log(rec);*/
 
@@ -141,9 +141,31 @@
             // so we cannot get the data in time when the console log is printed
 
             // to solve this problem, we can use then
-            getRecipeAW().then(result =>
-                console.log(`${result} is the result`),
-            );
+            // getRecipeAW().then(result =>
+            //     console.log(`${result} is the result`),
+            // );
+            function getWeather(woeid) {
+                fetch(`https://www.metaweather.com/api/location/${woeid}/`)
+                    .then(result => {
+                        console.log(result);
+                        // json() returns a promise that resolves in JSON form
+                        return result.json(); //json() is asynchronous
+                    })
+                    .then(data => {
+                        // console.log(data);
+                        const today = data.consolidated_weather[0];
+                        console.log(
+                            `Temperatures in ${data.title} stay between ${today.min_temp} and ${today.max_temp}`,
+                        );
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+
+            getWeather(2487956);
+            getWeather(44418);
+            getWeather(44421312321318); //return 404 because didnt find anything
         </script>
     </body>
 </html>
