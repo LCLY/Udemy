@@ -147,25 +147,49 @@
             function getWeather(woeid) {
                 fetch(`https://www.metaweather.com/api/location/${woeid}/`)
                     .then(result => {
-                        console.log(result);
+                        // console.log(result);
                         // json() returns a promise that resolves in JSON form
                         return result.json(); //json() is asynchronous
                     })
                     .then(data => {
                         // console.log(data);
                         const today = data.consolidated_weather[0];
-                        console.log(
-                            `Temperatures in ${data.title} stay between ${today.min_temp} and ${today.max_temp}`,
-                        );
+                        // console.log(
+                        //     `Temperatures in ${data.title} stay between ${today.min_temp} and ${today.max_temp}`,
+                        // );
                     })
                     .catch(err => {
-                        console.log(err);
+                        // console.log(err);
                     });
             }
 
             getWeather(2487956);
             getWeather(44418);
-            getWeather(44421312321318); //return 404 because didnt find anything
+            // getWeather(44421312321318); //return 404 because didnt find anything
+
+            // using async await instead of fetch
+            async function getWeatherAW(woeid) {
+                try {
+                    const result = await fetch(
+                        `https://www.metaweather.com/api/location/${woeid}/`,
+                    );
+                    const data = await result.json();
+                    const tomorrow = data.consolidated_weather[1];
+                    console.log(
+                        `Temperatures tomorrow in ${data.title} stay between ${tomorrow.min_temp} and ${tomorrow.max_temp}`,
+                    );
+                    return data;
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            const dataLondon = getWeatherAW(44418); //this will get error, like last time we need to use then method
+            let london;
+            getWeatherAW(44418).then(data => {
+                london = data;
+                console.log(london);
+            });
+            getWeatherAW(2487956);
         </script>
     </body>
 </html>

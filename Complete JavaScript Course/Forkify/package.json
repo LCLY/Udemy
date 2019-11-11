@@ -1,0 +1,14 @@
+{
+    "name": "forkify",
+    "version": "1.0.0",
+    "description": "A recipe web application",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Henry",
+    "license": "ISC",
+    "devDependencies": {
+        "webpack": "^4.41.2"
+    }
+}
