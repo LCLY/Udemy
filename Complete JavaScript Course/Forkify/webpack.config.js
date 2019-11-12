@@ -2,7 +2,7 @@ const path = require("path"); //absolute path
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
     // entry point is where webpack start bundling
-    entry: "./src/js/index.js",
+    entry: ["@babel/polyfill", "./src/js/index.js"],
     // where to save our bundle file
     output: {
         path: path.resolve(__dirname, "dist"), //__dirname is current absolute path
@@ -20,4 +20,16 @@ module.exports = {
             template: "./src/index.html",
         }),
     ],
+    module: {
+        // rules receive array of all the loaders we are using
+        rules: [
+            {
+                test: /`.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                },
+            },
+        ],
+    },
 };
