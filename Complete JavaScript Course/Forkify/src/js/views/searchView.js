@@ -1,6 +1,15 @@
 import { elements } from "./base";
 export const getInput = () => elements.searchInput.value;
 
+export const clearInput = () => {
+	elements.searchInput.value = "";
+};
+
+//we need to clear the result before searching again or else it will stack
+export const clearResults = () => {
+	elements.searchResultList.innerHTML = "";
+};
+
 const renderRecipe = recipe => {
 	const markup = `
         <li>
