@@ -8,6 +8,7 @@ export const clearInput = () => {
 //we need to clear the result before searching again or else it will stack
 export const clearResults = () => {
 	elements.searchResultList.innerHTML = "";
+	elements.searchResPages.innerHTML = "";
 };
 
 // 'pasta with tomato and spinach'
@@ -50,6 +51,58 @@ const renderRecipe = recipe => {
 	elements.searchResultList.insertAdjacentHTML("beforeend", markup);
 };
 
-export const renderResults = recipes => {
-	recipes.forEach(el => renderRecipe(el));
+// pass in number of page and to go forward or backward
+// type: 'prev', 'next'
+const createButton = (
+	page,
+	type
+) => ` <button class="btn-inline results__btn--${type}"
+		data-goto=${type === "prev" ? page - 1 : page + 1}>
+		<span>Page ${type === "prev" ? page - 1 : page + 1}</span>
+			<svg class="search__icon">
+				<use href="img/icons.svg#icon-triangle-${
+					type === "prev" ? "left" : "right"
+				}"></use>
+			</svg>		
+		</button>
+	`;
+
+const renderButtons = (page, numResults, resPerPage) => {
+	// if there are 30 results and we want 10 results per page
+	// 30/10 -> 3 pages
+	// but if there are 35 we would also get 3 since 35/10 -> 3
+	// so we want to do Math.ceil to round up the 3.5 to 4 to get 4 pages
+	const pages = Math.ceil(numResults / resPerPage);
+	let button;
+	if (page === 1 && pages > 1) {
+		// only button to go to next page
+		button = createButton(page, "next");
+	} else if (page < pages) {
+		// both buttons
+		button = `${createButton(page, "prev")}${createButton(page, "next")}`;
+	} else if (page === pages && pages > 1) {
+		// only button to get prev page
+		button = createButton(page, "prev");
+	}
+	elements.searchResPages.insertAdjacentHTML("afterbegin", button);
+};
+
+export const renderResults = (recipes, page = 1, resPerPage = 10) => {
+	// render results of current page
+	// if there are 3 pages
+	// start -> (1 - 1) * 10 -> 0
+	// end -> 1 * 10
+	// so we are copying from 0 - 9 which are 10 elements
+	// next iteration
+	// start -> (2 - 1) * 10 -> 10
+	// end -> 2 * 10
+	// now we are copying from 10 - 19 which are also 10 elements
+	// so on and so forth
+	const start = (page - 1) * resPerPage;
+	const end = page * resPerPage;
+	// slice will make a copy of array of recipes from 0 - 9
+	recipes.slice(start, end).forEach(el => renderRecipe(el));
+
+	// render pagination button
+	renderButtons(page, recipes.length, resPerPage);
 };
