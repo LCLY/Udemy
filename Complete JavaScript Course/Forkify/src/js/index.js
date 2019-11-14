@@ -18,7 +18,8 @@ const state = {};
 const controlSearch = async () => {
 	// 1. get query from view
 	const query = searchView.getInput(); //TODO
-
+	// testing
+	// const query = "pizza";
 	if (query) {
 		// 2. new search object and add to state
 		state.search = new Search(query);
@@ -46,6 +47,10 @@ elements.searchForm.addEventListener("submit", e => {
 	controlSearch();
 });
 
+// window.addEventListener("load", e => {
+// 	e.preventDefault();
+// 	controlSearch();
+// });
 elements.searchResPages.addEventListener("click", e => {
 	const btn = e.target.closest(".btn-inline");
 	// console.log(btn);
@@ -73,11 +78,16 @@ const controlRecipe = async () => {
 
 		// create new recipe obejct
 		state.recipe = new Recipe(id);
+
+		// TESTING - expose the object
+		// window.r = state.recipe;
 		// get recipe data
 		try {
 			// without the try catch block, we are assuming the promise will always resolve
 			await state.recipe.getRecipe();
-
+			console.log(state.recipe.ingredients);
+			// parse ingredients
+			state.recipe.parseIngredients();
 			// calc servings and time
 			state.recipe.calcTime();
 			state.recipe.calcServings();
