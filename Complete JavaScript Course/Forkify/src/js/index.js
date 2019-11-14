@@ -37,3 +37,16 @@ elements.searchForm.addEventListener("submit", e => {
 	e.preventDefault();
 	controlSearch();
 });
+
+elements.searchResPages.addEventListener("click", e => {
+	const btn = e.target.closest(".btn-inline");
+	console.log(btn);
+	if (btn) {
+		// the 10 is base 10
+		console.log("goto: ", btn.dataset.goto);
+		const goToPage = parseInt(btn.dataset.goto, 10);
+		searchView.clearResults();
+		searchView.renderResults(state.search.result, goToPage);
+		// console.log(goToPage);
+	}
+});
