@@ -40,10 +40,10 @@ elements.searchForm.addEventListener("submit", e => {
 
 elements.searchResPages.addEventListener("click", e => {
 	const btn = e.target.closest(".btn-inline");
-	console.log(btn);
+	// console.log(btn);
 	if (btn) {
 		// the 10 is base 10
-		console.log("goto: ", btn.dataset.goto);
+		// console.log("goto: ", btn.dataset.goto);
 		const goToPage = parseInt(btn.dataset.goto, 10);
 		searchView.clearResults();
 		searchView.renderResults(state.search.result, goToPage);
