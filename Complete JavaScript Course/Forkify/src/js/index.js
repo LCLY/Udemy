@@ -1,6 +1,8 @@
 import Search from "./models/Search";
+import Recipe from "./models/Recipe";
 import * as searchView from "./views/searchView";
 import { elements, renderLoader, clearLoader } from "./views/base";
+
 // this is our main controller
 
 /* global state of the app
@@ -12,6 +14,7 @@ import { elements, renderLoader, clearLoader } from "./views/base";
 // just an object to store the state
 const state = {};
 
+/* ==========  SEARCH CONTROLLER ========== */
 const controlSearch = async () => {
 	// 1. get query from view
 	const query = searchView.getInput(); //TODO
@@ -50,3 +53,8 @@ elements.searchResPages.addEventListener("click", e => {
 		// console.log(goToPage);
 	}
 });
+
+/* ========== RECIPE CONTROLLER ========== */
+const r = new Recipe(46956);
+r.getRecipe();
+console.log(r);
