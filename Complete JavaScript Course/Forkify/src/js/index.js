@@ -85,7 +85,7 @@ const controlRecipe = async () => {
 		try {
 			// without the try catch block, we are assuming the promise will always resolve
 			await state.recipe.getRecipe();
-			console.log(state.recipe.ingredients);
+			// console.log(state.recipe.ingredients);
 			// parse ingredients
 			state.recipe.parseIngredients();
 			// calc servings and time
