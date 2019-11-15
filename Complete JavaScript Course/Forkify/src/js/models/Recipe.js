@@ -118,6 +118,21 @@ export default class Recipe {
 
 			return objIng; //each iteration we need to return to be saved to the current position of the new array
 		});
+		// now the ingredients has 3 new objects: count, unit and ingredient
 		this.ingredients = newIngredients;
+	}
+
+	// type is increase or decrease
+	updateServings(type) {
+		// Servings
+		const newServings = type === "dec" ? this.servings - 1 : this.servings + 1;
+
+		// Ingredients
+		this.ingredients.forEach(ing => {
+			// we want to increase the count in fraction instead of whole number
+			// because it doenst make sense to add 1 whole cup just for one extra person
+			ing.count *= newServings / this.servings;
+		});
+		this.servings = newServings;
 	}
 }
