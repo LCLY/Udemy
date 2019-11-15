@@ -166,7 +166,7 @@ const controlLike = () => {
 			currentID,
 			state.recipe.title,
 			state.recipe.author,
-			state.recipe.img
+			state.recipe.image
 		);
 		// toggle the like button
 		likesView.toggleLikeBtn(true);
