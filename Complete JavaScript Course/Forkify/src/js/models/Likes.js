@@ -15,7 +15,7 @@ export default class Likes {
 	}
 
 	isLiked(id) {
-		// if we cannot find any items with the id, it will return -1
+		// if we cannot find any items with the id, it will return -1 else return true
 		return this.likes.findIndex(el => el.id === id) !== -1;
 	}
 
