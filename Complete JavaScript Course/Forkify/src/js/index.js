@@ -106,7 +106,7 @@ const controlRecipe = async () => {
 
 			// render recipe
 			clearLoader();
-			recipeView.renderRecipe(state.recipe);
+			recipeView.renderRecipe(state.recipe, state.likes.isLiked(id));
 			// console.log(state.recipe);
 		} catch (err) {
 			alert(err);
@@ -151,7 +151,9 @@ elements.shopping.addEventListener("click", e => {
 	}
 });
 
-/* ========== RECIPE CONTROLLER ========== */
+state.likes = new Likes();
+likesView.toggleLikeMenu(state.likes.getNumLikes());
+/* ========== LIKE CONTROLLER ========== */
 const controlLike = () => {
 	// create if doesnt exist
 	if (!state.likes) state.likes = new Likes();
@@ -169,16 +171,18 @@ const controlLike = () => {
 		// toggle the like button
 		likesView.toggleLikeBtn(true);
 		// add like to UI list
+		likesView.renderLike(newLike);
 		// user has  liked current recipe
-		console.log(state.likes);
 	} else {
 		// remove like to the state
 		state.likes.deleteLike(currentID);
 		// toggle the like button
 		likesView.toggleLikeBtn(false);
 		// remove like to UI list
-		console.log(state.likes);
+		likesView.deleteLike(currentID);
 	}
+
+	likesView.toggleLikeMenu(state.likes.getNumLikes());
 };
 // for the number of servings changing buttons because they are still nt there when we load the page
 // also list button for adding to the shopping list
