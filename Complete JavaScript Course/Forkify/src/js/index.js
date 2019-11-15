@@ -1,6 +1,7 @@
 import Search from "./models/Search";
 import Recipe from "./models/Recipe";
 import * as searchView from "./views/searchView";
+import * as recipeView from "./views/recipeView";
 import { elements, renderLoader, clearLoader } from "./views/base";
 
 // this is our main controller
@@ -75,7 +76,9 @@ const controlRecipe = async () => {
 	console.log(id);
 	if (id) {
 		// prepare UI for changes
-
+		recipeView.clearRecipe();
+		// always remember we need to put in the parent for it to refer
+		renderLoader(elements.recipe);
 		// create new recipe obejct
 		state.recipe = new Recipe(id);
 
@@ -93,7 +96,9 @@ const controlRecipe = async () => {
 			state.recipe.calcServings();
 
 			// render recipe
-			console.log(state.recipe);
+			clearLoader();
+			recipeView.renderRecipe(state.recipe);
+			// console.log(state.recipe);
 		} catch (err) {
 			alert(err);
 		}
