@@ -16,7 +16,7 @@ import { elements, renderLoader, clearLoader } from "./views/base";
  */
 // just an object to store the state
 const state = {};
-
+window.state = state;
 /* ==========  SEARCH CONTROLLER ========== */
 const controlSearch = async () => {
 	// 1. get query from view
@@ -131,6 +131,24 @@ const controlList = () => {
 };
 
 // EVENT DELEGATION
+// Handle delete and update list item events
+elements.shopping.addEventListener("click", e => {
+	// we need to specifically find an id in an element, we can use closest
+	const id = e.target.closest(".shopping__item").dataset.itemid;
+	// Handle the delete button
+	if (e.target.matches(".shopping__delete, .shopping__delete *")) {
+		// delete from state
+		state.list.deleteItem(id);
+		// delete from UI
+		listView.deleteItem(id);
+
+		// Handle the count update
+	} else if (e.target.matches(".shopping__count-value")) {
+		const val = parseFloat(e.target.value, 10);
+		state.list.updateCount(id, val);
+	}
+});
+
 // for the number of servings changing buttons because they are still nt there when we load the page
 // also list button for adding to the shopping list
 elements.recipe.addEventListener("click", e => {
