@@ -18,7 +18,6 @@ import { elements, renderLoader, clearLoader } from "./views/base";
  */
 // just an object to store the state
 const state = {};
-window.state = state;
 /* ==========  SEARCH CONTROLLER ========== */
 const controlSearch = async () => {
 	// 1. get query from view
@@ -77,7 +76,7 @@ const controlRecipe = async () => {
 	// window.location is the entire url
 	// Get ID from url
 	const id = window.location.hash.replace("#", "");
-	console.log(id);
+	// console.log(id);
 	if (id) {
 		// prepare UI for changes
 		recipeView.clearRecipe();
