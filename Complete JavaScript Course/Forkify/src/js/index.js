@@ -151,8 +151,6 @@ elements.shopping.addEventListener("click", e => {
 	}
 });
 
-state.likes = new Likes();
-likesView.toggleLikeMenu(state.likes.getNumLikes());
 /* ========== LIKE CONTROLLER ========== */
 const controlLike = () => {
 	// create if doesnt exist
@@ -184,6 +182,21 @@ const controlLike = () => {
 
 	likesView.toggleLikeMenu(state.likes.getNumLikes());
 };
+
+// when the page load, restore the like recipe
+window.addEventListener("load", () => {
+	state.likes = new Likes();
+
+	// restore likes
+	state.likes.readStorage();
+
+	// toggle like menu button
+	likesView.toggleLikeMenu(state.likes.getNumLikes());
+
+	// Render the existing likes
+	state.likes.likes.forEach(like => likesView.renderLike(like));
+});
+
 // for the number of servings changing buttons because they are still nt there when we load the page
 // also list button for adding to the shopping list
 elements.recipe.addEventListener("click", e => {
