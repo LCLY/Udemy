@@ -115,3 +115,24 @@ const controlRecipe = async () => {
 ["hashchange", "load"].forEach(event =>
 	window.addEventListener(event, controlRecipe)
 );
+
+// event delegation for the serving changing buttons because they are still nt there when we load the page
+
+elements.recipe.addEventListener("click", e => {
+	// in this case we cant use closest() like before because there are more than one elements
+	// that we are going to click, closest cant specify
+	// by using matches, we can match the class we want
+	// the asterisk is any child element of btn-decrease
+	if (e.target.matches(".btn-decrease, .btn-decrease *")) {
+		// decrease button is clicked
+		if (state.recipe.servings > 1) {
+			state.recipe.updateServings("dec");
+			recipeView.updateServingsIngredients(state.recipe);
+		}
+	} else if (e.target.matches(".btn-increase, .btn-increase *")) {
+		state.recipe.updateServings("inc");
+		recipeView.updateServingsIngredients(state.recipe);
+	}
+
+	console.log(state.recipe);
+});
