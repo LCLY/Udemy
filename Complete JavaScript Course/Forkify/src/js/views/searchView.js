@@ -27,7 +27,7 @@ export const highLightSelected = id => {
 // acc: 9 -> acc+cur.length = 9+6=15 (still <= 17) -> newTitle=['Pasta','With','Tomato]
 // acc: 15 -> acc+cur.length = 15+3=18 (now > 17) -> newTitle=['Pasta','With','Tomato]
 // acc: 18 -> acc+cur.length = 18+7=25 (now > 17) -> newTitle=['Pasta','With','Tomato]
-const limitRecipeTitle = (title, limit = 17) => {
+export const limitRecipeTitle = (title, limit = 17) => {
 	const newTitle = [];
 	if (title.length > limit) {
 		title.split(" ").reduce((acc, curr) => {
