@@ -11,22 +11,25 @@ const formatCount = count => {
 		// count = 0.5 --> 1/2
 		// converting the number to string, split them with .
 		// and then parse each of them to int
-		const [int, dec] = count
+		// Math.round only returns integer, if we want decimal places,
+		// we need to times the number by 10000 and then later divide it by 10000 again
+		const newCount = Math.round(count * 10000) / 10000;
+		const [int, dec] = newCount
 			.toString()
 			.split(".")
 			.map(el => parseInt(el, 10));
 
-		if (!dec) return count;
+		if (!dec) return newCount;
 
 		if (int === 0) {
-			const fr = new Fraction(count);
+			const fr = new Fraction(newCount);
 			return `${fr.numerator}/${fr.denominator}`;
 		} else {
-			// count = 2.75
+			// newCount = 2.75
 			// int = 2
-			// count - int -> 0.75
+			// newCount - int -> 0.75
 			// new Fraction(0.75) -> numerator: 3, denominator: 4
-			const fr = new Fraction(count - int);
+			const fr = new Fraction(newCount - int);
 			return `${int} ${fr.numerator}/${fr.denominator}`;
 		}
 	}
