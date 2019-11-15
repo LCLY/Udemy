@@ -17,7 +17,7 @@ export const highLightSelected = id => {
 		el.classList.remove("results__link--active");
 	});
 	document
-		.querySelector(`.results__link[href="#${id}"]`)
+		.querySelector(`.results__link[href*="${id}"]`)
 		.classList.add("results__link--active");
 };
 
