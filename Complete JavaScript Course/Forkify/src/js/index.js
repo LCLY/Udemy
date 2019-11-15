@@ -5,6 +5,7 @@ import Likes from "./models/Likes";
 import * as searchView from "./views/searchView";
 import * as recipeView from "./views/recipeView";
 import * as listView from "./views/listView";
+import * as likesView from "./views/likesView";
 import { elements, renderLoader, clearLoader } from "./views/base";
 
 // this is our main controller
@@ -166,6 +167,7 @@ const controlLike = () => {
 			state.recipe.img
 		);
 		// toggle the like button
+		likesView.toggleLikeBtn(true);
 		// add like to UI list
 		// user has  liked current recipe
 		console.log(state.likes);
@@ -173,6 +175,7 @@ const controlLike = () => {
 		// remove like to the state
 		state.likes.deleteLike(currentID);
 		// toggle the like button
+		likesView.toggleLikeBtn(false);
 		// remove like to UI list
 		console.log(state.likes);
 	}
