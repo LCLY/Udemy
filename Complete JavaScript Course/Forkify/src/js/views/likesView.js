@@ -17,7 +17,7 @@ export const renderLike = like => {
         <li>
             <a class="likes__link" href="#${like.id}">
                 <figure class="likes__fig">
-                    <img src="#${like.img}" alt="${like.title}">
+                    <img src="${like.img}" alt="${like.title}">
                 </figure>
                 <div class="likes__data">
                     <h4 class="likes__name">${like.title}</h4>
