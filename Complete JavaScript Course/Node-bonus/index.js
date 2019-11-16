@@ -67,6 +67,13 @@ const server = http.createServer((req, res) => {
 			}
 		);
 		// res.end(`This is the Laptop page for laptop ${id}`);
+	} else if (/\.(jpg|jpeg|png|gif)$/i.test(pathName)) {
+		// here we will test if the pathname contains any of the file types
+		// if it does we gonna serve the image
+		fs.readFile(`${__dirname}/data/img${pathName}`, (err, data) => {
+			res.writeHead(200, { "Content-type": "image/jpg" });
+			res.end(data);
+		});
 
 		// URL NOT FOUND
 	} else {
