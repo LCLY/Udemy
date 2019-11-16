@@ -17,10 +17,37 @@ const server = http.createServer((req, res) => {
 	console.log(url.parse(req.url, true));
 	const id = url.parse(req.url, true).query.id;
 
+	// PRODUCT OVERVIEW
 	if (pathName === "/products" || pathName === "/") {
 		// set http header, small msg to let browser know what kind of data is coming in
 		res.writeHead(200, { "Content-type": "text/html" });
-		res.end("This is the Products page");
+
+		// we are wrapping the card html with overview html
+		fs.readFile(
+			`${__dirname}/templates/template-overview.html`,
+			"utf-8",
+			(err, data) => {
+				let overviewOutput = data;
+				fs.readFile(
+					`${__dirname}/templates/template-card.html`,
+					"utf-8",
+					(err, data) => {
+						// joining the arrays of 'card' html to become a huge html string
+						const cardsOutput = laptopData
+							.map(el => replaceTemplate(data, el))
+							.join("");
+						// replace the {%CARD%} inside the overview html with the cards html
+						overviewOutput = overviewOutput.replace("{%CARD%}", cardsOutput);
+						// render it
+						res.end(overviewOutput);
+					}
+				);
+			}
+		);
+
+		// res.end("This is the Products page");
+
+		// LAPTOP DETAIL
 	} else if (pathName === "/laptop" && id < laptopData.length) {
 		// load html, replace placeholder with real text and then send
 		// it to the browser each time theres a request of laptop
@@ -33,21 +60,15 @@ const server = http.createServer((req, res) => {
 			(err, data) => {
 				const laptop = laptopData[id];
 				// replace returns a new string, we are using regex here
-				let output = data.replace(/{%PRODUCTNAME%}/g, laptop.productName);
-				// we do output = output because if we do data, that means we are not updating the latest one
-				// we only keep making one changes at a time at the original one
-				output = output.replace(/{%IMAGE%}/g, laptop.image);
-				output = output.replace(/{%PRICE%}/g, laptop.price);
-				output = output.replace(/{%SCREEN%}/g, laptop.screen);
-				output = output.replace(/{%CPU%}/g, laptop.cpu);
-				output = output.replace(/{%STORAGE%}/g, laptop.storage);
-				output = output.replace(/{%RAM%}/g, laptop.ram);
-				output = output.replace(/{%DESCRIPTION%}/g, laptop.description);
+				// data is the whole html file
+				const output = replaceTemplate(data, laptop);
 				// send to browser
 				res.end(output);
 			}
 		);
 		// res.end(`This is the Laptop page for laptop ${id}`);
+
+		// URL NOT FOUND
 	} else {
 		// this is when we use 404
 		res.writeHead(404, { "Content-type": "text/html" });
@@ -59,3 +80,18 @@ const server = http.createServer((req, res) => {
 server.listen(1337, "127.0.0.1", () => {
 	console.log("listening on 1337");
 });
+
+function replaceTemplate(originalHtml, laptop) {
+	let output = originalHtml.replace(/{%PRODUCTNAME%}/g, laptop.productName);
+	// we do output = output because if we do data, that means we are not updating the latest one
+	// we only keep making one changes at a time at the original one
+	output = output.replace(/{%IMAGE%}/g, laptop.image);
+	output = output.replace(/{%PRICE%}/g, laptop.price);
+	output = output.replace(/{%SCREEN%}/g, laptop.screen);
+	output = output.replace(/{%CPU%}/g, laptop.cpu);
+	output = output.replace(/{%STORAGE%}/g, laptop.storage);
+	output = output.replace(/{%RAM%}/g, laptop.ram);
+	output = output.replace(/{%DESCRIPTION%}/g, laptop.description);
+	output = output.replace(/{%ID%}/g, laptop.id);
+	return output;
+}
