@@ -1,15 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Box Model / Margin & Padding</title>
-  <style>
-    
-  </style>
-</head>
-<body>
-  
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Box Model / Margin & Padding</title>
+		<style>
+			/* CSS reset */
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			.box {
+				background: lightgrey;
+				border: 2px grey solid;
+				width: 500px;
+
+				/* padding on all sides */
+				padding: 20px;
+
+				/* padding per side */
+				padding-top: 10px;
+				padding-right: 20px;
+				padding-bottom: 10px;
+				padding-left: 20px;
+
+				/* padding short hand */
+				padding: 30 10 20 40;
+
+				/* padding topbot leftright */
+				padding: 30 40;
+
+				/* margin all sides */
+				margin: 20px;
+
+				/* padding per side */
+				margin-top: 10px;
+				margin-right: 20px;
+				margin-bottom: 10px;
+				margin-left: 20px;
+
+				/* margin short hand */
+				margin: 30px 10px 20px 40px;
+
+				/* margin topbot leftright */
+				margin: 30px 40px;
+			}
+
+			.box p {
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<h3>box 1</h3>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi pariatur
+				nulla expedita corporis ea maxime aperiam id repellendus distinctio
+				consequuntur, error enim, labore eius voluptas beatae harum iste! Iure,
+				voluptatibus!
+			</p>
+		</div>
+		<div class="box">
+			<h3>box 2</h3>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi pariatur
+				nulla expedita corporis ea maxime aperiam id repellendus distinctio
+				consequuntur, error enim, labore eius voluptas beatae harum iste! Iure,
+				voluptatibus!
+			</p>
+		</div>
+		<div class="box">
+			<h3>box 3</h3>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi pariatur
+				nulla expedita corporis ea maxime aperiam id repellendus distinctio
+				consequuntur, error enim, labore eius voluptas beatae harum iste! Iure,
+				voluptatibus!
+			</p>
+		</div>
+	</body>
 </html>
