@@ -11,6 +11,15 @@ function initMap() {
 	const marker = new google.maps.Marker({ position: loc, map: map });
 }
 
+// Sticky menu background
+window.addEventListener("scroll", function() {
+	if (window.scrollY > 150) {
+		document.querySelector("#navbar").style.opacity = 0.9;
+	} else {
+		document.querySelector("#navbar").style.opacity = 1;
+	}
+});
+
 // Smooth scrolling
 $("#navbar a, .btn").on("click", function(event) {
 	if (this.hash !== "") {
