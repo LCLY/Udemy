@@ -1,41 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Transitions</title>
-    <style>
-      body {
-        background: #333;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-      }
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Transitions</title>
+		<style>
+			body {
+				background: #333;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 100vh;
+			}
 
-      .box {
-        background: white;
-        width: 100px;
-        height: 100px;
-        /* transition-property: background, border-radius height width */
-        /* transition-property: all;
-        transition-duration: 1s;
-        transition-timing-function: ease-in; */
-        /* transition-delay: 2s, 4s; */
+			.box {
+				background: white;
+				width: 100px;
+				height: 100px;
+				/* transition-property: background;
+				transition-property: border-radius;
+				transition-duration: 2s;
+				transition-delay: 3s;
+				transition-timing-function: ease-in-out; */
 
-        /* Shorthand - property/duration/timing-function/delay */
-        transition: all 1s ease-in-out;
-      }
+				transition: all 2s ease-in-out;
+			}
 
-      .box:hover {
-        background: red;
-        border-radius: 50%;
-        height: 300px;
-        width: 300px;
-      }
+			.box:hover {
+				background: red;
+				border-radius: 50%;
+				height: 300px;
+				width: 300px;
+			}
 
-      /* 
+			/* 
         TRANSITIONAL PROPERTIES
         -Properties that have an identifiable halfway point
 
@@ -69,9 +68,9 @@
         width 
         word-spacing 
         z-index */
-    </style>
-  </head>
-  <body>
-    <div class="box"></div>
-  </body>
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+	</body>
 </html>
