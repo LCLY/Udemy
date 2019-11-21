@@ -260,3 +260,23 @@ h6 {
 #home-articles .articles-container > *:last-child {
 	grid-column: 2 / span 2;
 }
+
+/* Footer */
+#main-footer {
+	background: var(--dark-color);
+	color: #fff;
+}
+
+#main-footer img {
+	width: 150px;
+}
+
+#main-footer a {
+	color: #fff;
+}
+
+#main-footer .footer-container {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 1.5rem;
+}
