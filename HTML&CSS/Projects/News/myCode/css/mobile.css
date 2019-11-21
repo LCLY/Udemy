@@ -39,4 +39,17 @@
 	#main-footer .footer-container > *:last-child {
 		grid-column: 1;
 	}
+
+	#main-footer .footer-container > *:first-child,
+	#main-footer .footer-container > *:nth-child(2) {
+		border-bottom: #444 dotted 1px;
+		padding-bottom: 1rem;
+	}
+
+	/* can just add to 1 and 2 instead of removing the rest */
+	/* #main-footer .footer-container > *:last-child,
+	#main-footer .footer-container > *:nth-child(3),
+	#main-footer .footer-container > *:nth-child(4) {
+		border: none;
+	} */
 }
