@@ -18,5 +18,10 @@
 }
 
 #home-articles .articles-container {
-	grid-template-columns: ;
+	grid-template-columns: repeat(2, 1fr);
+}
+
+#home-articles .articles-container > *:first-child {
+	grid-template-columns: 1fr;
+	grid-column: 1;
 }
