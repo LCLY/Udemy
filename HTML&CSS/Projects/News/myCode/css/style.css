@@ -280,3 +280,11 @@ h6 {
 	grid-template-columns: repeat(4, 1fr);
 	grid-gap: 1.5rem;
 }
+
+#main-footer .footer-container > *:last-child {
+	background: #444;
+	grid-column: 1 / span 4;
+	padding: 0.5rem;
+	text-align: center;
+	font-size: 0.75rem;
+}
