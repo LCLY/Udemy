@@ -92,6 +92,26 @@
 					"message";
 			}
 		}
+
+		&-b {
+			div {
+				margin-bottom: 1rem;
+				padding-bottom: 1rem;
+				border-bottom: 1px solid #555;
+
+				&:last-child {
+					border: none;
+					margin-bottom: 0;
+					padding-bottom: 0;
+				}
+			}
+		}
+
+		&-c {
+			h1 {
+				font-size: 2rem;
+			}
+		}
 	}
 
 	// Footer
@@ -104,3 +124,5 @@
 		}
 	}
 }
+
+// Landscape mode
