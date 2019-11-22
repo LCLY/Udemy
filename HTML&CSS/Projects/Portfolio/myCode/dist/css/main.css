@@ -47,16 +47,16 @@ input[class^="btn-"]:hover {
 .py-4 {
   padding: 4rem 0; }
 
-Margin .my-1 {
+.my-1 {
   margin: 1rem 0; }
 
-Margin .my-2 {
+.my-2 {
   margin: 2rem 0; }
 
-Margin .my-3 {
+.my-3 {
   margin: 3rem 0; }
 
-Margin .my-4 {
+.my-4 {
   margin: 4rem 0; }
 
 .section-title {
@@ -76,8 +76,7 @@ Margin .my-4 {
 
 * {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box; }
+  padding: 0; }
 
 body {
   font-family: "Dosis", sans-serif;
@@ -136,6 +135,11 @@ img {
       font-size: 4rem;
       line-height: 1.2; }
 
+#header-inner {
+  background: url("../img/showcase.jpg") no-repeat 20% 30%/cover;
+  height: 5.5rem;
+  border-bottom: 3px solid #ffbc00; }
+
 #home-a .specials {
   margin-top: 3rem;
   display: grid;
@@ -154,11 +158,40 @@ img {
     #home-b .stats li.stats-title {
       font-size: 1.5rem; }
     #home-b .stats li.stats-number {
-      font-size: 1.5rem;
+      font-size: 2rem;
       font-weight: bold; }
   #home-b .stats div {
     padding: 3rem 0; }
     #home-b .stats div:nth-child(odd) {
-      background-color: #f4f4f4; }
+      background: #f4f4f4; }
     #home-b .stats div:nth-child(even) {
-      background-color: #ccc; }
+      background: #ccc; }
+
+#home-c .process {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1.5rem;
+  text-align: center; }
+  #home-c .process-step {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 28px;
+    background: #ffbc00;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    line-height: 15px;
+    padding: 1rem;
+    transition: all 1s; }
+  #home-c .process-icon {
+    border-radius: 50%;
+    background: #333;
+    color: #fff;
+    width: 70px;
+    height: 70px;
+    padding: 2rem;
+    line-height: 70px;
+    text-align: center;
+    position: relative;
+    transition: all 1s; }
