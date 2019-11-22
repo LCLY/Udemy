@@ -10,7 +10,7 @@ body {
 
 header {
   background: #333;
-  color: #f4f4f4;
+  color: #fff;
   padding: 1rem; }
   header h1 {
     text-align: center; }
@@ -24,7 +24,7 @@ header {
     color: #fff; }
   .section-b {
     background: skyblue;
-    color: #fff; }
+    color: #000; }
 
 .btn-light, .btn-dark {
   display: inline-block;
@@ -35,9 +35,19 @@ header {
   margin-top: 1rem; }
 
 .btn-light {
-  color: #333;
+  color: #000;
   background-color: #f4f4f4; }
+  .btn-light:hover {
+    --webkit-transform: $property;
+    -ms-tranform: rotate(20deg);
+    transform: rotate(20deg);
+    background-color: #dbdbdb; }
 
 .btn-dark {
   color: #fff;
   background-color: #333; }
+  .btn-dark:hover {
+    --webkit-transform: $property;
+    -ms-tranform: rotate(-20deg);
+    transform: rotate(-20deg);
+    background-color: #4d4d4d; }
