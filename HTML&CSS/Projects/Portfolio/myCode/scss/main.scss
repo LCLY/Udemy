@@ -175,6 +175,43 @@ img {
 				text-align: center;
 				position: relative;
 				transition: all 1s;
+				&:hover {
+					background: $main-color;
+					width: 90px;
+					height: 90px;
+					line-height: 90px;
+
+					.process-step {
+						background: $dark-color;
+					}
+				}
+			}
+		}
+	}
+}
+
+// Footer
+#main-footer {
+	background: $dark-color;
+	color: #fff;
+	height: 5rem;
+	.footer-content {
+		display: flex;
+		justify-content: space-between;
+		height: 5rem;
+		align-items: center;
+		// creating the outer circle
+		.social .fab {
+			margin-right: 1rem;
+			border: 2px #fff solid;
+			border-radius: 50%;
+			height: 20px;
+			width: 20px;
+			line-height: 20px;
+			text-align: center;
+			padding: 0.5rem;
+			&:hover {
+				background: $main-color;
 			}
 		}
 	}
