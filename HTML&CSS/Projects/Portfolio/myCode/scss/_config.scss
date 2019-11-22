@@ -6,3 +6,12 @@ $medium-color: #ccc;
 $dark-color: #333;
 // this url is refering to dist directory
 $bg-image: url("../img/showcase.jpg");
+
+// set Text color
+@function set-text-color($color) {
+	@if (lightness($color) > 50) {
+		@return #000;
+	} @else {
+		@return #fff;
+	}
+}
