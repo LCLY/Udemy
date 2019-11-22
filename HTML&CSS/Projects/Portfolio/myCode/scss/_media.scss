@@ -126,3 +126,20 @@
 }
 
 // Landscape mode
+@media (max-height: 580px) {
+	#header-home {
+		.header-content {
+			padding-top: 3rem;
+		}
+	}
+}
+// IPhone 5
+@media (max-height: 330px) {
+	#header-home {
+		.header-content {
+			h1 {
+				font-size: 2rem;
+			}
+		}
+	}
+}
