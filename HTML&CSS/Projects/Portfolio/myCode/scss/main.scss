@@ -28,3 +28,20 @@ h3,
 h4 {
 	text-transform: uppercase;
 }
+
+img {
+	width: 100%;
+}
+
+// Header
+#header {
+	// id: header-home
+	&-home {
+		background: $bg-image no-repeat center right/cover;
+		height: 100vh;
+		color: #fff;
+	}
+	// id: header-inner
+	&-inner {
+	}
+}
