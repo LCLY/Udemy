@@ -47,6 +47,18 @@ input[class^="btn-"]:hover {
 .py-4 {
   padding: 4rem 0; }
 
+Margin .my-1 {
+  margin: 1rem 0; }
+
+Margin .my-2 {
+  margin: 2rem 0; }
+
+Margin .my-3 {
+  margin: 3rem 0; }
+
+Margin .my-4 {
+  margin: 4rem 0; }
+
 * {
   margin: 0;
   padding: 0;
@@ -108,3 +120,13 @@ img {
     #header-home .header-content h1 {
       font-size: 4rem;
       line-height: 1.2; }
+
+#home-a .specials {
+  margin-top: 3rem;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(4, 1fr); }
+
+#home-a .fas {
+  color: #ffbc00;
+  padding-bottom: 0.4rem; }
