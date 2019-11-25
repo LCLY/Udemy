@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import Validation from "./Components/ValidationComponent";
 import CharComponent from "./Components/CharComponent";
+import Styled from "styled-components";
 import "./App.css";
+
+const StyledDiv = Styled.div`
+	backgroundcolor: red;
+`;
 
 class App extends Component {
 	state = {
@@ -32,6 +37,16 @@ class App extends Component {
 				/>
 			);
 		});
+
+		const style = {
+			backgroundColor: "green",
+			":hover": {
+				backgroundColor: "lightgreen"
+			},
+			"@media (min-width:500px)": {
+				width: "450px"
+			}
+		};
 
 		return (
 			<div className="App">
@@ -66,12 +81,12 @@ class App extends Component {
 					</li>
 				</ol>
 				<p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
-
 				<input
 					type="text"
 					onChange={e => getLength(e)}
 					value={this.state.input}
 				></input>
+				<StyledDiv>TEST</StyledDiv>
 				<p>text length: {this.state.input.length}</p>
 				<Validation inputLength={this.state.input.length} />
 				{charList}

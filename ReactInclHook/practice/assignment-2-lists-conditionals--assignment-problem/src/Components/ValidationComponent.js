@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const Validation = props => {
 	let message = "Text long enough";
