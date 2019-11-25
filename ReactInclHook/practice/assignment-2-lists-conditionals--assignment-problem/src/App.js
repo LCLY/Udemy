@@ -14,7 +14,8 @@ const StyledDiv = styled.div`
 class App extends Component {
 	state = {
 		boolValue: true,
-		input: ""
+		input: "",
+		btnClass: [classes.test]
 	};
 
 	render() {
@@ -53,15 +54,16 @@ class App extends Component {
 		// };
 
 		const flipColor = () => {
-			console.log("flip");
 			this.setState({ boolValue: !this.state.boolValue });
+			this.setState({ btnClass: this.state.btnClass.push(classes.Cool) });
+			this.setState({ btnClass: this.state.btnClass.join(" ") });
 		};
 
 		return (
 			<div className="App">
 				<StyledDiv alt={this.state.boolValue}>
 					<ol>
-						<li className={classes.test}>
+						<li className={this.state.btnClass}>
 							Create an input field (in App component) with a change listener
 							which outputs the length of the entered text below it (e.g. in a
 							paragraph).

@@ -3,10 +3,17 @@
 }
 
 .test {
-	font-size: 30px;
+	font-size: 20px;
 }
 
 .test:hover {
-	font-size: 50px;
+	font-size: 30px;
 	color: white;
+}
+
+.test.Cool {
+	color: yellow;
+}
+.test.Cool:hover {
+	color: blue;
 }
