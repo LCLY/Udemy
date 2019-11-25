@@ -3,7 +3,7 @@ import Validation from "./Components/ValidationComponent";
 import CharComponent from "./Components/CharComponent";
 import styled from "styled-components";
 import classes from "./App.css";
-
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 const StyledDiv = styled.div`
 	background: ${props => (props.alt ? "yellow" : "blue")};
 	&:hover {
@@ -104,7 +104,9 @@ class App extends Component {
 					<p>text length: {this.state.input.length}</p>
 					<Validation inputLength={this.state.input.length} />
 					{charList}
-					<button onClick={flipColor}>Flip the color</button>
+					<ErrorBoundary>
+						<button onClick={flipColor}>Flip the color</button>
+					</ErrorBoundary>
 				</StyledDiv>
 			</div>
 		);
