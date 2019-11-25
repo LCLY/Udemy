@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Validation from "./Components/ValidationComponent";
 import CharComponent from "./Components/CharComponent";
 import styled from "styled-components";
-import "./App.css";
+import classes from "./App.css";
 
 const StyledDiv = styled.div`
 	background: ${props => (props.alt ? "yellow" : "blue")};
@@ -61,7 +61,7 @@ class App extends Component {
 			<div className="App">
 				<StyledDiv alt={this.state.boolValue}>
 					<ol>
-						<li>
+						<li className={classes.test}>
 							Create an input field (in App component) with a change listener
 							which outputs the length of the entered text below it (e.g. in a
 							paragraph).
