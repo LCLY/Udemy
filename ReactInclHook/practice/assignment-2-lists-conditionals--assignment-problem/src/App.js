@@ -5,14 +5,15 @@ import styled from "styled-components";
 import "./App.css";
 
 const StyledDiv = styled.div`
-	background: blue;
+	background: ${props => (props.alt ? "yellow" : "blue")};
 	&:hover {
-		background-color: red;
+		background-color: ${props => (props.alt ? "grey" : "red")};
 	}
 `;
 
 class App extends Component {
 	state = {
+		boolValue: true,
 		input: ""
 	};
 
@@ -41,19 +42,24 @@ class App extends Component {
 			);
 		});
 
-		const style = {
-			backgroundColor: "green",
-			":hover": {
-				backgroundColor: "lightgreen"
-			},
-			"@media (min-width:500px)": {
-				width: "450px"
-			}
+		// const style = {
+		// 	backgroundColor: "green",
+		// 	":hover": {
+		// 		backgroundColor: "lightgreen"
+		// 	},
+		// 	"@media (min-width:500px)": {
+		// 		width: "450px"
+		// 	}
+		// };
+
+		const flipColor = () => {
+			console.log("flip");
+			this.setState({ boolValue: !this.state.boolValue });
 		};
 
 		return (
 			<div className="App">
-				<StyledDiv>
+				<StyledDiv alt={this.state.boolValue}>
 					<ol>
 						<li>
 							Create an input field (in App component) with a change listener
@@ -96,6 +102,7 @@ class App extends Component {
 					<p>text length: {this.state.input.length}</p>
 					<Validation inputLength={this.state.input.length} />
 					{charList}
+					<button onClick={flipColor}>Flip the color</button>
 				</StyledDiv>
 			</div>
 		);
