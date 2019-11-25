@@ -2,7 +2,7 @@ import React from "react";
 
 import classes from "./Person.css";
 
-const person = props => {
+const Person = props => {
 	const rnd = Math.random();
 
 	// if (rnd > 0.7) {
@@ -19,4 +19,4 @@ const person = props => {
 	);
 };
 
-export default person;
+export default Person;
