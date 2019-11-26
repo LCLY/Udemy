@@ -1,20 +1,23 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import PropTypes from "prop-types";
+import AuthContext from "../context/auth-context";
 const CharComponent = props => {
 	const toggleListRef = useRef(null);
+	const authContext = useContext(AuthContext);
 
 	useEffect(() => {
-		console.log("render only the first time");
-		console.log("toggle Ref:", toggleListRef);
+		// console.log("render only the first time");
+		// console.log("toggle Ref:", toggleListRef);
 		// toggleListRef.current.innerHTML = "<div></div>";
+		console.log("inside char", authContext.authenticated);
 		return () => {
-			console.log("cleaning up just like componentWillUnmount");
+			// console.log("cleaning up just like componentWillUnmount");
 		};
 	}, []);
 
 	useEffect(() => {
 		return () => {
-			console.log("Second cleaning up");
+			// console.log("Second cleaning up");
 		};
 	});
 
@@ -30,6 +33,7 @@ const CharComponent = props => {
 	return (
 		<div style={style} onClick={props.clicked}>
 			{props.character}
+			<p>AuthContext authenticated: {authContext.authenticated.toString()}</p>
 			<button ref={toggleListRef}>TEST</button>
 		</div>
 	);
