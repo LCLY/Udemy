@@ -1,7 +1,7 @@
 # Udemy
 All Udemy codes, projects, assignments
 <br/>
-HTML google doc notes: [go here] (https://docs.google.com/document/d/1kkj2I-pRm6SkFDbtPZq2yZUV8B_oxm4CnmZxr_qT6-4/edit?usp=sharing)
+HTML google doc notes: [go here](https://docs.google.com/document/d/1kkj2I-pRm6SkFDbtPZq2yZUV8B_oxm4CnmZxr_qT6-4/edit?usp=sharing)
 <br/>
 CSS google doc notes: [go here](https://docs.google.com/document/d/1B6k88VpRrqejS1IBOZjB44kcLOv15V_Revf63zZ-RCA/edit?usp=sharing)
 <br/>
