@@ -3,6 +3,7 @@ import Validation from "./Components/ValidationComponent";
 import CharComponent from "./Components/CharComponent";
 import styled from "styled-components";
 import classes from "./App.css";
+import AuthContext from "./context/auth-context";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 const StyledDiv = styled.div`
 	background: ${props => (props.alt ? "yellow" : "blue")};
@@ -12,10 +13,19 @@ const StyledDiv = styled.div`
 `;
 
 class App extends Component {
+	constructor(props) {
+		super(props);
+		this.inputElementRef = React.createRef();
+	}
+	componentDidMount() {
+		this.inputElementRef.current.focus();
+	}
+
 	state = {
 		boolValue: true,
 		input: "",
-		btnClass: [classes.test]
+		btnClass: [classes.test],
+		authenticated: false
 	};
 
 	render() {
@@ -52,6 +62,11 @@ class App extends Component {
 		// 		width: "450px"
 		// 	}
 		// };
+
+		const toggleHandler = () => {
+			console.log("yes");
+			this.setState({ authenticated: !this.state.authenticated });
+		};
 
 		const flipColor = () => {
 			this.setState({ boolValue: !this.state.boolValue });
@@ -97,12 +112,22 @@ class App extends Component {
 					</p>
 					<input
 						type="text"
+						// ref={inputEL => (this.refToElement = inputEL)}
+						ref={this.inputElementRef}
 						onChange={e => getLength(e)}
 						value={this.state.input}
 					></input>
 					Anything inside
 					<p>text length: {this.state.input.length}</p>
-					<Validation inputLength={this.state.input.length} />
+					<button onClick={toggleHandler}> toggle authenticate</button>
+					<AuthContext.Provider
+						value={{
+							authenticated: this.state.authenticated,
+							login: toggleHandler
+						}}
+					>
+						<Validation inputLength={this.state.input.length} />
+					</AuthContext.Provider>
 					{charList}
 					<ErrorBoundary>
 						<button onClick={flipColor}>Flip the color</button>

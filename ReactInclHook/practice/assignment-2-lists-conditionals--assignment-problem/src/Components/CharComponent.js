@@ -1,15 +1,18 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 const CharComponent = props => {
+	const toggleListRef = useRef(null);
+
 	useEffect(() => {
 		console.log("render only the first time");
+		console.log("toggle Ref:", toggleListRef);
+		// toggleListRef.current.innerHTML = "<div></div>";
 		return () => {
 			console.log("cleaning up just like componentWillUnmount");
 		};
 	}, []);
 
 	useEffect(() => {
-		console.log("render only the first time");
 		return () => {
 			console.log("Second cleaning up");
 		};
@@ -27,8 +30,14 @@ const CharComponent = props => {
 	return (
 		<div style={style} onClick={props.clicked}>
 			{props.character}
+			<button ref={toggleListRef}>TEST</button>
 		</div>
 	);
+};
+
+CharComponent.propTypes = {
+	clicked: PropTypes.func,
+	character: PropTypes.string
 };
 
 export default CharComponent;
