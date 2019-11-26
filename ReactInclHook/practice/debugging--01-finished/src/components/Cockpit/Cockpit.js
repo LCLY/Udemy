@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./Cockpit.css";
 
 const Cockpit = props => {
+	useEffect(() => {
+		console.log("useEffect");
+		return () => {
+			console.log("something");
+		};
+	}, []);
 	const assignedClasses = [];
 	let btnClass = "";
 	if (props.showPersons) {
@@ -25,4 +31,4 @@ const Cockpit = props => {
 	);
 };
 
-export default Cockpit;
+export default React.memo(Cockpit);

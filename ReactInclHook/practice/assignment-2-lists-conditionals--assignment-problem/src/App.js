@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, PureComponent } from "react";
 import Validation from "./Components/ValidationComponent";
 import CharComponent from "./Components/CharComponent";
 import styled from "styled-components";
