@@ -1,5 +1,5 @@
 # Burger Builder
-## A mini project built with React
+A mini project built with React
 <br/>
 Project Simple Planning
 <br/>
