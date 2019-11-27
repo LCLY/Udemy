@@ -17,6 +17,8 @@ const BuildControls = props => {
 						label={el.label}
 						// passing in the type to the function
 						added={() => props.ingredientAdded(el.type)}
+						removed={() => props.ingredientRemoved(el.type)}
+						disabled={props.disabled[el.type]}
 					/>
 				);
 			})}
