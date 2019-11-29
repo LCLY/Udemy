@@ -18,6 +18,9 @@ class FullPost extends Component {
 					.get("https://jsonplaceholder.typicode.com/posts/" + this.props.id)
 					.then(res => {
 						this.setState({ loadedPost: res.data });
+					})
+					.catch(err => {
+						console.log(err);
 					});
 			}
 		}
