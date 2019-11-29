@@ -4,9 +4,6 @@ import Toolbar from "../Navigation/Toolbar/Toolbar";
 import SideDrawer from "../Navigation/SideDrawer/SideDrawer";
 // turn this into a stateful component to handle backdrop
 class Layout extends React.Component {
-	constructor(props) {
-		super(props);
-	}
 	state = {
 		showSideDrawer: false
 	};
