@@ -16,13 +16,15 @@ class Layout extends React.Component {
 	};
 
 	sideDrawerOpenHandler = () => {
-		this.setState({ showSideDrawer: true });
+		this.setState(prevState => {
+			return { showSideDrawer: !prevState.showSideDrawer };
+		});
 	};
 
 	render() {
 		return (
 			<>
-				<Toolbar openSide={this.sideDrawerOpenHandler} />
+				<Toolbar drawerToggleClicked={this.sideDrawerOpenHandler} />
 				<SideDrawer
 					open={this.state.showSideDrawer}
 					closed={this.sideDrawerClosedHandler}
