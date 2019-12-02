@@ -8,7 +8,7 @@ instance.defaults.headers.post["Content-Type"] = "application/json";
 
 instance.interceptors.request.use(
 	request => {
-		console.log(request);
+		// console.log(request);
 		return request;
 	},
 	error => {
@@ -19,7 +19,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
 	response => {
-		console.log(response);
+		// console.log(response);
 		return response;
 	},
 	error => {

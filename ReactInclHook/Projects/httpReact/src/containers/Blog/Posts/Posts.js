@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import Post from "../../../components/Post/Post";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import axios from "../../../axios";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "./Posts.css";
 
 class Posts extends Component {
 	state = {
 		posts: [],
-		selectedPostId: null,
+
 		error: false,
 		loading: true
 	};
@@ -34,7 +34,7 @@ class Posts extends Component {
 	}
 
 	postSelectedhandler = id => {
-		this.setState({ selectedPostId: id });
+		this.props.history.push({ pathname: "/" + id });
 	};
 	render() {
 		let posts = <p style={{ textAlign: "center" }}> Something went wrong</p>;
@@ -42,13 +42,14 @@ class Posts extends Component {
 			posts = this.state.posts.map(post => {
 				// console.log(post.title);
 				return (
-					<Link to={"/" + post.id} key={post.id}>
-						<Post
-							title={post.title}
-							author={post.author}
-							clicked={() => this.postSelectedhandler(post.id)}
-						/>
-					</Link>
+					// <Link to={"/" + post.id} >
+					<Post
+						key={post.id}
+						title={post.title}
+						author={post.author}
+						clicked={() => this.postSelectedhandler(post.id)}
+					/>
+					// </Link>
 				);
 			});
 		}

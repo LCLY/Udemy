@@ -7,7 +7,7 @@ class FullPost extends Component {
 		loadedPost: null
 	};
 	componentDidMount() {
-		console.log("fullpost", this.props.match.params.id);
+		// console.log("fullpost", this.props.match.params.id);
 		if (this.props.match.params.id) {
 			// check if theres no existing loadedPost then fetch one first to fill up the empty state
 			// only do a new get if the current selected post is different than the previous one that was stored in loadedPost

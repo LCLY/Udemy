@@ -9,7 +9,7 @@ class NewPost extends Component {
 		author: "Max"
 	};
 	componentDidMount() {
-		console.log(this.props);
+		// console.log(this.props);
 	}
 
 	postDataHandler = () => {
@@ -20,7 +20,7 @@ class NewPost extends Component {
 		};
 
 		axios.post("/posts", data).then(res => {
-			console.log(res);
+			// console.log(res);
 		});
 	};
 
