@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Post from "../../../components/Post/Post";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import axios from "../../../axios";
-// import { Link } from "react-router-dom";
+import FullPost from "../../../containers/Blog/FullPost/FullPost";
+import { Route } from "react-router-dom";
 import "./Posts.css";
 
 class Posts extends Component {
@@ -14,6 +15,7 @@ class Posts extends Component {
 	};
 
 	componentDidMount() {
+		console.log(this.props.match);
 		axios
 			.get("/posts")
 			.then(response => {
@@ -34,7 +36,7 @@ class Posts extends Component {
 	}
 
 	postSelectedhandler = id => {
-		this.props.history.push({ pathname: "/" + id });
+		this.props.history.push("/posts/" + id);
 	};
 	render() {
 		let posts = <p style={{ textAlign: "center" }}> Something went wrong</p>;
@@ -58,7 +60,14 @@ class Posts extends Component {
 				{this.state.loading ? (
 					<Spinner />
 				) : (
-					<section className="Posts">{posts}</section>
+					<div>
+						<section className="Posts">{posts}</section>
+						<Route
+							path={this.props.match.url + "/:id"}
+							exact
+							component={FullPost}
+						/>
+					</div>
 				)}
 			</>
 		);
