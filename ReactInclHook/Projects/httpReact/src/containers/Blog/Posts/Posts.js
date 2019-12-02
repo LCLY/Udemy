@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import Post from "../../../components/Post/Post";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import axios from "../../../axios";
+import "./Posts.css";
+
 class Posts extends Component {
 	state = {
 		posts: [],

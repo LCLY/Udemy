@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import axios from "../../axios";
-import Spinner from "../../components/UI/Spinner/Spinner";
 import "./Blog.css";
-
+import Post from "./Posts/Posts";
 class Blog extends Component {
 	render() {
 		return (
@@ -19,13 +17,13 @@ class Blog extends Component {
 						</ul>
 					</nav>
 				</header>
-
-				<section>
+				<Post />
+				{/* <section>
 					<FullPost id={this.state.selectedPostId} />
 				</section>
 				<section>
 					<NewPost />
-				</section>
+				</section> */}
 			</div>
 		);
 	}
