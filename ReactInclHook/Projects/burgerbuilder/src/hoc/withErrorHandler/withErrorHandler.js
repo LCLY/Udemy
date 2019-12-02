@@ -7,17 +7,26 @@ const withErrorHandler = (WrappedComponent, axios) => {
 			error: null
 		};
 		componentWillMount() {
-			axios.interceptors.request.use(req => {
+			this.reqInterceptor = axios.interceptors.request.use(req => {
 				this.setState({ error: null });
 				return req;
 			});
 
-			axios.interceptors.response.use(
+			this.resInterceptor = axios.interceptors.response.use(
 				res => res,
 				error => {
 					this.setState({ error: error });
 				}
 			);
+		}
+
+		// since this anonymous class component might be used by multiple components,
+		// they will keep calling the axios interceptors even though they dont need it
+		// anymore, and that will cause memory leaks, so what we can do is to clean up
+		// the memory using componentWillUnmount
+		componentWillUnmount() {
+			axios.interceptors.request.eject(this.reqInterceptor);
+			axios.interceptors.request.eject(this.resInterceptor);
 		}
 
 		errorConfirmedHandler = () => {
