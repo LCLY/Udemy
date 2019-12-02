@@ -44,7 +44,6 @@ class Posts extends Component {
 				return (
 					<Link to={"/" + post.id} key={post.id}>
 						<Post
-							key={post.id}
 							title={post.title}
 							author={post.author}
 							clicked={() => this.postSelectedhandler(post.id)}

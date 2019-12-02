@@ -6,8 +6,9 @@ class FullPost extends Component {
 	state = {
 		loadedPost: null
 	};
-	componentDidUpdate() {
-		if (this.props.id) {
+	componentDidMount() {
+		console.log("fullpost", this.props.match.params.id);
+		if (this.props.match.params.id) {
 			// check if theres no existing loadedPost then fetch one first to fill up the empty state
 			// only do a new get if the current selected post is different than the previous one that was stored in loadedPost
 			if (
@@ -15,7 +16,7 @@ class FullPost extends Component {
 				(this.state.loadedPost && this.state.loadedPost.id !== this.props.id)
 			) {
 				axios
-					.get("/posts/" + this.props.id)
+					.get("/posts/" + this.props.match.params.id)
 					.then(res => {
 						this.setState({ loadedPost: res.data });
 					})
@@ -27,13 +28,13 @@ class FullPost extends Component {
 	}
 
 	deletePostHandler = () => {
-		axios.delete("/posts/" + this.props.id).then(res => {
+		axios.delete("/posts/" + this.props.match.params.id).then(res => {
 			console.log(res);
 		});
 	};
 	render() {
 		let post = <p style={{ textAlign: "center" }}>Please select a Post!</p>;
-		if (this.props.id) {
+		if (this.props.match.params.id) {
 			post = <p style={{ textAlign: "center" }}>Loading...</p>;
 		}
 		// only render if loadedPost has data
