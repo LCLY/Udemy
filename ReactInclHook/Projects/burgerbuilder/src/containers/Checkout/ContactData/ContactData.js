@@ -8,8 +8,40 @@ class ContactData extends Component {
 		address: {
 			street: "",
 			postalCode: ""
-		}
+		},
+		loading: false
 	};
+
+	orderHandler = e => {
+		e.preventDefault();
+		// console.log(this.props.ingredients);
+		this.setState({ loading: true });
+		const order = {
+			ingredients: this.props.ingredients,
+			price: this.props.totalPrice,
+			customer: {
+				name: "Henry",
+				address: {
+					street: "St 400",
+					zipCode: "47906",
+					country: "United States"
+				},
+				email: "test@test.com"
+			},
+			deliveryMethod: "fastest"
+		};
+		axios
+			.post("/orders.json", order)
+			.then(res => {
+				console.log(res);
+				this.setState({ loading: false, purchasing: false });
+			})
+			.catch(err => {
+				console.log(err);
+				this.setState({ loading: false, purchasing: false });
+			});
+	};
+
 	render() {
 		return (
 			<div className={classes.ContactData}>
@@ -39,7 +71,9 @@ class ContactData extends Component {
 						name="postal"
 						placeholder="Postal Code"
 					/>
-					<Button btnType="Success">ORDER</Button>
+					<Button btnType="Success" clicked={this.orderHandler}>
+						ORDER
+					</Button>
 				</form>
 			</div>
 		);
