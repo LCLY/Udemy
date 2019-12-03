@@ -5,7 +5,13 @@ const NavigationItem = props => {
 	return (
 		<li className={classes.NavigationItem}>
 			{/* if true, set the class to active or else nothing */}
-			<NavLink to={props.link}>{props.children}</NavLink>
+			<NavLink
+				activeClassName={classes.active}
+				exact={props.exact}
+				to={props.link}
+			>
+				{props.children}
+			</NavLink>
 		</li>
 	);
 };
