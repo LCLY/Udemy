@@ -38,10 +38,10 @@ class ContactData extends Component {
 				console.log(res);
 				this.setState({ loading: false });
 				// we will need to pass props into the render in checkout.js in order to obtain the props history
-				// 	<Route
-				// 	path={this.props.match.path + "/contact-data"}
-				// 	render={props => (
-				// 		<ContactData
+				// <Route
+				//  	path={this.props.match.path + "/contact-data"}
+				//  	render={props => (
+				// 	 	<ContactData
 				// 			ingredients={this.state.ingredients}
 				// 			price={this.state.totalPrice}
 				// 			{...props}

@@ -13,8 +13,10 @@ class Orders extends Component {
 			.then(res => {
 				const fetchedOrders = [];
 				for (let key in res.data) {
+					// for every iteration, we add one more new entry: id
 					fetchedOrders.push({ ...res.data[key], id: key });
 				}
+				// fetchedOrders from firebase is stored in the orders state
 				this.setState({ loading: false, orders: fetchedOrders });
 			})
 			.catch(err => {
@@ -24,8 +26,13 @@ class Orders extends Component {
 	render() {
 		return (
 			<div>
-				<Order />
-				<Order />
+				{this.state.orders.map(order => (
+					<Order
+						key={order.id}
+						ingredients={order.ingredients}
+						price={order.price}
+					/>
+				))}
 			</div>
 		);
 	}
