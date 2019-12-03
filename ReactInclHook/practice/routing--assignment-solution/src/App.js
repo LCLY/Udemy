@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { Route, Redirect, NavLink, Switch } from "react-router-dom";
+import { Route, NavLink, Switch, Redirect } from "react-router-dom";
+
 import Courses from "./containers/Courses/Courses";
 import Course from "./containers/Course/Course";
 import Users from "./containers/Users/Users";
-import NoMatch from "./component/NoMatch/NoMatch";
+import NoMatch from "./components/NoMatch/NoMatch";
+
 class App extends Component {
 	render() {
 		return (
@@ -38,15 +40,19 @@ class App extends Component {
 					</li>
 				</ol>
 				<nav>
-					<NavLink to="/users">Users</NavLink>
-					&nbsp; &nbsp;
-					<NavLink to="/courses">Courses</NavLink>
+					<ul style={{ listStyle: "none", margin: "auto", padding: "0" }}>
+						<li style={{ margin: "10px", display: "inline-block" }}>
+							<NavLink to="/courses">Courses</NavLink>
+						</li>
+						<li style={{ margin: "10px", display: "inline-block" }}>
+							<NavLink to="/users">Users</NavLink>
+						</li>
+					</ul>
 				</nav>
 				<Switch>
 					<Route path="/users" component={Users} />
-					{/* <Route path="/courses/:courseId" exact component={Course} /> */}
+					{/* <Route path="/courses/:courseId" component={Course} /> */}
 					<Route path="/courses" component={Courses} />
-					{/* remember to add this /courses/course */}
 					<Redirect from="/all-courses" to="/courses" />
 					<Route component={NoMatch} />
 				</Switch>

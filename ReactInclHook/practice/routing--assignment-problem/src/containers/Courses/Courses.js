@@ -1,6 +1,6 @@
 import React, { Component } from "react";
+import { Link, Route } from "react-router-dom";
 import Course from "../Course/Course";
-import { Route } from "react-router-dom";
 import "./Courses.css";
 class Courses extends Component {
 	state = {
@@ -12,11 +12,11 @@ class Courses extends Component {
 	};
 
 	componentDidMount() {
-		console.log("wtf", this.props.match);
+		console.log("Courses", this.props.match);
 	}
 
 	selectId = id => {
-		this.props.history.push("/courses/" + id);
+		this.props.history.push(this.props.match.url + "/" + id);
 	};
 
 	render() {
@@ -26,17 +26,24 @@ class Courses extends Component {
 				<section className="Courses">
 					{this.state.courses.map(course => {
 						return (
-							<article
-								onClick={() => this.selectId(course.id)}
-								className="Course"
+							<Link
 								key={course.id}
+								to={{
+									pathname: this.props.match.url + "/" + course.id,
+									search: "?title=" + course.title
+								}}
 							>
-								{course.title}>
-							</article>
+								<article
+									// onClick={() => this.selectId(course.id)}
+									className="Course"
+								>
+									{course.title}>
+								</article>
+							</Link>
 						);
 					})}
 				</section>
-				<Route path={this.props.match.url + "/:id"} exact component={Course} />
+				<Route path={this.props.match.url + "/:courseId"} component={Course} />
 			</div>
 		);
 	}
