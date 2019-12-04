@@ -81,7 +81,8 @@ class ContactData extends Component {
 				value: "",
 				validation: {
 					required: false
-				}
+				},
+				valid: true
 			}
 		},
 		loading: false
@@ -188,6 +189,8 @@ class ContactData extends Component {
 						elementType={formElement.config.elementType}
 						elementConfig={formElement.config.elementConfig}
 						value={formElement.config.value}
+						invalid={!formElement.config.valid}
+						shouldValidate={formElement.config.validation}
 						changed={e => this.inputChangedHandler(e, formElement.id)}
 					/>
 				))}
