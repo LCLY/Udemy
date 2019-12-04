@@ -66,9 +66,21 @@ class ContactData extends Component {
 		e.preventDefault();
 		// console.log(this.props.ingredients);
 		this.setState({ loading: true });
+
+		const formData = {};
+		// create new objects with the value from this.state.orderForm
+		// e.g. name:value, email:value, zipcode:value, country:value
+		for (let formElementIdentifier in this.state.orderForm) {
+			formData[formElementIdentifier] = this.state.orderForm[
+				formElementIdentifier
+			].value;
+		}
+
+		// then add the formData to orderData in order object and push it to firebase
 		const order = {
 			ingredients: this.props.ingredients,
-			price: this.props.price
+			price: this.props.price,
+			orderData: formData
 		};
 		axios
 			.post("/orders.json", order)
@@ -114,7 +126,7 @@ class ContactData extends Component {
 			formElementsArray.push({ id: key, config: this.state.orderForm[key] });
 		}
 		let form = (
-			<form>
+			<form onSubmit={this.orderHandler}>
 				{formElementsArray.map(formElement => (
 					// config is the object from formElementsArray that stores the reference in it
 					<Input
