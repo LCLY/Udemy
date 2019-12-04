@@ -132,10 +132,11 @@ class ContactData extends Component {
 	};
 
 	checkValidity(value, rules) {
-		console.log(rules);
-		let isValid = false;
+		let isValid = true;
 		if (rules.required) {
 			// remove whitespace so if theres whitespace it doenst count as a valid input
+			// value.trim() !== "" returns when you type in words because it is indeed not
+			// an empty string when you type in something
 			isValid = value.trim() !== "" && isValid;
 		}
 
