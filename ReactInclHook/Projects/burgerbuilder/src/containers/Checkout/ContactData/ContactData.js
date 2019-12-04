@@ -84,12 +84,11 @@ class ContactData extends Component {
 					]
 				},
 				value: "",
-				validation: {
-					required: false
-				},
+				validation: {},
 				valid: true
 			}
 		},
+		formIsValid: false,
 		loading: false
 	};
 
@@ -176,14 +175,24 @@ class ContactData extends Component {
 
 		// we replace the temp orderForm's name object with the updatedFormElement (value changed)
 		updatedOrderForm[inputIdentifier] = updatedFormElement;
+		// false && false: false
+		// false && true: false
+		// true && false: false
+		// true && true: true
+		let formIsValid = true;
+		for (let inputIdentifier in updatedOrderForm) {
+			formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+		}
+		// console.log(formIsValid);
 
 		// then we update the whole state
-		this.setState({ orderForm: updatedOrderForm });
+		this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
 	};
 
 	render() {
 		// convert object to array
 		const formElementsArray = [];
+
 		for (let key in this.state.orderForm) {
 			formElementsArray.push({ id: key, config: this.state.orderForm[key] });
 		}
@@ -202,7 +211,11 @@ class ContactData extends Component {
 						changed={e => this.inputChangedHandler(e, formElement.id)}
 					/>
 				))}
-				<Button btnType="Success" clicked={this.orderHandler}>
+				<Button
+					btnType="Success"
+					disabled={!this.state.formIsValid}
+					clicked={this.orderHandler}
+				>
 					ORDER
 				</Button>
 			</form>
