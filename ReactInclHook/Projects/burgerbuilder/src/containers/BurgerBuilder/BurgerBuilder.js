@@ -13,7 +13,7 @@ class BurgerBuilder extends Component {
 	state = {
 		// ingredients: null, //removed since we are using redux now
 		// totalPrice: 4,
-		purchasable: false,
+		// purchasable: false,
 		purchasing: false,
 		loading: false,
 		error: false
@@ -36,8 +36,10 @@ class BurgerBuilder extends Component {
 			.reduce((sum, el) => {
 				return sum + el;
 			}, 0);
-		this.setState({ purchasable: sum > 0 });
+		return sum > 0;
 	};
+
+	// dont need anymore since we are using redux
 
 	// addIngredientHandler = type => {
 	// 	const oldCount = this.state.ingredients[type];
@@ -127,7 +129,8 @@ class BurgerBuilder extends Component {
 					<BuildControls
 						ingredientAdded={this.props.onIngredientAdded}
 						ingredientRemoved={this.props.onIngredientRemoved}
-						purchasable={this.state.purchasable}
+						// get true if there is more than 1 ingredient
+						purchasable={this.updatePurchaseState(this.props.ings)}
 						disabled={disabledInfo}
 						ordered={this.purchaseHandler}
 						price={this.props.price}
