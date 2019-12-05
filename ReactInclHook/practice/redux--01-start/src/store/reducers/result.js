@@ -1,15 +1,16 @@
 import * as actionTypes from "../actions/actionTypes";
+import { updateObject } from "../utility";
 const initialState = {
 	results: []
 };
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actionTypes.STORE_RESULT:
-			return {
-				// concat returns a new array with new items you added to old arrays
-				...state,
+			// concat returns a new array with new items you added to old arrays
+			return updateObject(state, {
 				results: state.results.concat({ id: new Date(), value: action.result })
-			};
+			});
+
 		case actionTypes.DELETE_RESULT:
 			// delete array immutably
 			// const newArray = [...state.result];
@@ -29,36 +30,8 @@ const reducer = (state = initialState, action) => {
 				// instead of using the index, we can use the id that we set in the state object
 				result => result.id !== action.resultElementId
 			);
-			return {
-				...state,
-				results: updatedArray
-			};
+			return updateObject(state, { results: updatedArray });
 	}
-
-	// if (action.type === "INCREMENT") {
-	// 	return {
-	// 		...state,
-	// 		counter: state.counter + 1
-	// 	};
-	// }
-	// if (action.type === "DECREMENT") {
-	// 	return {
-	// 		...state,
-	// 		counter: state.counter - 1
-	// 	};
-	// }
-	// if (action.type === "ADD") {
-	// 	return {
-	// 		...state,
-	// 		counter: state.counter + action.val
-	// 	};
-	// }
-	// if (action.type === "SUBTRACT") {
-	// 	return {
-	// 		...state,
-	// 		counter: state.counter - action.val
-	// 	};
-	// }
 	return state;
 };
 
