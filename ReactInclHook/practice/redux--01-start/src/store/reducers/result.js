@@ -3,6 +3,14 @@ import { updateObject } from "../utility";
 const initialState = {
 	results: []
 };
+
+const deleteResult = (state, action) => {
+	const updatedArray = state.results.filter(
+		result => result.id !== action.resultElementId
+	);
+	return updateObject(state, { results: updatedArray });
+};
+
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actionTypes.STORE_RESULT:
@@ -23,14 +31,14 @@ const reducer = (state = initialState, action) => {
 
 			// *** to use filter to delete element, we return true for every element that doesnt
 			// have a certain ID or which is not a certain index here
-			const updatedArray = state.results.filter(
-				// return true if that index is not equal to the index of element that we want to remove it at
-				// (result, index) => index !== id
-				// OR
-				// instead of using the index, we can use the id that we set in the state object
-				result => result.id !== action.resultElementId
-			);
-			return updateObject(state, { results: updatedArray });
+			// const updatedArray = state.results.filter(
+			// return true if that index is not equal to the index of element that we want to remove it at
+			// (result, index) => index !== id
+			// OR
+			// instead of using the index, we can use the id that we set in the state object
+			// result => result.id !== action.resultElementId
+			// );
+			return deleteResult(state, action);
 	}
 	return state;
 };
