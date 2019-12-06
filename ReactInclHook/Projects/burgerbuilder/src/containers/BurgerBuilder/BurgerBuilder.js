@@ -16,17 +16,12 @@ class BurgerBuilder extends Component {
 		// ingredients: null, //removed since we are using redux now
 		// totalPrice: 4,
 		// purchasable: false,
-		purchasing: false,
-		loading: false,
-		error: false
+		purchasing: false
+		// loading: false,
+		// error: false
 	};
 
-	componentDidMount() {
-		// axios
-		// 	.get("https://react-burger-699a0.firebaseio.com/ingredients.json")
-		// 	.then(res => this.setState({ ingredients: res.data }))
-		// 	.catch(err => this.setState({ error: true }));
-	}
+	componentDidMount() {}
 
 	updatePurchaseState = updatedIngredients => {
 		const ingredients = updatedIngredients;
@@ -133,10 +128,10 @@ class BurgerBuilder extends Component {
 				/>
 			);
 		}
-
-		if (this.state.loading) {
-			orderSummary = <Spinner />;
-		}
+		// we are using redux now
+		// if (this.state.loading) {
+		// 	orderSummary = <Spinner />;
+		// }
 
 		return (
 			<>
