@@ -5,9 +5,10 @@ import ContactData from "../Checkout/ContactData/ContactData";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/order";
 class Checkout extends Component {
-	componentWillMount() {
-		this.props.onInitPurchase();
-	}
+	// this might cause a problem because we might still be using old props
+	// componentWillMount() {
+	// 	this.props.onInitPurchase();
+	// }
 
 	checkoutCancelledHandler = () => {
 		this.props.history.goBack();
@@ -49,10 +50,5 @@ const mapStateToProps = state => {
 		purchased: state.order.purchased
 	};
 };
-const mapDispatchToProps = dispatch => {
-	return {
-		onInitPurchase: () => dispatch(actions.purchaseInit())
-	};
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
+export default connect(mapStateToProps)(Checkout);
