@@ -6,7 +6,7 @@
 
 .Label {
 	font-weight: bold;
-	display: bold;
+	display: block;
 	margin-bottom: 8px;
 }
 

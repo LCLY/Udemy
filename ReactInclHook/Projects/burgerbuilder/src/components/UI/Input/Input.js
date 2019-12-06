@@ -3,7 +3,7 @@ import classes from "./Input.module.css";
 
 const Input = props => {
 	let inputElement = null;
-	const inputClasses = [classes.inputElement];
+	const inputClasses = [classes.InputElement];
 
 	// console.log(props.shouldValidate);
 	if (props.invalid && props.shouldValidate && props.touched) {
