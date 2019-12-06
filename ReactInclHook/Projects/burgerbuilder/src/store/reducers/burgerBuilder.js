@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
+import { updateObject } from "../utility";
 
 const initialState = {
 	ingredients: null,
@@ -15,7 +16,9 @@ const INGREDIENT_PRICES = {
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actionTypes.ADD_INGREDIENT:
-			return {
+			/*	
+			// Old way of doing it
+				return {
 				...state,
 				// remember its nested, so we need to nest spread as well
 				ingredients: {
@@ -26,28 +29,63 @@ const reducer = (state = initialState, action) => {
 					[action.ingredientName]: state.ingredients[action.ingredientName] + 1
 				},
 				totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+			};*/
+
+			// using the updatedObject function
+			const updatedIngredient = {
+				[action.ingredientName]: state.ingredients[action.ingredientName] + 1
 			};
+
+			const updatedIngredients = updateObject(
+				state.ingredients,
+				updatedIngredient
+			);
+
+			const updatedState = {
+				ingredients: updatedIngredients,
+				totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+			};
+
+			return updateObject(state, updatedState);
+
 		case actionTypes.REMOVE_INGREDIENT:
-			return {
-				...state,
-				ingredients: {
-					...state.ingredients,
-					[action.ingredientName]: state.ingredients[action.ingredientName] - 1
-				},
-				totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
+			// return {
+			// 	...state,
+			// 	ingredients: {
+			// 		...state.ingredients,
+			// 		[action.ingredientName]: state.ingredients[action.ingredientName] - 1
+			// 	},
+			// 	totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
+			// };
+			const removedIngredient = {
+				[action.ingredientName]: state.ingredients[action.ingredientName] + 1
 			};
+			const removedIngredients = updateObject(
+				state.ingredients,
+				removedIngredient
+			);
+			const removedState = {
+				ingredients: removedIngredients,
+				totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+			};
+
+			return updateObject(state, removedState);
+
 		case actionTypes.SET_INGREDIENTS:
-			return {
-				...state,
+			// return {
+			// 	...state,
+			// 	ingredients: action.ingredients,
+			// 	totalPrice: 4,
+			// 	error: false
+			// };
+			return updateObject(state, {
 				ingredients: action.ingredients,
 				totalPrice: 4,
 				error: false
-			};
+			});
+
 		case actionTypes.FETCH_INGREDIENTS_FAILED:
-			return {
-				...state,
-				error: true
-			};
+			return updateObject(state, { error: true });
 		default:
 			return state;
 	}
