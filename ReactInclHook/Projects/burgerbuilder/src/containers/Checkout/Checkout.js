@@ -3,7 +3,7 @@ import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSumm
 import { Route, Redirect } from "react-router-dom";
 import ContactData from "../Checkout/ContactData/ContactData";
 import { connect } from "react-redux";
-import * as actions from "../../store/actions/order";
+// import * as actions from "../../store/actions/order";
 class Checkout extends Component {
 	// this might cause a problem because we might still be using old props
 	// componentWillMount() {
