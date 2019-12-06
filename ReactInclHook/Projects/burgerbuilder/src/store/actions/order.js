@@ -44,7 +44,7 @@ export const purchaseBurger = orderData => {
 				// />
 				// this.props.history.push("/"); //redirect to homepage
 				console.log(res.data);
-				dispatch(purchaseBurgerSuccess(res.data, orderData));
+				dispatch(purchaseBurgerSuccess(res.data.name, orderData));
 			})
 			.catch(err => {
 				dispatch(purchaseBurgerFail(err));
