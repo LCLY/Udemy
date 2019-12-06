@@ -5,6 +5,8 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import axios from "../../../axios-orders";
 import Input from "../../../components/UI/Input/Input";
 import { connect } from "react-redux";
+import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
+import * as actions from "../../../store/actions/index";
 class ContactData extends Component {
 	state = {
 		orderForm: {
@@ -95,7 +97,9 @@ class ContactData extends Component {
 	orderHandler = e => {
 		e.preventDefault();
 		// console.log(this.props.ingredients);
-		this.setState({ loading: true });
+
+		// no longer needed
+		// this.setState({ loading: true });
 
 		const formData = {};
 		// create new objects with the value from this.state.orderForm
@@ -112,28 +116,8 @@ class ContactData extends Component {
 			price: this.props.price,
 			orderData: formData
 		};
-		axios
-			.post("/orders.json", order)
-			.then(res => {
-				console.log(res);
-				this.setState({ loading: false });
-				// we will need to pass props into the render in checkout.js in order to obtain the props history
-				// <Route
-				//  	path={this.props.match.path + "/contact-data"}
-				//  	render={props => (
-				// 	 	<ContactData
-				// 			ingredients={this.state.ingredients}
-				// 			price={this.state.totalPrice}
-				// 			{...props}
-				// 		/>
-				// 	)}
-				// />
-				this.props.history.push("/"); //redirect to homepage
-			})
-			.catch(err => {
-				console.log(err);
-				this.setState({ loading: false });
-			});
+
+		this.props.onBurgerOrder(order);
 	};
 
 	checkValidity(value, rules) {
@@ -238,4 +222,14 @@ const mapStateToProps = state => {
 		price: state.totalPrice
 	};
 };
-export default connect(mapStateToProps)(ContactData);
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onBurgerOrder: orderData => dispatch(actions.purchaseBurgerStart(orderData))
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(withErrorHandler(ContactData, axios));
