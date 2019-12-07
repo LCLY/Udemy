@@ -7,6 +7,7 @@ import Input from "../../../components/UI/Input/Input";
 import { connect } from "react-redux";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from "../../../store/actions/index";
+import { updateObject } from "../../../shared/utility";
 class ContactData extends Component {
 	state = {
 		orderForm: {
@@ -156,12 +157,13 @@ class ContactData extends Component {
 	}
 
 	inputChangedHandler = (e, inputIdentifier) => {
+		// const updatedOrderForm = {
+		// 	...this.state.orderForm
+		// };
 		// console.log(this.state.orderForm[inputIdentifier]);
-		const updatedOrderForm = {
-			...this.state.orderForm
-		};
 
-		const updatedFormElement = { ...updatedOrderForm[inputIdentifier] };
+		// OLD CODE
+		/*const updatedFormElement = { ...updatedOrderForm[inputIdentifier] };
 		// change the value with the e.target.value
 		updatedFormElement.value = e.target.value;
 
@@ -171,10 +173,33 @@ class ContactData extends Component {
 			updatedFormElement.validation
 		);
 
-		updatedFormElement.touched = true;
+		updatedFormElement.touched = true;*/
+
+		// the code above is refactored using updateObject to below
+		const updatedFormElement = updateObject(
+			this.state.orderForm[inputIdentifier],
+			{
+				value: e.target.value,
+				valid: this.checkValidity(
+					e.target.value,
+					this.state.orderForm[inputIdentifier].validation
+				),
+				touched: true
+			}
+		);
+		// OLD CODE
+		/*	const updatedOrderForm = {
+			...this.state.orderForm
+		};
 
 		// we replace the temp orderForm's name object with the updatedFormElement (value changed)
-		updatedOrderForm[inputIdentifier] = updatedFormElement;
+		updatedOrderForm[inputIdentifier] = updatedFormElement;*/
+
+		// REFACTORED CODE
+		const updatedOrderForm = updateObject(this.state.orderForm, {
+			[inputIdentifier]: updatedFormElement
+		});
+
 		// false && false: false
 		// false && true: false
 		// true && false: false
