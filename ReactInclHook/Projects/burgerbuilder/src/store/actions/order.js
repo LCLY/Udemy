@@ -44,7 +44,7 @@ export const purchaseBurger = (orderData, token) => {
 				// 	)}
 				// />
 				// this.props.history.push("/"); //redirect to homepage
-				console.log(res.data);
+				// console.log(res.data);
 				dispatch(purchaseBurgerSuccess(res.data.name, orderData));
 			})
 			.catch(err => {
