@@ -4,6 +4,7 @@ import Input from "../../components/UI/Input/Input";
 import * as actions from "../../store/actions/index";
 import classes from "./Auth.module.css";
 import { connect } from "react-redux";
+
 class Auth extends Component {
 	state = {
 		controls: {
@@ -14,7 +15,7 @@ class Auth extends Component {
 					placeholder: "Email Address"
 				},
 				value: "",
-				validaton: {
+				validation: {
 					required: true,
 					isEmail: true
 				},
@@ -28,14 +29,15 @@ class Auth extends Component {
 					placeholder: "Password"
 				},
 				value: "",
-				validaton: {
+				validation: {
 					required: true,
 					minLength: 6
 				},
 				valid: false,
 				touched: false
 			}
-		}
+		},
+		isSignUp: true
 	};
 
 	checkValidity(value, rules) {
@@ -85,17 +87,24 @@ class Auth extends Component {
 				touched: true
 			}
 		};
-
 		this.setState({ controls: updatedControls });
 	};
 
 	submitHandler = event => {
 		event.preventDefault();
-		console.log("doing something");
 		this.props.onAuth(
 			this.state.controls.email.value,
-			this.state.controls.password.value
+			this.state.controls.password.value,
+			this.state.isSignUp
 		);
+	};
+
+	switchAuthModeHandler = () => {
+		this.setState(prevState => {
+			return {
+				isSignUp: !prevState.isSignUp
+			};
+		});
 	};
 
 	render() {
@@ -116,14 +125,18 @@ class Auth extends Component {
 				invalid={!formElement.config.valid}
 				shouldValidate={formElement.config.validation}
 				touched={formElement.config.touched}
-				changed={e => this.inputChangedHandler(e, formElement.id)}
+				changed={event => this.inputChangedHandler(event, formElement.id)}
 			/>
 		));
 		return (
 			<div className={classes.Auth}>
 				<form onSubmit={this.submitHandler}>
-					{form} <Button btnType="Success">SUBMIT</Button>
+					{form}
+					<Button btnType="Success">SUBMIT</Button>
 				</form>
+				<Button btnType="Danger" clicked={this.switchAuthModeHandler}>
+					SWITCH TO {this.state.isSignUp ? "SIGN IN" : "SIGN UP"}
+				</Button>
 			</div>
 		);
 	}
@@ -131,7 +144,8 @@ class Auth extends Component {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onAuth: (email, password) => dispatch(actions.auth(email, password))
+		onAuth: (email, password, isSignUp) =>
+			dispatch(actions.auth(email, password, isSignUp))
 	};
 };
 
