@@ -110,10 +110,12 @@ class ContactData extends Component {
 		}
 
 		// then add the formData to orderData in order object and push it to firebase
+
 		const order = {
 			ingredients: this.props.ings,
 			price: this.props.price,
-			orderData: formData
+			orderData: formData,
+			userId: this.props.userId // adding user id here to only show order that is related to the user with the userid, now we are sending this to the database
 		};
 
 		this.props.onBurgerOrder(order, this.props.token);
@@ -235,7 +237,8 @@ const mapStateToProps = state => {
 		ings: state.burgerBuilder.ingredients,
 		price: state.burgerBuilder.totalPrice,
 		loading: state.order.loading,
-		token: state.auth.token
+		token: state.auth.token,
+		userId: state.auth.userId
 	};
 };
 
