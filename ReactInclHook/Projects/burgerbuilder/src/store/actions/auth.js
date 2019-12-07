@@ -1,6 +1,20 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
 
+export const logout = () => {
+	return {
+		type: actionTypes.AUTH_LOGOUT
+	};
+};
+
+export const checkAuthTimeout = expiratonTime => {
+	return dispatch => {
+		setTimeout(() => {
+			dispatch(logout());
+		}, expiratonTime * 1000);
+	};
+};
+
 export const authStart = () => {
 	return {
 		type: actionTypes.AUTH_START
@@ -42,6 +56,7 @@ export const auth = (email, password, isSignUp) => {
 			.then(res => {
 				console.log(res);
 				dispatch(authSuccess(res.data.idToken, res.data.localId));
+				dispatch(checkAuthTimeout(res.data.expiresIn)); //expiration time from firebase
 			})
 			.catch(err => {
 				console.log(err);
