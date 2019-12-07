@@ -22,11 +22,12 @@ export const purchaseBurgerStart = () => {
 	};
 };
 
-export const purchaseBurger = orderData => {
+// add token here
+export const purchaseBurger = (orderData, token) => {
 	return dispatch => {
 		dispatch(purchaseBurgerStart());
 		axios
-			.post("/orders.json", orderData)
+			.post("/orders.json?auth=" + token, orderData)
 			.then(res => {
 				// this is used to be in ContactData.js
 				// console.log(res);
@@ -73,11 +74,11 @@ export const fetchOrdersStart = () => {
 		type: actionTypes.FETCH_ORDERS_START
 	};
 };
-export const fetchOrders = () => {
+export const fetchOrders = token => {
 	return dispatch => {
 		dispatch(fetchOrdersStart());
 		axios
-			.get("/orders.json")
+			.get("/orders.json?auth=" + token)
 			.then(res => {
 				const fetchedOrders = [];
 				for (let key in res.data) {
