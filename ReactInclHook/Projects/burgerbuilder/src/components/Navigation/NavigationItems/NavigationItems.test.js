@@ -21,7 +21,7 @@ describe("<NavigationItems />", () => {
 		expect(wrapper.find(NavigationItem)).toHaveLength(3);
 	});
 
-	it("should render three <NavigationItem /> elements if authenticated", () => {
+	it("should render a logout button if authenticated", () => {
 		wrapper.setProps({ isAuthenticated: true });
 		// inside expect we define what we want to check
 		expect(
