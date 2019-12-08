@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-
+import Router from "next/router";
 const index = props => {
 	return (
 		<div>
@@ -11,6 +11,7 @@ const index = props => {
 					<a> Auth</a>
 				</Link>
 			</p>
+			<button onClick={() => Router.push("/auth")}>Go to Auth</button>
 		</div>
 	);
 };
