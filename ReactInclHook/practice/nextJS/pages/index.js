@@ -2,10 +2,20 @@ import React from "react";
 import Link from "next/link";
 import Router from "next/router";
 class IndexPage extends React.Component {
+	static async getInitialProps(context) {
+		console.log(context);
+		const promise = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve({ appName: "Super App" });
+			}, 1000);
+		});
+		return promise;
+	}
+
 	render() {
 		return (
 			<div>
-				<h1>The Main Page</h1>
+				<h1>The Main Page of {this.props.appName}</h1>
 				<p>
 					Go to
 					<Link href="/auth">

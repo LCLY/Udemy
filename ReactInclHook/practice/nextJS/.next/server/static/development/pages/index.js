@@ -1837,56 +1837,71 @@ module.exports = __webpack_require__(/*! ./dist/client/link */ "./node_modules/n
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/router */ "next/router");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_corejs2_core_js_promise__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/promise */ "./node_modules/@babel/runtime-corejs2/core-js/promise.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_promise__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_promise__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_3__);
+
 var _jsxFileName = "D:\\Projects\\Udemy\\ReactInclHook\\practice\\nextJS\\pages\\index.js";
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
 
 
 
-class IndexPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class IndexPage extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
+  static async getInitialProps(context) {
+    console.log(context);
+    const promise = new _babel_runtime_corejs2_core_js_promise__WEBPACK_IMPORTED_MODULE_0___default.a((resolve, reject) => {
+      setTimeout(() => {
+        resolve({
+          appName: "Super App"
+        });
+      }, 1000);
+    });
+    return promise;
+  }
+
   render() {
     return __jsx("div", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 7
+        lineNumber: 17
       },
       __self: this
     }, __jsx("h1", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 8
+        lineNumber: 18
       },
       __self: this
-    }, "The Main Page"), __jsx("p", {
+    }, "The Main Page of ", this.props.appName), __jsx("p", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 9
+        lineNumber: 19
       },
       __self: this
-    }, "Go to", __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    }, "Go to", __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
       href: "/auth",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 11
+        lineNumber: 21
       },
       __self: this
     }, __jsx("a", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 12
+        lineNumber: 22
       },
       __self: this
     }, " Auth"))), __jsx("button", {
-      onClick: () => next_router__WEBPACK_IMPORTED_MODULE_2___default.a.push("/auth"),
+      onClick: () => next_router__WEBPACK_IMPORTED_MODULE_3___default.a.push("/auth"),
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 15
+        lineNumber: 25
       },
       __self: this
     }, "Go to Auth"));
