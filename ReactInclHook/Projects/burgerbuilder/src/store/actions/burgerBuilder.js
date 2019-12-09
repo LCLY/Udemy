@@ -28,12 +28,19 @@ export const fetchIngredientsFailed = () => {
 	};
 };
 
+// export const initIngredients = () => {
+// 	return dispatch => {
+// 		// execute async code
+// 		axios
+// 			.get("https://react-burger-699a0.firebaseio.com/ingredients.json")
+// 			.then(res => dispatch(setIngredients(res.data)))
+// 			.catch(err => dispatch(fetchIngredientsFailed()));
+// 	};
+// };
+
+// redux-sagas
 export const initIngredients = () => {
-	return dispatch => {
-		// execute async code
-		axios
-			.get("https://react-burger-699a0.firebaseio.com/ingredients.json")
-			.then(res => dispatch(setIngredients(res.data)))
-			.catch(err => dispatch(fetchIngredientsFailed()));
+	return {
+		type: actionTypes.INIT_INGREDIENTS
 	};
 };
