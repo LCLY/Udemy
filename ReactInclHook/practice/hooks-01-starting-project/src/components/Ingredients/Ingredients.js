@@ -18,24 +18,45 @@ const ingredientReducer = (currentIngredients, action) => {
 	}
 };
 
+const httpReducer = (currHttpState, action) => {
+	switch (action.type) {
+		case "SEND":
+			return { isLoading: true, error: null };
+		case "RESPONSE":
+			return { ...currHttpState, isLoading: false, error: null };
+		case "ERROR":
+			return { isLoading: false, error: action.error };
+		case "CLEAR":
+			return { ...currHttpState, error: null };
+		default:
+			throw new Error("Should not get here");
+	}
+};
+
 const Ingredients = () => {
 	const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
+	const [httpState, dispatchHttp] = useReducer(httpReducer, {
+		isLoading: false,
+		error: null
+	});
 	// const [userIngredients, setUserIngredients] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState();
+	// const [isLoading, setIsLoading] = useState(false);
+	// const [error, setError] = useState();
 	useEffect(() => {
-		console.log("rendering", userIngredients);
+		// console.log("rendering", userIngredients);
 	}, [userIngredients]);
 
 	const addIngredientHandler = ingredient => {
-		setIsLoading(true);
+		// setIsLoading(true);
+		dispatchHttp({ type: "SEND" });
 		fetch("https://react-hooks-812b9.firebaseio.com/ingredients.json", {
 			method: "POST",
 			body: JSON.stringify(ingredient),
 			headers: { "Content-Type": "application/json" }
 		})
 			.then(res => {
-				setIsLoading(false);
+				// setIsLoading(false);
+				dispatchHttp({ type: "RESPONSE" });
 				// extract body
 				return res.json();
 			})
@@ -54,7 +75,8 @@ const Ingredients = () => {
 	};
 
 	const removeIngredientHandler = ingredientId => {
-		setIsLoading(true);
+		// setIsLoading(true);
+		dispatchHttp({ type: "SEND" });
 		fetch(
 			`https://react-hooks-812b9.firebaseio.com/ingredients/${ingredientId}.json`,
 			{
@@ -62,15 +84,17 @@ const Ingredients = () => {
 			}
 		)
 			.then(res => {
-				setIsLoading(false);
+				// setIsLoading(false);
+				dispatchHttp({ type: "RESPONSE" });
 				// setUserIngredients(prevIngredients =>
 				// 	prevIngredients.filter(ingredient => ingredient.id !== ingredientId)
 				// );
 				dispatch({ type: "DELETE", id: ingredientId });
 			})
 			.catch(err => {
-				setIsLoading(false); //stop loading
-				setError(err.message);
+				// setIsLoading(false); //stop loading
+				dispatchHttp({ type: "ERROR", error: "SOMETHINGS WRONG" });
+				// setError(err.message);
 			});
 	};
 
@@ -80,14 +104,16 @@ const Ingredients = () => {
 	}, []);
 
 	const clearError = () => {
-		setError(null);
+		dispatchHttp({ type: "CLEAR" });
 	};
 	return (
 		<div className="App">
-			{error && <ErrorModal onClose={clearError}>{error}</ErrorModal>}
+			{httpState.error && (
+				<ErrorModal onClose={clearError}>{httpState.error}</ErrorModal>
+			)}
 			<IngredientForm
 				onAddIngredient={addIngredientHandler}
-				loading={isLoading}
+				loading={httpState.isLoading}
 			/>
 
 			<section>
