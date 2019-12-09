@@ -27,19 +27,22 @@ const Search = React.memo(props => {
 					.then(responseData => {
 						const loadedIngredients = [];
 						for (let key in responseData) {
-							if (enteredFilter.length === 0) {
-								loadedIngredients.push({
-									id: key,
-									title: responseData[key].title,
-									amount: responseData[key].amount
-								});
-							}
+							loadedIngredients.push({
+								id: key,
+								title: responseData[key].title,
+								amount: responseData[key].amount
+							});
 						}
+
 						// here onLoadIngredients is a dependency
 						onLoadIngredients(loadedIngredients);
 					});
 			}
 		}, 500);
+		// a clean up function
+		return () => {
+			clearTimeout(timer);
+		};
 	}, [enteredFilter, onLoadIngredients, inputRef]);
 
 	return (
