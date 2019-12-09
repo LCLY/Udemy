@@ -1,12 +1,19 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
 
+// export const logout = () => {
+// 	localStorage.removeItem("token");
+// 	localStorage.removeItem("expirationTime");
+// 	localStorage.removeItem("userId");
+// 	return {
+// 		type: actionTypes.AUTH_LOGOUT
+// 	};
+// };
+
+// react-sagas version
 export const logout = () => {
-	localStorage.removeItem("token");
-	localStorage.removeItem("expirationTime");
-	localStorage.removeItem("userId");
 	return {
-		type: actionTypes.AUTH_LOGOUT
+		type: actionTypes.AUTH_INITIATE_LOGOUT
 	};
 };
 
