@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import IngredientForm from "./IngredientForm";
 import IngredientList from "./IngredientList";
@@ -7,22 +7,23 @@ import Search from "./Search";
 const Ingredients = () => {
 	const [userIngredients, setUserIngredients] = useState([]);
 
-	useEffect(() => {
-		fetch("https://react-hooks-812b9.firebaseio.com/ingredients.json")
-			.then(res => res.json())
-			.then(responseData => {
-				const loadedIngredients = [];
-				for (let key in responseData) {
-					loadedIngredients.push({
-						id: key,
-						title: responseData[key].ingredient.title,
-						amount: responseData[key].ingredient.amount
-					});
-				}
+	// dont need this, its redundant
+	// useEffect(() => {
+	// 	fetch("https://react-hooks-812b9.firebaseio.com/ingredients.json")
+	// 		.then(res => res.json())
+	// 		.then(responseData => {
+	// 			const loadedIngredients = [];
+	// 			for (let key in responseData) {
+	// 				loadedIngredients.push({
+	// 					id: key,
+	// 					title: responseData[key].ingredient.title,
+	// 					amount: responseData[key].ingredient.amount
+	// 				});
+	// 			}
 
-				setUserIngredients(loadedIngredients);
-			});
-	}, []);
+	// 			setUserIngredients(loadedIngredients);
+	// 		});
+	// }, []);
 
 	useEffect(() => {
 		console.log("rendering", userIngredients);
@@ -48,12 +49,16 @@ const Ingredients = () => {
 			});
 	};
 
+	const filteredIngredientsHandler = useCallback(filteredIngredients => {
+		setUserIngredients(filteredIngredients);
+	}, []);
+
 	return (
 		<div className="App">
 			<IngredientForm onAddIngredient={addIngredientHandler} />
 
 			<section>
-				<Search />
+				<Search onLoadIngredients={filteredIngredientsHandler} />
 				<IngredientList ingredients={userIngredients} onRemoveItem={() => {}} />
 			</section>
 		</div>
