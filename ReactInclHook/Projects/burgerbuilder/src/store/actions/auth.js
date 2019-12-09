@@ -17,11 +17,25 @@ export const logout = () => {
 	};
 };
 
+export const logoutSucceed = () => {
+	return {
+		type: actionTypes.AUTH_LOGOUT
+	};
+};
+
+// export const checkAuthTimeout = expiratonTime => {
+// 	return dispatch => {
+// 		setTimeout(() => {
+// 			dispatch(logout());
+// 		}, expiratonTime * 1000);
+// 	};
+// };
+
+// react-sagas version
 export const checkAuthTimeout = expiratonTime => {
-	return dispatch => {
-		setTimeout(() => {
-			dispatch(logout());
-		}, expiratonTime * 1000);
+	return {
+		type: actionTypes.AUTH_CHECK_TIMEOUT,
+		expirationTime: expiratonTime
 	};
 };
 
@@ -46,7 +60,7 @@ export const authFail = error => {
 	};
 };
 
-export const auth = (email, password, isSignUp) => {
+/*export const auth = (email, password, isSignUp) => {
 	return dispatch => {
 		dispatch(authStart());
 		const authData = {
@@ -79,6 +93,16 @@ export const auth = (email, password, isSignUp) => {
 				console.log(err);
 				dispatch(authFail(err.response.data.error));
 			});
+	};
+};*/
+
+// redux-sagas version
+export const auth = (email, password, isSignUp) => {
+	return {
+		type: actionTypes.AUTH_USER,
+		email: email,
+		password: password,
+		isSignUp: isSignUp
 	};
 };
 
