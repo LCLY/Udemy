@@ -15,18 +15,23 @@ const Ingredients = () => {
 				for (let key in responseData) {
 					loadedIngredients.push({
 						id: key,
-						title: responseData[key].title,
-						amount: responseData[key].amount
+						title: responseData[key].ingredient.title,
+						amount: responseData[key].ingredient.amount
 					});
 				}
+
 				setUserIngredients(loadedIngredients);
 			});
 	}, []);
 
+	useEffect(() => {
+		console.log("rendering", userIngredients);
+	}, [userIngredients]);
+
 	const addIngredientHandler = ingredient => {
 		fetch("https://react-hooks-812b9.firebaseio.com/ingredients.json", {
 			method: "POST",
-			body: JSON.stringify({ ingredient }),
+			body: JSON.stringify(ingredient),
 			headers: { "Content-Type": "application/json" }
 		})
 			.then(res => {
