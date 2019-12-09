@@ -1,4 +1,5 @@
 import { takeEvery } from "redux-saga/effects";
+import { purchaseBurgerSaga, fetchOrdersSaga } from "./order";
 //allow us to listen to certain actions and do something when they occur
 import {
 	logoutSaga,
@@ -17,4 +18,9 @@ export function* watchAuth() {
 
 export function* watchBurgerBuilder() {
 	yield takeEvery(actionTypes.INIT_INGREDIENTS, initIngredientsSaga);
+}
+
+export function* watchOrder() {
+	yield takeEvery(actionTypes.PURCHASE_BURGER, purchaseBurgerSaga);
+	yield takeEvery(actionTypes.FETCH_ORDERS, fetchOrdersSaga);
 }
