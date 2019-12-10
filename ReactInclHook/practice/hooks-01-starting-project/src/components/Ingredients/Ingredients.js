@@ -11,7 +11,7 @@ const ingredientReducer = (currentIngredients, action) => {
 		case "SET":
 			return action.ingredients;
 		case "ADD":
-			return [...currentIngredients, action.ingredients];
+			return [...currentIngredients, action.ingredient];
 		case "DELETE":
 			return currentIngredients.filter(ing => ing.id !== action.id);
 		default:
@@ -36,6 +36,10 @@ const Ingredients = () => {
 	// const [error, setError] = useState();
 
 	useEffect(() => {
+		// console.log(
+		// 	"error " + error + "reqIdentifier " + reqIdentifier,
+		// 	"reqExtra: " + reqExtra + "data " + data
+		// );
 		if (!isLoading && !error && reqIdentifier === "REMOVE_INGREDIENT") {
 			// when data change, dispatch the DELETE action
 			dispatch({ type: "DELETE", id: reqExtra });
@@ -52,7 +56,7 @@ const Ingredients = () => {
 
 	const addIngredientHandler = useCallback(
 		ingredient => {
-			console.log("doing something");
+			// console.log("doing something");
 			// using useHttp() customhook
 			sendRequest(
 				"https://react-hooks-812b9.firebaseio.com/ingredients.json",

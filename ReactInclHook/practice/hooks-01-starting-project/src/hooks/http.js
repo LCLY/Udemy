@@ -71,13 +71,13 @@ const useHttp = () => {
 
 	return {
 		// from the hooks
-		isLoading: httpState.loading,
+		isLoading: httpState.isLoading,
 		data: httpState.data,
 		error: httpState.error,
 		// sending the function outside
 		sendRequest: sendRequest,
-		reqExtra: httpState.reqExtra,
-		reqIdentifier: httpState.reqIdentifier,
+		reqExtra: httpState.extra,
+		reqIdentifier: httpState.identifier,
 		clear: clear
 	};
 };
