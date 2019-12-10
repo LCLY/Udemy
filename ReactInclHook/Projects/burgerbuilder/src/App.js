@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, Suspense } from "react";
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import Layout from "./containers/Layout/Layout";
 import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder";
@@ -10,55 +10,75 @@ import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder";
 import Logout from "./containers/Auth/Logout/Logout";
 import { connect } from "react-redux";
 import * as actions from "./store/actions/index";
-import asyncComponent from "./hoc/asyncComponent/asyncComponent";
+// import asyncComponent from "./hoc/asyncComponent/asyncComponent";
 
-const asyncCheckout = asyncComponent(() => {
+/* ========== Old way of doing lazy loading ========== */
+// const asyncCheckout = asyncComponent(() => {
+// 	// this function will eventually return this import statementa s a function
+// 	// where we then can define the path to the component we want to load lazily
+// 	return import("./containers/Checkout/Checkout");
+// });
+// const asyncOrders = asyncComponent(() => {
+// 	return import("./containers/Orders/Orders");
+// });
+// const asyncAuth = asyncComponent(() => {
+// 	return import("./containers/Auth/Auth");
+// });
+
+/* ========== New way of doing lazy loading ========== */
+// now we dont even need the hoc asyncomponent anymore
+const Checkout = React.lazy(() => {
 	// this function will eventually return this import statementa s a function
 	// where we then can define the path to the component we want to load lazily
 	return import("./containers/Checkout/Checkout");
 });
-const asyncOrders = asyncComponent(() => {
+const Orders = React.lazy(() => {
 	return import("./containers/Orders/Orders");
 });
-const asyncAuth = asyncComponent(() => {
+const Auth = React.lazy(() => {
 	return import("./containers/Auth/Auth");
 });
 
-class App extends Component {
-	componentDidMount() {
-		this.props.onTryAutoSignup();
-	}
+const App = props => {
+	/* ========== class ========== */
+	// componentDidMount() {
+	// 	this.props.onTryAutoSignup();
+	// }
+	/* ========== functional ========== */
+	useEffect(() => {
+		props.onTryAutoSignup();
+	}, [props]);
 
-	render() {
-		let routes = (
-			// user that is not authenticated can only use these routes
+	let routes = (
+		// user that is not authenticated can only use these routes
+		<Switch>
+			<Route path="/auth" render={() => <Auth />} />
+			<Route path="/" exact component={BurgerBuilder} />
+			<Redirect to="/" />
+		</Switch>
+	);
+
+	if (props.isAuthenticated) {
+		// user that is authenticated can only use these routes
+		routes = (
 			<Switch>
-				<Route path="/auth" component={asyncAuth} />
+				<Route path="/checkout" render={() => <Checkout />} />
+				<Route path="/orders" render={() => <Orders />} />
+				<Route path="/logout" component={Logout} />
+				<Route path="/auth" render={() => <Auth />} />
 				<Route path="/" exact component={BurgerBuilder} />
 				<Redirect to="/" />
 			</Switch>
 		);
-
-		if (this.props.isAuthenticated) {
-			// user that is authenticated can only use these routes
-			routes = (
-				<Switch>
-					<Route path="/checkout" component={asyncCheckout} />
-					<Route path="/orders" component={asyncOrders} />
-					<Route path="/logout" component={Logout} />
-					<Route path="/auth" component={asyncAuth} />
-					<Route path="/" exact component={BurgerBuilder} />
-					<Redirect to="/" />
-				</Switch>
-			);
-		}
-		return (
-			<div>
-				<Layout>{routes}</Layout>
-			</div>
-		);
 	}
-}
+	return (
+		<div>
+			<Layout>
+				<Suspense fallback={<p>Loading...</p>}>{routes}</Suspense>
+			</Layout>
+		</div>
+	);
+};
 
 const mapStateToProps = state => {
 	return {
