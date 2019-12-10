@@ -1,4 +1,10 @@
-import React, { useReducer, useState, useEffect, useCallback } from "react";
+import React, {
+	useReducer,
+	useState,
+	useEffect,
+	useCallback,
+	useMemo
+} from "react";
 
 import IngredientForm from "./IngredientForm";
 import IngredientList from "./IngredientList";
@@ -46,7 +52,11 @@ const Ingredients = () => {
 		// console.log("rendering", userIngredients);
 	}, [userIngredients]);
 
-	const addIngredientHandler = ingredient => {
+	// by using useCallback here we can save one round of render cycle
+	// since there is no incoming variables that wil change the whole function,
+	// we can just use this callback method to make sure that it stay the same everytime
+	// it rerenders so it wont rerender again just to fit the change of the function
+	const addIngredientHandler = useCallback(ingredient => {
 		// setIsLoading(true);
 		dispatchHttp({ type: "SEND" });
 		fetch("https://react-hooks-812b9.firebaseio.com/ingredients.json", {
@@ -72,9 +82,9 @@ const Ingredients = () => {
 					ingredients: { id: responseData.name, ...ingredient }
 				});
 			});
-	};
+	}, []);
 
-	const removeIngredientHandler = ingredientId => {
+	const removeIngredientHandler = useCallback(ingredientId => {
 		// setIsLoading(true);
 		dispatchHttp({ type: "SEND" });
 		fetch(
@@ -96,16 +106,25 @@ const Ingredients = () => {
 				dispatchHttp({ type: "ERROR", error: "SOMETHINGS WRONG" });
 				// setError(err.message);
 			});
-	};
+	}, []);
 
 	const filteredIngredientsHandler = useCallback(filteredIngredients => {
 		// setUserIngredients(filteredIngredients);
 		dispatch({ type: "SET", ingredients: filteredIngredients });
 	}, []);
 
-	const clearError = () => {
+	const clearError = useCallback(() => {
 		dispatchHttp({ type: "CLEAR" });
-	};
+	}, []);
+
+	const ingredientList = useMemo(() => {
+		return (
+			<IngredientList
+				ingredients={userIngredients}
+				onRemoveItem={removeIngredientHandler}
+			/>
+		);
+	}, [userIngredients, removeIngredientHandler]);
 	return (
 		<div className="App">
 			{httpState.error && (
@@ -118,10 +137,7 @@ const Ingredients = () => {
 
 			<section>
 				<Search onLoadIngredients={filteredIngredientsHandler} />
-				<IngredientList
-					ingredients={userIngredients}
-					onRemoveItem={removeIngredientHandler}
-				/>
+				{ingredientList}
 			</section>
 		</div>
 	);
