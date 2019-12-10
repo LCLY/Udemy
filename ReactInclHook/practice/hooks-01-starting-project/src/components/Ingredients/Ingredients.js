@@ -28,24 +28,46 @@ const ingredientReducer = (currentIngredients, action) => {
 const Ingredients = () => {
 	const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
 	// extracting the states
-	const { isLoading, error, data, sendRequest, reqExtra } = useHttp();
+	const {
+		isLoading,
+		error,
+		data,
+		sendRequest,
+		reqExtra,
+		reqIdentifier
+	} = useHttp();
 	// const [userIngredients, setUserIngredients] = useState([]);
 	// const [isLoading, setIsLoading] = useState(false);
 	// const [error, setError] = useState();
 
 	useEffect(() => {
-		// when data change, dispatch the DELETE action
-		dispatch({ type: "DELETE", id: reqExtra });
-	}, [data, reqExtra]);
+		if (!isLoading && !error && reqIdentifier === "REMOVE_INGREDIENT") {
+			// when data change, dispatch the DELETE action
+			dispatch({ type: "DELETE", id: reqExtra });
+		} else if (!isLoading && !error && reqIdentifier === "ADD_INGREDIENT") {
+			// reqExtra should be ingredient that we add as an extra element
+			dispatch({ type: "ADD", ingredient: { id: data.name, ...reqExtra } });
+		}
+	}, [data, reqExtra, reqIdentifier, isLoading, error]);
 
 	// by using useCallback here we can save one round of render cycle
 	// since there is no incoming variables that wil change the whole function,
 	// we can just use this callback method to make sure that it stay the same everytime
 	// it rerenders so it wont rerender again just to fit the change of the function
 
-	const addIngredientHandler = useCallback(ingredient => {
-		// setIsLoading(true);
-		dispatchHttp({ type: "SEND" });
+	const addIngredientHandler = useCallback(
+		ingredient => {
+			// using useHttp() customhook
+			sendRequest(
+				"https://react-hooks-812b9.firebaseio.com/ingredients.json",
+				"POST",
+				JSON.stringify(ingredient),
+				ingredient, //this is the extra
+				"ADD_INGREDIENT"
+			);
+
+			// without using custom hook
+			/*	dispatchHttp({ type: "SEND" });
 		fetch("https://react-hooks-812b9.firebaseio.com/ingredients.json", {
 			method: "POST",
 			body: JSON.stringify(ingredient),
@@ -68,8 +90,10 @@ const Ingredients = () => {
 					type: "ADD",
 					ingredients: { id: responseData.name, ...ingredient }
 				});
-			});
-	}, []);
+			});*/
+		},
+		[sendRequest]
+	);
 
 	// ========== not using the custom hook useHttp ==========
 	/*	const removeIngredientHandler = useCallback(ingredientId => {
@@ -106,7 +130,8 @@ const Ingredients = () => {
 				`https://react-hooks-812b9.firebaseio.com/ingredients/${ingredientId}.json`,
 				"DELETE",
 				null,
-				ingredientId
+				ingredientId,
+				"REMOVE_INGREDIENT"
 			);
 		},
 		// since sendRequest is from outside and it will change according to ingredientId
@@ -119,7 +144,7 @@ const Ingredients = () => {
 	}, []);
 
 	const clearError = useCallback(() => {
-		dispatchHttp({ type: "CLEAR" });
+		// dispatchHttp({ type: "CLEAR" });
 	}, []);
 
 	const ingredientList = useMemo(() => {
