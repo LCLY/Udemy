@@ -45,9 +45,10 @@ const App = props => {
 	// 	this.props.onTryAutoSignup();
 	// }
 	/* ========== functional ========== */
+	const { onTryAutoSignup } = props;
 	useEffect(() => {
-		props.onTryAutoSignup();
-	}, [props]);
+		onTryAutoSignup();
+	}, [onTryAutoSignup]);
 
 	let routes = (
 		// user that is not authenticated can only use these routes
