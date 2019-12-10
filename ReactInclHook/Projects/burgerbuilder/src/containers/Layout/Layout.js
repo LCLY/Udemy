@@ -1,41 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "./Layout.module.css";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 import { connect } from "react-redux";
 // turn this into a stateful component to handle backdrop
-class Layout extends React.Component {
-	state = {
-		showSideDrawer: false
+const Layout = props => {
+	const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
+	// state = {
+	// 	showSideDrawer: false
+	// };
+
+	const sideDrawerClosedHandler = () => {
+		/* ========== class ========== */
+		// this.setState({ showSideDrawer: false });
+		/* ========== functional ========== */
+		setSideDrawerIsVisible(false);
 	};
 
-	sideDrawerClosedHandler = () => {
-		this.setState({ showSideDrawer: false });
+	const sideDrawerOpenHandler = () => {
+		/* ========== class ========== */
+		// this.setState(prevState => {
+		// 	return { showSideDrawer: !prevState.showSideDrawer };
+		// });
+		/* ========== functional ========== */
+		setSideDrawerIsVisible(!sideDrawerIsVisible);
 	};
 
-	sideDrawerOpenHandler = () => {
-		this.setState(prevState => {
-			return { showSideDrawer: !prevState.showSideDrawer };
-		});
-	};
-
-	render() {
-		return (
-			<>
-				<Toolbar
-					isAuth={this.props.isAuthenticated}
-					drawerToggleClicked={this.sideDrawerOpenHandler}
-				/>
-				<SideDrawer
-					isAuth={this.props.isAuthenticated}
-					open={this.state.showSideDrawer}
-					closed={this.sideDrawerClosedHandler}
-				/>
-				<main className={classes.Content}>{this.props.children}</main>
-			</>
-		);
-	}
-}
+	return (
+		<>
+			<Toolbar
+				isAuth={props.isAuthenticated}
+				drawerToggleClicked={sideDrawerOpenHandler}
+			/>
+			<SideDrawer
+				isAuth={props.isAuthenticated}
+				open={sideDrawerIsVisible}
+				closed={sideDrawerClosedHandler}
+			/>
+			<main className={classes.Content}>{props.children}</main>
+		</>
+	);
+};
 
 const mapStateToProps = state => {
 	return {
