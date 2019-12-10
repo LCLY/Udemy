@@ -1,10 +1,4 @@
-import React, {
-	useReducer,
-	useState,
-	useEffect,
-	useCallback,
-	useMemo
-} from "react";
+import React, { useReducer, useEffect, useCallback, useMemo } from "react";
 
 import IngredientForm from "./IngredientForm";
 import IngredientList from "./IngredientList";
@@ -34,7 +28,8 @@ const Ingredients = () => {
 		data,
 		sendRequest,
 		reqExtra,
-		reqIdentifier
+		reqIdentifier,
+		clear
 	} = useHttp();
 	// const [userIngredients, setUserIngredients] = useState([]);
 	// const [isLoading, setIsLoading] = useState(false);
@@ -57,6 +52,7 @@ const Ingredients = () => {
 
 	const addIngredientHandler = useCallback(
 		ingredient => {
+			console.log("doing something");
 			// using useHttp() customhook
 			sendRequest(
 				"https://react-hooks-812b9.firebaseio.com/ingredients.json",
@@ -143,10 +139,6 @@ const Ingredients = () => {
 		dispatch({ type: "SET", ingredients: filteredIngredients });
 	}, []);
 
-	const clearError = useCallback(() => {
-		// dispatchHttp({ type: "CLEAR" });
-	}, []);
-
 	const ingredientList = useMemo(() => {
 		return (
 			<IngredientList
@@ -157,7 +149,7 @@ const Ingredients = () => {
 	}, [userIngredients, removeIngredientHandler]);
 	return (
 		<div className="App">
-			{error && <ErrorModal onClose={clearError}>{error}</ErrorModal>}
+			{error && <ErrorModal onClose={clear}>{error}</ErrorModal>}
 			<IngredientForm
 				onAddIngredient={addIngredientHandler}
 				loading={isLoading}

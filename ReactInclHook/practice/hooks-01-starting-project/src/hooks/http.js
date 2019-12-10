@@ -1,5 +1,13 @@
 import { useReducer, useCallback } from "react";
 // hook is just a function treated specially by react
+
+const initialState = {
+	isLoading: false,
+	error: null,
+	data: null,
+	extra: null,
+	identifier: null
+};
 const httpReducer = (currHttpState, action) => {
 	switch (action.type) {
 		case "SEND":
@@ -21,19 +29,17 @@ const httpReducer = (currHttpState, action) => {
 		case "ERROR":
 			return { isLoading: false, error: action.error };
 		case "CLEAR":
-			return { ...currHttpState, error: null };
+			// reseting the states
+			return initialState;
 		default:
 			throw new Error("Should not get here");
 	}
 };
 const useHttp = () => {
-	const [httpState, dispatchHttp] = useReducer(httpReducer, {
-		isLoading: false,
-		error: null,
-		data: null,
-		extra: null,
-		identifier: null
-	});
+	const [httpState, dispatchHttp] = useReducer(httpReducer, initialState);
+
+	// return the function down there
+	const clear = useCallback(() => dispatchHttp({ type: "CLEAR" }), []);
 
 	// need to use this to prevent rerender when ingredient rerenders, since the http functions
 	// are already using useCallback, we might as well use it
@@ -71,7 +77,8 @@ const useHttp = () => {
 		// sending the function outside
 		sendRequest: sendRequest,
 		reqExtra: httpState.reqExtra,
-		reqIdentifier: httpState.reqIdentifier
+		reqIdentifier: httpState.reqIdentifier,
+		clear: clear
 	};
 };
 
