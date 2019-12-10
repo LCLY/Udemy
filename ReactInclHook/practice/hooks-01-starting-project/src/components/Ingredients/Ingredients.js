@@ -10,6 +10,7 @@ import IngredientForm from "./IngredientForm";
 import IngredientList from "./IngredientList";
 import Search from "./Search";
 import ErrorModal from "../UI/ErrorModal";
+import useHttp from "../../hooks/http";
 
 const ingredientReducer = (currentIngredients, action) => {
 	switch (action.type) {
@@ -24,38 +25,24 @@ const ingredientReducer = (currentIngredients, action) => {
 	}
 };
 
-const httpReducer = (currHttpState, action) => {
-	switch (action.type) {
-		case "SEND":
-			return { isLoading: true, error: null };
-		case "RESPONSE":
-			return { ...currHttpState, isLoading: false, error: null };
-		case "ERROR":
-			return { isLoading: false, error: action.error };
-		case "CLEAR":
-			return { ...currHttpState, error: null };
-		default:
-			throw new Error("Should not get here");
-	}
-};
-
 const Ingredients = () => {
 	const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
-	const [httpState, dispatchHttp] = useReducer(httpReducer, {
-		isLoading: false,
-		error: null
-	});
+	// extracting the states
+	const { isLoading, error, data, sendRequest, reqExtra } = useHttp();
 	// const [userIngredients, setUserIngredients] = useState([]);
 	// const [isLoading, setIsLoading] = useState(false);
 	// const [error, setError] = useState();
+
 	useEffect(() => {
-		// console.log("rendering", userIngredients);
-	}, [userIngredients]);
+		// when data change, dispatch the DELETE action
+		dispatch({ type: "DELETE", id: reqExtra });
+	}, [data, reqExtra]);
 
 	// by using useCallback here we can save one round of render cycle
 	// since there is no incoming variables that wil change the whole function,
 	// we can just use this callback method to make sure that it stay the same everytime
 	// it rerenders so it wont rerender again just to fit the change of the function
+
 	const addIngredientHandler = useCallback(ingredient => {
 		// setIsLoading(true);
 		dispatchHttp({ type: "SEND" });
@@ -84,7 +71,8 @@ const Ingredients = () => {
 			});
 	}, []);
 
-	const removeIngredientHandler = useCallback(ingredientId => {
+	// ========== not using the custom hook useHttp ==========
+	/*	const removeIngredientHandler = useCallback(ingredientId => {
 		// setIsLoading(true);
 		dispatchHttp({ type: "SEND" });
 		fetch(
@@ -106,7 +94,24 @@ const Ingredients = () => {
 				dispatchHttp({ type: "ERROR", error: "SOMETHINGS WRONG" });
 				// setError(err.message);
 			});
-	}, []);
+	}, []);*/
+
+	// ========== using custom hook useHttp ==========
+	const removeIngredientHandler = useCallback(
+		ingredientId => {
+			// function that is returned through hooks/http.js
+			// parameter: url, method, body
+			// we dont need body here so just ignore
+			sendRequest(
+				`https://react-hooks-812b9.firebaseio.com/ingredients/${ingredientId}.json`,
+				"DELETE",
+				null,
+				ingredientId
+			);
+		},
+		// since sendRequest is from outside and it will change according to ingredientId
+		[sendRequest]
+	);
 
 	const filteredIngredientsHandler = useCallback(filteredIngredients => {
 		// setUserIngredients(filteredIngredients);
@@ -127,12 +132,10 @@ const Ingredients = () => {
 	}, [userIngredients, removeIngredientHandler]);
 	return (
 		<div className="App">
-			{httpState.error && (
-				<ErrorModal onClose={clearError}>{httpState.error}</ErrorModal>
-			)}
+			{error && <ErrorModal onClose={clearError}>{error}</ErrorModal>}
 			<IngredientForm
 				onAddIngredient={addIngredientHandler}
-				loading={httpState.isLoading}
+				loading={isLoading}
 			/>
 
 			<section>
