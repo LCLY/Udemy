@@ -4,45 +4,41 @@ import { Route, Redirect } from "react-router-dom";
 import ContactData from "../Checkout/ContactData/ContactData";
 import { connect } from "react-redux";
 // import * as actions from "../../store/actions/order";
-class Checkout extends Component {
+const Checkout = props => {
 	// this might cause a problem because we might still be using old props
 	// componentWillMount() {
 	// 	this.props.onInitPurchase();
 	// }
 
-	checkoutCancelledHandler = () => {
-		this.props.history.goBack();
+	const checkoutCancelledHandler = () => {
+		props.history.goBack();
 	};
-	checkoutContinuedHandler = () => {
-		this.props.history.replace("/checkout/contact-data");
+	const checkoutContinuedHandler = () => {
+		props.history.replace("/checkout/contact-data");
 	};
 
-	render() {
-		// set default redirect to home page,
-		// only when ingredient exists then render the whole thing
-		let summary = <Redirect to="/" />;
-		if (this.props.ings) {
-			const purchasedRedirect = this.props.purchased ? (
-				<Redirect to="/" />
-			) : null;
-			summary = (
-				<div>
-					{purchasedRedirect}
-					<CheckoutSummary
-						ingredients={this.props.ings}
-						onCheckoutCancelled={this.checkoutCancelledHandler}
-						onCheckoutContinued={this.checkoutContinuedHandler}
-					/>
-					<Route
-						path={this.props.match.path + "/contact-data"}
-						component={ContactData}
-					/>
-				</div>
-			);
-		}
-		return summary;
+	// set default redirect to home page,
+	// only when ingredient exists then render the whole thing
+	let summary = <Redirect to="/" />;
+	if (props.ings) {
+		const purchasedRedirect = props.purchased ? <Redirect to="/" /> : null;
+		summary = (
+			<div>
+				{purchasedRedirect}
+				<CheckoutSummary
+					ingredients={props.ings}
+					onCheckoutCancelled={checkoutCancelledHandler}
+					onCheckoutContinued={checkoutContinuedHandler}
+				/>
+				<Route
+					path={props.match.path + "/contact-data"}
+					component={ContactData}
+				/>
+			</div>
+		);
 	}
-}
+	return summary;
+};
 
 const mapStateToProps = state => {
 	return {
