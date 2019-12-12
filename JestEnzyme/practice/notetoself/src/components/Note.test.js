@@ -17,6 +17,7 @@ describe("Note", () => {
 		// console.log(note.debug());
 		// compare strings or variables
 		// find p is to find the paragraph tag
+		console.log(props.note.text);
 		expect(note.find("p").text()).toEqual(props.note.text);
 	});
 });
