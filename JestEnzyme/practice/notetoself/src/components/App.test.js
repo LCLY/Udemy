@@ -38,4 +38,79 @@ describe("App", () => {
 			).toEqual("Submit");
 		});
 	});
+
+	describe("when creating a note", () => {
+		let testNote = "test note";
+		beforeEach(() => {
+			// ady check if it exist so dont have to check again
+			// simulate takes in the event
+			app.find("FormControl").simulate("change", {
+				target: { value: testNote }
+			});
+		});
+
+		// test for text state update
+		it("updates the text in state", () => {
+			expect(app.state().text).toEqual(testNote);
+		});
+
+		// nested describe block
+		describe("and submitting the new note", () => {
+			beforeEach(() => {
+				// click the submit button
+				app
+					.find(".btn")
+					.at(0)
+					.simulate("click");
+			});
+
+			afterEach(() => {
+				// click the clear button
+				app
+					.find(".btn")
+					.at(1)
+					.simulate("click");
+			});
+
+			it("adds the new note to state", () => {
+				// console.log(app.state());
+				expect(app.state().notes[0].text).toEqual(testNote);
+			});
+
+			describe("and remounting the component", () => {
+				let app2;
+				beforeEach(() => {
+					app2 = mount(<App />);
+				});
+
+				it("reads the stored note cookies", () => {
+					// if we dont do this
+					// console.log(app2.state());
+					/*afterEach(() => {           
+            app
+              .find(".btn")
+              .at(1)
+              .simulate("click");
+          });*/
+					// we will get this result from console.log:
+					// { text: '', notes: [ { text: 'test note' }, { text: 'test note' } ] }
+					// this is not we want for the state of a remounted component in this situation
+					expect(app2.state().notes).toEqual([{ text: "test note" }]);
+				});
+			});
+
+			// if user clicks the clear button
+			describe("and clicking the clear button", () => {
+				beforeEach(() => {
+					app
+						.find(".btn")
+						.at(1)
+						.simulate("click");
+				});
+				it("clears the notes in the state", () => {
+					expect(app.state().notes).toEqual([]);
+				});
+			});
+		});
+	});
 });
