@@ -5,7 +5,7 @@ class App extends Component {
 	render() {
 		return (
 			<div>
-				<h2>Flashcard</h2>
+				<h2>FlashCard Pro</h2>
 				<hr />
 				<StackList />
 				<hr />
