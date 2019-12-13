@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { addStack } from "../actions";
 import {
 	Form,
 	FormGroup,
@@ -29,7 +31,7 @@ class StackForm extends Component {
 	}
 
 	addStack() {
-		console.log(this.state);
+		this.props.addStack(this.state);
 	}
 
 	render() {
@@ -77,4 +79,4 @@ class StackForm extends Component {
 	}
 }
 
-export default StackForm;
+export default connect(null, { addStack })(StackForm);
