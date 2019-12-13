@@ -21,7 +21,7 @@ class Stack extends Component {
 }
 
 const mapStateToProps = state => {
-	return { stack: state };
+	return { stack: state.stackReducer };
 };
 
 export default connect(mapStateToProps, null)(Stack);

@@ -5,7 +5,7 @@ class Card extends Component {
 		reveal: false
 	};
 	render() {
-		console.log(this.state.reveal);
+		// console.log(this.state.reveal);
 		const { prompt, answer } = this.props.card;
 		return (
 			<div className="card" onClick={() => this.setState({ reveal: true })}>
