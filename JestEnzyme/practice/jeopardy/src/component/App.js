@@ -7,7 +7,11 @@ class App extends Component {
 			.then(json => console.log(json));
 	}
 	render() {
-		return <div>Jeopardy</div>;
+		return (
+			<div>
+				<h2>Jeopardy</h2>
+			</div>
+		);
 	}
 }
 
