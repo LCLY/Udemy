@@ -27,7 +27,7 @@ export class Category extends Component {
 		);
 	}
 }
-class LinkedCategory extends Component {
+export class LinkedCategory extends Component {
 	render() {
 		return (
 			<div>

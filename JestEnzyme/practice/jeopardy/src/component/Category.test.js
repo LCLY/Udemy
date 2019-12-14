@@ -1,6 +1,6 @@
 import React from "react";
-import { mount } from "enzyme";
-import { Category } from "./Category";
+import { mount, shallow } from "enzyme";
+import { Category, LinkedCategory } from "./Category";
 import { categories, clues } from "../data/fixtures";
 import { fakeServer } from "sinon";
 
@@ -29,9 +29,9 @@ describe("Category", () => {
 			category.setState({ clues: servedClues });
 		});
 
-		it("logs the category", () => {
-			// console.log(category.debug());
-		});
+		// it("logs the category", () => {
+		// 	// console.log(category.debug());
+		// });
 
 		it("initializes the clues in state", () => {
 			expect(category.state().clues).toEqual(clues);
@@ -39,8 +39,18 @@ describe("Category", () => {
 		it("renders the category title", () => {
 			expect(category.find("h2").text()).toEqual(props.category.title);
 		});
-		it("renders the category title", () => {
-			expect(category.find("h2").text()).toEqual(props.category.title);
+		it("renders the correct number of clues", () => {
+			expect(category.find("Clue").length).toEqual(clues.length);
 		});
+	});
+});
+
+describe("LinkedCategory", () => {
+	const linkedCategory = shallow(<LinkedCategory />);
+	it("creates the link to navigate home", () => {
+		expect(linkedCategory.find("Link h4").text()).toEqual("Home");
+	});
+	it("creates a category component", () => {
+		expect(linkedCategory.find("Category").exists()).toBe(true);
 	});
 });
