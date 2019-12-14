@@ -9,7 +9,7 @@ function categoriesReducer(state = [], action) {
 			return state;
 	}
 }
-function categoryReducer(state = [], action) {
+function categoryReducer(state = {}, action) {
 	switch (action.type) {
 		case PICK_CATEGORY:
 			return action.category;

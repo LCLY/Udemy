@@ -1,5 +1,5 @@
 import * as actions from "./index";
-import { categories } from "../data/fixtures";
+import { categories, category } from "../data/fixtures";
 
 describe("actions", () => {
 	it("creates an action to set categories", () => {
@@ -10,7 +10,6 @@ describe("actions", () => {
 		expect(actions.setCategories(categories)).toEqual(expectedAction);
 	});
 	it("creates an action to pick a category", () => {
-		const category = categories[0];
 		const expectedAction = {
 			type: actions.PICK_CATEGORY,
 			category
