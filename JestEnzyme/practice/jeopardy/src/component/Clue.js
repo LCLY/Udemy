@@ -10,7 +10,7 @@ class Clue extends Component {
 			<div className="clue" onClick={() => this.setState({ reveal: true })}>
 				{/* if not defined, show unknown string */}
 				<h4>{value || "unknown"}</h4>
-				<h4 />
+				<hr />
 				<h5>{question}</h5>
 				<hr />
 				<h5 className={this.state.reveal ? "text-revealed" : "text-hidden"}>
