@@ -1,7 +1,11 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { StackForm } from "./StackForm";
-import { stack } from "../data/fixtures";
+
+const changeTitle = "change title";
+const changePrompt = "change prompt";
+const changeAnswer = "change answer";
+
 describe("StackForm", () => {
 	const stackForm = shallow(<StackForm />);
 
@@ -52,12 +56,12 @@ describe("StackForm", () => {
 			// this will be stored as {title: 'change title', cards:[]}
 			stackForm
 				.find("FormControl")
-				.simulate("change", { target: { value: "change title" } });
+				.simulate("change", { target: { value: changeTitle } });
 		});
 
 		it("updates the title in the state", () => {
 			// console.log(stackForm.state());
-			expect(stackForm.state().title).toEqual("change title");
+			expect(stackForm.state().title).toEqual(changeTitle);
 		});
 	});
 
@@ -102,14 +106,14 @@ describe("StackForm", () => {
 				stackForm
 					.find("FormControl")
 					.at(1)
-					.simulate("change", { target: { value: "change prompt" } });
+					.simulate("change", { target: { value: changePrompt } });
 			});
 			it("updates the prompt in the state", () => {
 				// here it will show 4 cards because of the previous click add card action, since
 				// there are 4 "its" including this one, it runs the click action 4 times.
 				// to fix this issue, we need to clear the state in afterEach()
 				// console.log(stackForm.state());
-				expect(stackForm.state().cards[0].prompt).toEqual("change prompt");
+				expect(stackForm.state().cards[0].prompt).toEqual(changePrompt);
 			});
 		});
 
@@ -118,11 +122,11 @@ describe("StackForm", () => {
 				stackForm
 					.find("FormControl")
 					.at(2)
-					.simulate("change", { target: { value: "change answer" } });
+					.simulate("change", { target: { value: changeAnswer } });
 			});
 
 			it("updates the answer in the state", () => {
-				expect(stackForm.state().cards[0].answer).toEqual("change answer");
+				expect(stackForm.state().cards[0].answer).toEqual(changeAnswer);
 			});
 		});
 	});
