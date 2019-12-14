@@ -24,5 +24,16 @@ describe("Card", () => {
 		expect(card.find(".card-answer h4").hasClass("text-hidden")).toBe(true);
 	});
 
-	describe("when clicking on the card");
+	describe("when clicking on the card", () => {
+		beforeEach(() => card.simulate("click"));
+		// after clicking the card
+		// update reveal to be true
+		it("updates `reveal` to be true", () => {
+			expect(card.state().reveal).toBe(true);
+		});
+		// then check if the text-revealed class has been applied
+		it("applies the `text-revealed` class to the card answer", () => {
+			expect(card.find(".card-answer h4").hasClass("text-revealed")).toBe(true);
+		});
+	});
 });
