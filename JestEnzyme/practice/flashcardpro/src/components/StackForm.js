@@ -9,7 +9,7 @@ import {
 	FormLabel,
 	Button
 } from "react-bootstrap";
-class StackForm extends Component {
+export class StackForm extends Component {
 	constructor() {
 		super();
 		this.state = {
@@ -40,7 +40,7 @@ class StackForm extends Component {
 				<Link to="/" className="link-home">
 					<h4>Home</h4>
 				</Link>
-				<h4>Create a new stack</h4>
+				<h4>Create a New Stack</h4>
 				<br />
 				<Form inline>
 					<FormGroup>
