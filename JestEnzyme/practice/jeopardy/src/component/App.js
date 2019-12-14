@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { setCategories, pickCategory } from "../actions";
 import { Link } from "react-router-dom";
 
-class App extends Component {
+export class App extends Component {
 	componentDidMount() {
 		if (this.props.categories.length === 0) {
 			// only fetch when nothing exists
