@@ -25,10 +25,22 @@ describe("Category", () => {
 			category = mount(<Category {...props} />);
 			server.respond();
 			setTimeout(done); //we need this for async promise
+			const servedClues = JSON.parse(server.responses[0].response[2]);
+			category.setState({ clues: servedClues });
 		});
 
 		it("logs the category", () => {
 			// console.log(category.debug());
+		});
+
+		it("initializes the clues in state", () => {
+			expect(category.state().clues).toEqual(clues);
+		});
+		it("renders the category title", () => {
+			expect(category.find("h2").text()).toEqual(props.category.title);
+		});
+		it("renders the category title", () => {
+			expect(category.find("h2").text()).toEqual(props.category.title);
 		});
 	});
 });
