@@ -8,3 +8,28 @@ body {
 	left: 30px;
 	top: 30px;
 }
+
+.clue {
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	margin: 10px;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.text-hidden {
+	visibility: hidden;
+}
+.text-revealed {
+	visibility: visible;
+	animation: fade-in 1s ease;
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 100;
+	}
+}
