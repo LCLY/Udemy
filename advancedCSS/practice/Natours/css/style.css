@@ -57,6 +57,20 @@ body {
     letter-spacing: 1.75rem;
     animation: moveInRight 1s ease; }
 
+.heading-secondary {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  background-image: linear-gradient(to right, #7ed56f, #28b485);
+  display: inline-block;
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 2px;
+  transition: all 0.2s; }
+  .heading-secondary:hover {
+    transform: skewY(5deg) skewX(15deg) scale(1.1);
+    text-shadow: 0.5rem 1rem 2rem rgba(0, 0, 0, 0.2); }
+
 body {
   font-family: "Lato", sans-serif;
   font-weight: 400;
@@ -64,6 +78,9 @@ body {
   line-height: 1.7;
   color: #777;
   padding: 3rem; }
+
+.u-center-text {
+  text-align: center; }
 
 .btn:link, .btn:visited {
   text-transform: uppercase;
@@ -156,3 +173,8 @@ body {
     width: calc( 2 * ((100% - 3 * 6rem) / 4) + 6rem); }
   .row .col-3-of-4 {
     width: calc( 3 * ((100% - 3 * 6rem) / 4) + 2 * 6rem); }
+
+.section-about {
+  background-color: #f7f7f7;
+  padding: 25rem;
+  margin-top: -25vh; }
