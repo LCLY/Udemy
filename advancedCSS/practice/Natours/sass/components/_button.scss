@@ -8,7 +8,7 @@
 		border-radius: 10rem;
 		transition: all 0.2s ease;
 		position: relative;
-		font-size: 1.6rem;
+		font-size: $default-font-size;
 	}
 	&:hover {
 		transform: translateY(-3px);
