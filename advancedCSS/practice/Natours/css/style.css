@@ -39,6 +39,14 @@ body {
     opacity: 1;
     transform: translateY(0); } }
 
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: 16px;
+  line-height: 1.7;
+  color: #777;
+  padding: 3rem; }
+
 .heading-primary {
   color: #fff;
   text-transform: uppercase;
@@ -71,13 +79,15 @@ body {
     transform: skewY(5deg) skewX(15deg) scale(1.1);
     text-shadow: 0.5rem 1rem 2rem rgba(0, 0, 0, 0.2); }
 
-body {
-  font-family: "Lato", sans-serif;
-  font-weight: 400;
-  font-style: 16px;
-  line-height: 1.7;
-  color: #777;
-  padding: 3rem; }
+.heading-tertiary {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase; }
+
+.paragraph {
+  font-size: 1.6rem; }
+  .paragraph:not(:last-child) {
+    margin-bottom: 3rem; }
 
 .u-center-text {
   text-align: center; }
