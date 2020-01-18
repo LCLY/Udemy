@@ -31,5 +31,18 @@
 	}
 
 	&__label {
+		font-size: 1.2rem;
+		font-weight: 700;
+		margin-left: 2rem;
+		margin-top: 0.7rem;
+		display: block;
+		transition: all 0.3s;
+	}
+
+	// label is siblings of input, so we need to use sibling selector
+	&__input:placeholder-shown + &__label {
+		opacity: 0; //we are using opacity because visibility cannot be animated
+		visibility: hidden;
+		transform: translateY(-4rem);
 	}
 }
