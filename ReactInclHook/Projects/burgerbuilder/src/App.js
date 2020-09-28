@@ -28,7 +28,7 @@ import * as actions from "./store/actions/index";
 /* ========== New way of doing lazy loading ========== */
 // now we dont even need the hoc asyncomponent anymore
 const Checkout = React.lazy(() => {
-	// this function will eventually return this import statementa s a function
+	// this function will eventually return this import statement as a function
 	// where we then can define the path to the component we want to load lazily
 	return import("./containers/Checkout/Checkout");
 });
